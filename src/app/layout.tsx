@@ -3,6 +3,7 @@ import { Work_Sans as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/ui/header";
+import { useEffect, useState } from "react";
 
 const fontSans = FontSans({
   subsets: ["latin"],

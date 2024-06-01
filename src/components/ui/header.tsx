@@ -1,12 +1,37 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
 import Typography from "./typography";
 import { Avatar, AvatarImage } from "./avatar";
+import { useEffect, useState } from "react";
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
 const Header = ({ className, ...props }: HeaderProps) => {
+  const [scroll, setScroll] = useState(0);
+
+  useEffect(() => {
+    const scrollHandler = () => {
+      setScroll(window.scrollY);
+      console.log("jnajds");
+    };
+
+    window.addEventListener("scroll", scrollHandler);
+
+    return () => {
+      window.removeEventListener("scroll", scrollHandler);
+    };
+  }, []);
+
   return (
-    <div {...props} className={cn("w-full h-fit px-20 py-5 z-50", className)}>
+    <div
+      {...props}
+      className={cn(
+        "w-full h-fit px-20 py-5 z-50 transition-colors duration-500",
+        scroll > 0 ? "bg-background/70 backdrop-blur-sm" : "",
+        className
+      )}
+    >
       <header className="flex">
         <Typography
           variant="h1"
