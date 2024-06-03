@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/ui/header";
 import { useEffect, useState } from "react";
+import Footer from "@/components/ui/footer";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
         <Header className="fixed" />
 
         {children}
+        <Footer className="mt-32" />
       </body>
     </html>
   );

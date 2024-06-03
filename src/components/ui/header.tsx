@@ -13,7 +13,6 @@ const Header = ({ className, ...props }: HeaderProps) => {
   useEffect(() => {
     const scrollHandler = () => {
       setScroll(window.scrollY);
-      console.log("jnajds");
     };
 
     window.addEventListener("scroll", scrollHandler);

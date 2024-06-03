@@ -7,7 +7,10 @@
     --page-background: 142 77% 73%;
     --page-background-foreground: 142 77% 73%;
 
-    --background: 0 0% 100%;
+    --secondary-background: 141 84% 93%;
+    --secondary-background-foreground: 149 41% 21%;
+
+    --background: 0 0% 99%;
     --foreground: 0 0% 3.9%;
 
     --card: 0 0% 100%;

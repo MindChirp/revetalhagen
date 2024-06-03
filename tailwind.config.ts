@@ -20,6 +20,7 @@ const config = {
     extend: {
       backgroundImage: {
         "hero-wave": "url('/hero-wave.svg')",
+        wave1: "url('/wave1.svg')",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -27,6 +28,10 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        "secondary-background": {
+          DEFAULT: "hsl(var(--secondary-background))",
+          foreground: "hsl(var(--secondary-background-foreground))",
+        },
         "page-background": {
           DEFAULT: "hsl(var(--page-background))",
           foreground: "hsl(var(--page-background-foreground))",

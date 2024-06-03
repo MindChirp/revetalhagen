@@ -7,7 +7,7 @@ interface HeroProps extends React.SVGProps<SVGSVGElement> {}
 const Hero = ({ className, ...props }: HeroProps) => {
   return (
     <div
-      className="h-fit w-full lg:bg-hero-wave"
+      className={cn("h-fit w-full lg:bg-hero-wave", className)}
       style={{
         backgroundRepeat: "no-repeat",
         backgroundSize: "81%",
