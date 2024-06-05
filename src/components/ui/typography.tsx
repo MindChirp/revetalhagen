@@ -4,7 +4,11 @@ interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
   variant?: "h1" | "h2" | "h3" | "h4" | "p" | "large" | "small" | "muted";
 }
 
-const Typography = ({ variant, className, ...props }: TypographyProps) => {
+const Typography = ({
+  variant = "h1",
+  className,
+  ...props
+}: TypographyProps) => {
   switch (variant) {
     case "h1":
       return (
