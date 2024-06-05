@@ -24,7 +24,7 @@ const AboutCard = ({
   return (
     <div
       className={cn(
-        "w-fit flex md:gap-10 items-center flex-col md:flex-row",
+        "w-fit flex md:gap-10 gap-5 items-center flex-col md:flex-row",
         className
       )}
       {...props}

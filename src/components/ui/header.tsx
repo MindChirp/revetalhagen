@@ -31,14 +31,14 @@ const Header = ({ className, ...props }: HeaderProps) => {
         className
       )}
     >
-      <header className="flex">
+      <header className="flex justify-center md:justify-start">
         <Typography
           variant="h1"
           className="w-fit md:text-base text-primary-foreground !text-3xl"
         >
           Revetalhagen
         </Typography>
-        <div className="w-full h-full flex items-center justify-end gap-2">
+        <div className="w-full h-full md:flex hidden items-center justify-end gap-2">
           <Button variant={"ghost"}>Medlemsområde</Button>
           <Button variant={"ghost"}>Utleie</Button>
           <Button variant={"ghost"}>Nyheter</Button>
