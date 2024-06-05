@@ -28,7 +28,7 @@ export default function RootLayout({
           fontSans.className
         )}
       >
-        <Header className="fixed" />
+        <Header className="fixed md:block hidden" />
 
         {children}
         <Footer className="mt-32" />

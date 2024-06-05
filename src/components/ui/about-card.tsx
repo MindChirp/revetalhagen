@@ -66,22 +66,23 @@ const AboutCard = ({
       >
         <div
           className={cn(
-            "w-fit flex flex-col gap-2.5",
+            "w-fit flex flex-col gap-2.5 md:items-start",
             mirrored ? "md:items-end" : undefined,
             "items-center"
           )}
         >
           <Typography
             variant="h1"
-            className="w-fit text-primary-foreground !text-5xl"
+            className="w-fit text-primary-foreground !text-5xl text-center md:text-start"
           >
             {title}
           </Typography>
-          <div
-            className="w-52 h-5 bg-cover bg-no-repeat bg-center"
-            style={{
-              backgroundImage: "url('/wave4.svg')",
-            }}
+          <Image
+            alt="Bølge"
+            className="h-auto w-52"
+            src="/wave4.svg"
+            width={100}
+            height={100}
           />
         </div>
         <Typography
