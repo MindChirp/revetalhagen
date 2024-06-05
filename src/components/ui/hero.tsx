@@ -13,7 +13,7 @@ const Hero = ({ className, ...props }: HeroProps) => {
       )}
       style={{
         backgroundRepeat: "no-repeat",
-        backgroundSize: "81%",
+        backgroundSize: "calc(100% - 17.2rem)",
       }}
     >
       <div className="px-20 py-52 text-primary-foreground md:w-1/2 w-full h-2/3 md:h-fit">
