@@ -48,4 +48,5 @@ jobs:
         with:
           start: pnpm start
           component: true
+          e2e: false
           browser: chrome
