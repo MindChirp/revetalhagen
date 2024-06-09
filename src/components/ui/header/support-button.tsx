@@ -30,12 +30,12 @@ const SupportButton = () => {
                 <SupportOption
                   className="w-full"
                   role="medlem"
-                  description="Som medlem betaler du en liten mengde penger for å bidra til at Revetalhagen holder seg gående i all forskuelig framtid."
+                  description="Som medlem betaler du en liten mengde penger for å bidra til at Revetalhagen holder seg gående i all overskuelig framtid."
                 />
                 <SupportOption
                   className="w-full"
                   role="ambassadør"
-                  description="Som ambassadør doneres en større mengde penger til Revetalhagen, og dere vil få en plass på bunnen av nettsida."
+                  description="Som ambassadør doneres en større mengde penger til Revetalhagen, og dere vil få en plass på bunnen av nettsida. Dette er tiltenkt bedrifter og privatpersoner som ønsker å støtte oss."
                 />
               </div>
             </NavigationMenuContent>
@@ -58,7 +58,10 @@ const SupportOption = ({
 }: SupportOptionProps) => {
   return (
     <Card
-      className={cn("border-none bg-primary/20 rounded-lg min-w-52", className)}
+      className={cn(
+        "border-none bg-primary/20 rounded-2xl min-w-52 shadow-none",
+        className
+      )}
       {...props}
     >
       <CardHeader>
