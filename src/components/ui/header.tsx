@@ -9,6 +9,13 @@ import Link from "next/link";
 import { routes } from "@/lib/routes";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { UserIcon } from "lucide-react";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
 const Header = ({ className, ...props }: HeaderProps) => {
@@ -50,6 +57,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
           <Button variant={"ghost"}>Medlemsområde</Button>
           <Button variant={"ghost"}>Utleie</Button>
           <Button variant={"ghost"}>Nyheter</Button>
+          <SupportButton></SupportButton>
           <Button variant={"ghost"} className="ml-16">
             Kontakt oss
           </Button>
@@ -60,18 +68,51 @@ const Header = ({ className, ...props }: HeaderProps) => {
   );
 };
 
+const SupportButton = () => {
+  return (
+    <>
+      <NavigationMenu>
+        <NavigationMenuList className="rounded-3xl">
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className="rounded-full bg-primary text-primary-foreground">
+              Støtt oss
+            </NavigationMenuTrigger>
+            <NavigationMenuContent className="rounded-3xl">
+              <div className="p-4 flex w-full flex-col gap-0">
+                <SupportOption>Bli medlem</SupportOption>
+                <SupportOption>Bli ambassadør</SupportOption>
+              </div>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </>
+  );
+};
+
+interface SupportOptionProps extends React.HTMLProps<HTMLDivElement> {}
+const SupportOption = ({ children, ...props }: SupportOptionProps) => {
+  return (
+    <div {...props}>
+      <Button className="w-full h-full" variant={"ghost"}>
+        {children}
+      </Button>
+    </div>
+  );
+};
+
 interface ProfilePopoverProps extends React.HTMLProps<HTMLDivElement> {
   name?: string;
 }
 const ProfilePopover = ({ name, ...props }: ProfilePopoverProps) => {
   return (
     <Popover>
-      <PopoverTrigger>
-        <Button variant={"ghost"} className="px-0">
+      <PopoverTrigger asChild>
+        <Button variant={"ghost"} className="px-0" cy-data="avatar-button">
           <UserAvatar src="https://github.com/shadcn.png" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent {...props}>
+      <PopoverContent {...props} cy-data="popover-content">
         <div className="w-full flex items-center flex-col gap-2">
           <div className="flex flex-col items-center">
             <UserAvatar
