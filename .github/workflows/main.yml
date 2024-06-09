@@ -40,7 +40,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build
-          path: build
+          if-no-files-found: error
+          path: .next
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
