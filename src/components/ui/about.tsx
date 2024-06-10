@@ -14,7 +14,7 @@ const About = ({ className, ...props }: AboutProps) => {
         className="w-full h-10 bg-cover bg-no-repeat"
       />
       <section className="bg-background py-20">
-        <div className="w-fit flex mx-auto flex-col gap-20 px-20 max-w-[1050px] flex-0 items-center">
+        <div className="w-fit flex mx-auto flex-col gap-20 px-10 md:px-20 max-w-[1050px] flex-0 items-center">
           <AboutCard
             img="/bryggerhuset.jpg"
             alt="Bryggerhuset"
