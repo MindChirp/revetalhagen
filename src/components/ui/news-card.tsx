@@ -6,12 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "./card";
-import UserAvatar from "./header/user-avatar";
 import Typography from "./typography";
 import { Separator } from "./separator";
 import { BookIcon, BookOpenTextIcon, ClockIcon } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "./button";
+import UserAvatar from "./header/user-avatar";
+import BackButton from "./back-button";
 interface NewsCardProps extends React.HTMLAttributes<HTMLElement> {
   title?: string;
   description?: string;
@@ -34,7 +35,7 @@ const NewsCard = ({
         <CardTitle className="text-primary-foreground">{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
         <CardContent className="p-0 pt-2.5 flex flex-col gap-5">
-          <div className="flex md:flex-row flex-col gap-5 md::items-center">
+          <div className="flex md:flex-row flex-col gap-5 md:items-center">
             <div className="flex gap-2.5 items-center justify-start">
               <UserAvatar src={authorImage} />
               <Typography variant="small" className="text-primary-foreground">
