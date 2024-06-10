@@ -1,5 +1,5 @@
 import Hero from "@/components/ui/hero";
-import Header from "@/components/ui/header";
+import Header from "@/components/ui/header/header";
 import Image from "next/image";
 import About from "@/components/ui/about";
 

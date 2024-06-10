@@ -17,7 +17,7 @@ const Hero = ({ className, ...props }: HeroProps) => {
         backgroundSize: "calc(100% - 17.2rem)",
       }}
     >
-      <div className="px-20 py-52 text-primary-foreground md:w-1/2 w-full h-2/3 md:h-fit">
+      <div className="px-20 py-52 text-primary-foreground md:w-[calc(60%_-_17.2rem)] w-full h-2/3 md:h-fit">
         <Typography variant="h1" className="text-2xl">
           Frivillighetssentral og naturhage
         </Typography>
