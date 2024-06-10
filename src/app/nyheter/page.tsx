@@ -10,17 +10,22 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import NewsCard from "@/components/ui/news-card";
+import { fetchNews } from "@/lib/api/news";
 import { PlusIcon } from "lucide-react";
 
 export interface ParamsProps<T extends { [key: string]: string }> {
   searchParams?: T;
 }
 
-const News = ({ searchParams }: ParamsProps<{ page: string }>) => {
+const News = ({
+  searchParams,
+}: ParamsProps<{ page?: string; query?: string }>) => {
   const page = searchParams?.page ?? 0;
-
+  const query = searchParams?.query ?? "";
   // Perform a query based on the provided page number
-
+  const result = fetchNews({ query, page: page as number });
+  // Check if the promise resolves
+  result.then((data) => console.log(data));
   return (
     <PageWrapper>
       <div className="flex flex-col gap-5 relative">
