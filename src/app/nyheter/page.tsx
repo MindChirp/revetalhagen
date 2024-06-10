@@ -1,5 +1,6 @@
 import PageWrapper from "@/components/layout/page-wrapper";
 import BackButton from "@/components/ui/back-button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,12 +10,21 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import NewsCard from "@/components/ui/news-card";
+import { PlusIcon } from "lucide-react";
 
-const News = () => {
+export interface ParamsProps<T extends { [key: string]: string }> {
+  searchParams?: T;
+}
+
+const News = ({ searchParams }: ParamsProps<{ page: string }>) => {
+  const page = searchParams?.page ?? 0;
+
+  // Perform a query based on the provided page number
+
   return (
     <PageWrapper>
-      <div className="flex flex-col gap-5">
-        <BackButton />
+      <div className="flex flex-col gap-5 relative">
+        <BackButton className="absolute -top-5 -translate-y-full" />
         <div className="flex lg:flex-row flex-col gap-10">
           <Card className="w-full mx-auto order-2 lg:order-1">
             <NewsHeader />
@@ -37,12 +47,16 @@ const News = () => {
               </div>
             </CardContent>
           </Card>
-          <Card className="lg:w-fit w-full h-fit lg:order-2 order-1">
+
+          <Card className="lg:w-fit w-full h-fit lg:order-2 order-1 sticky">
             <CardHeader>
               <CardTitle className="text-primary-foreground">Filtre</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex flex-col gap-5">
               <Input placeholder="Søk..." className="lg:w-72 w-full " />
+              <Button className="flex gap-2.5 w-full">
+                <PlusIcon size={16} /> Ny artikkel
+              </Button>
             </CardContent>
           </Card>
         </div>

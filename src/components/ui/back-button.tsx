@@ -1,10 +1,13 @@
 "use client";
 
 import { ArrowLeftIcon } from "lucide-react";
-import { Button } from "./button";
+import { Button, ButtonProps } from "./button";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
-const BackButton = () => {
+interface BackButtonProps extends ButtonProps {}
+
+const BackButton = ({ className, ...props }: BackButtonProps) => {
   const router = useRouter();
 
   const handleClick = () => {
@@ -13,9 +16,10 @@ const BackButton = () => {
 
   return (
     <Button
-      className="flex gap-2.5 w-fit shadow-md"
+      className={cn("flex gap-2.5 w-fit shadow-md", className)}
       onClick={handleClick}
-      variant={"secondary"}
+      variant={"ghost"}
+      {...props}
     >
       <ArrowLeftIcon size={16} />
       Tilbake

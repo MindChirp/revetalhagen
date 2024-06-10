@@ -19,8 +19,9 @@ const Hero = ({ className, ...props }: HeroProps) => {
     >
       <div className="px-20 py-52 text-primary-foreground md:w-[calc(60%_-_17.2rem)] w-full h-2/3 md:h-fit">
         <Typography variant="h1" className="text-2xl">
-          Frivillighetssentral og naturhage
+          Revetalhagen
         </Typography>
+        <Typography variant="h3">Tønsberg NaKuHel</Typography>
         <Typography variant="p" className="leading-none font-medium">
           Arbeidsinkludering, frivillighet, språkpraksis og aktiviteter for
           målgrupper i alle aldre og livssituasjoner
