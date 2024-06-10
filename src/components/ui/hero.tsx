@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import Typography from "./typography";
 import { Button } from "./button";
+import Image from "next/image";
 
 interface HeroProps extends React.SVGProps<SVGSVGElement> {}
 
@@ -24,9 +25,27 @@ const Hero = ({ className, ...props }: HeroProps) => {
           Arbeidsinkludering, frivillighet, språkpraksis og aktiviteter for
           målgrupper i alle aldre og livssituasjoner
         </Typography>
-        <Button className="mt-5 md:w-fit w-full" size={"wide"}>
-          Bli frivillig
-        </Button>
+        <div className="relative w-fit">
+          <Button className="mt-5 md:w-fit w-full" size={"wide"}>
+            Bli frivillig
+          </Button>
+          <div className="w-fit flex flex-col mt-2.5 absolute -translate-x-1/2 left-1/2">
+            <Image
+              src="/squiggly-arrow.svg"
+              alt="Krusedullpil"
+              objectFit="cover"
+              width={200}
+              height={200}
+              className="w-20 h-20 mx-auto"
+            />
+            <Typography
+              variant="p"
+              className="text-nowrap !mt-0 ml-16 font-semibold"
+            >
+              Det er helt gratis!
+            </Typography>
+          </div>
+        </div>
       </div>
       <div className="w-[500px] aspect-square bg-primary rounded-full -translate-x-1/2 hidden md:block" />
     </div>
