@@ -19,27 +19,33 @@ const Hero = ({ className, ...props }: HeroProps) => {
     >
       <div className="px-20 py-52 text-primary-foreground md:w-[calc(60%_-_17.2rem)] w-full h-2/3 md:h-fit">
         <Typography variant="h1" className="text-2xl">
-          Frivillighetssentral og naturhage
+          Revetalhagen
         </Typography>
+        <Typography variant="h3">Tønsberg NaKuHel</Typography>
         <Typography variant="p" className="leading-none font-medium">
           Arbeidsinkludering, frivillighet, språkpraksis og aktiviteter for
           målgrupper i alle aldre og livssituasjoner
         </Typography>
-        <Button className="mt-5 md:w-fit w-full" size={"wide"}>
-          Bli frivillig
-        </Button>
-        <div className="flex flex-col ml-10 mt-2.5">
-          <Image
-            src="/squiggly-arrow.svg"
-            alt="Krusedullpil"
-            objectFit="cover"
-            width={200}
-            height={200}
-            className="w-20 h-20"
-          />
-          <Typography variant="p" className="!mt-0 font-semibold">
-            Det er helt gratis!
-          </Typography>
+        <div className="relative w-fit">
+          <Button className="mt-5 md:w-fit w-full" size={"wide"}>
+            Bli frivillig
+          </Button>
+          <div className="w-fit flex flex-col mt-2.5 absolute -translate-x-1/2 left-1/2">
+            <Image
+              src="/squiggly-arrow.svg"
+              alt="Krusedullpil"
+              objectFit="cover"
+              width={200}
+              height={200}
+              className="w-20 h-20 mx-auto"
+            />
+            <Typography
+              variant="p"
+              className="text-nowrap !mt-0 ml-16 font-semibold"
+            >
+              Det er helt gratis!
+            </Typography>
+          </div>
         </div>
       </div>
       <div className="w-[500px] aspect-square bg-primary rounded-full -translate-x-1/2 hidden md:block" />

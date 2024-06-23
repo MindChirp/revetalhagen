@@ -44,7 +44,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
     >
       <header className="flex justify-center md:justify-start">
         <Link href={routes.LANDING}>
-          <Button variant="ghost" className="bg-transparent">
+          <Button variant="ghost">
             <Typography
               variant="h1"
               className="w-fit md:text-base text-primary-foreground !text-3xl"
@@ -56,7 +56,9 @@ const Header = ({ className, ...props }: HeaderProps) => {
         <div className="w-full h-full md:flex hidden items-center justify-end gap-2">
           <Button variant={"ghost"}>Medlemsområde</Button>
           <Button variant={"ghost"}>Utleie</Button>
-          <Button variant={"ghost"}>Nyheter</Button>
+          <Link href="/nyheter">
+            <Button variant={"ghost"}>Nyheter</Button>
+          </Link>
           <SupportButton />
           <Button variant={"ghost"} className="ml-16">
             Kontakt oss
