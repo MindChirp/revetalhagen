@@ -1,6 +1,52 @@
+"use client";
 import { cn } from "@/lib/utils";
 import AboutCard from "./about-card";
 import Image from "next/image";
+import Autoplay from "embla-carousel-autoplay";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./carousel";
+import { Card, CardContent } from "./card";
+import ReactiveCarousel, { ImageType } from "./reactive-carousel";
+
+const images: ImageType[] = [
+  {
+    alt: "Stol",
+    src: "/chair.jpg",
+  },
+  {
+    alt: "Natur",
+    src: "/bg.jpg",
+  },
+  {
+    alt: "Bryggerhuset",
+    src: "/bryggerhuset.jpg",
+  },
+  {
+    alt: "Hage",
+    src: "/hage.jpg",
+  },
+  {
+    alt: "Hage",
+    src: "/hage2.jpg",
+  },
+  {
+    alt: "Bygg",
+    src: "/bygg.jpg",
+  },
+  {
+    alt: "Bygg",
+    src: "/bygg2.jpg",
+  },
+  {
+    alt: "Stol",
+    src: "/chair2.jpg",
+  },
+];
 
 interface AboutProps extends React.HTMLProps<HTMLDivElement> {}
 
@@ -13,8 +59,10 @@ const About = ({ className, ...props }: AboutProps) => {
         }}
         className="w-full h-10 bg-cover bg-no-repeat"
       />
+
       <section className="bg-background py-20">
         <div className="w-fit flex mx-auto flex-col gap-20 px-10 md:px-20 max-w-[1050px] flex-0 items-center">
+          <ReactiveCarousel images={images} />
           <AboutCard
             img="/bryggerhuset.jpg"
             alt="Bryggerhuset"
