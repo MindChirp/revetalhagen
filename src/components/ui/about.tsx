@@ -11,17 +11,41 @@ import {
   CarouselPrevious,
 } from "./carousel";
 import { Card, CardContent } from "./card";
+import ReactiveCarousel, { ImageType } from "./reactive-carousel";
 
-const images = [
-  "/chair.jpg",
-  "/bg.jpg",
-  "/bryggerhuset.jpg",
-  "/roar-holt-gard.jpg",
-  "/hage.jpg",
-  "/hage2.jpg",
-  "/bygg.jpg",
-  "/bygg2.jpg",
-  "/chair2.jpg",
+const images: ImageType[] = [
+  {
+    alt: "Stol",
+    src: "/chair.jpg",
+  },
+  {
+    alt: "Natur",
+    src: "/bg.jpg",
+  },
+  {
+    alt: "Bryggerhuset",
+    src: "/bryggerhuset.jpg",
+  },
+  {
+    alt: "Hage",
+    src: "/hage.jpg",
+  },
+  {
+    alt: "Hage",
+    src: "/hage2.jpg",
+  },
+  {
+    alt: "Bygg",
+    src: "/bygg.jpg",
+  },
+  {
+    alt: "Bygg",
+    src: "/bygg2.jpg",
+  },
+  {
+    alt: "Stol",
+    src: "/chair2.jpg",
+  },
 ];
 
 interface AboutProps extends React.HTMLProps<HTMLDivElement> {}
@@ -38,42 +62,7 @@ const About = ({ className, ...props }: AboutProps) => {
 
       <section className="bg-background py-20">
         <div className="w-fit flex mx-auto flex-col gap-20 px-10 md:px-20 max-w-[1050px] flex-0 items-center">
-          <Carousel
-            opts={{
-              align: "start",
-              active: true,
-              loop: true,
-            }}
-            plugins={[
-              Autoplay({
-                delay: 2000,
-                stopOnMouseEnter: true,
-              }),
-            ]}
-            className="mx-auto md:w-full"
-          >
-            <CarouselContent>
-              {images.map((item, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-1">
-                    <Card>
-                      <CardContent className="relative flex aspect-square items-center justify-center p-0">
-                        <Image
-                          src={item}
-                          alt="Roar på Holt Gård"
-                          fill
-                          className="rounded-3xl w-full h-full"
-                          objectFit="cover"
-                        />
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+          <ReactiveCarousel images={images} />
           <AboutCard
             img="/bryggerhuset.jpg"
             alt="Bryggerhuset"
