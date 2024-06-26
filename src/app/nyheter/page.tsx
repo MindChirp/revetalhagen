@@ -27,44 +27,41 @@ const News = ({
   // Check if the promise resolves
   result.then((data) => console.log(data));
   return (
-    <PageWrapper>
-      <div className="flex flex-col gap-5 relative">
-        <BackButton className="absolute -top-5 -translate-y-full" />
-        <div className="flex lg:flex-row flex-col gap-10">
-          <Card className="w-full mx-auto order-2 lg:order-1">
-            <NewsHeader />
-            <CardContent>
-              <div className="flex flex-col gap-5 w-full">
-                <NewsCard
-                  title="Nye grønnsaker!"
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
-                  author="Ola Nordmann"
-                  authorImage="/bryggerhuset.jpg"
-                  date={new Date()}
-                />
-                <NewsCard
-                  title="Nytt styremedlem"
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
-                  author="Ola Nordmann"
-                  authorImage="/bryggerhuset.jpg"
-                  date={new Date()}
-                />
-              </div>
-            </CardContent>
-          </Card>
+    <PageWrapper innerClassName="w-full">
+      <div className="flex lg:flex-row flex-col gap-10">
+        <Card className="w-full mx-auto order-2 lg:order-1">
+          <NewsHeader />
+          <CardContent>
+            <div className="flex flex-col gap-5 w-full">
+              <NewsCard
+                title="Nye grønnsaker!"
+                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+                author="Ola Nordmann"
+                authorImage="/bryggerhuset.jpg"
+                date={new Date()}
+              />
+              <NewsCard
+                title="Nytt styremedlem"
+                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+                author="Ola Nordmann"
+                authorImage="/bryggerhuset.jpg"
+                date={new Date()}
+              />
+            </div>
+          </CardContent>
+        </Card>
 
-          <Card className="lg:w-fit w-full h-fit lg:order-2 order-1 sticky">
-            <CardHeader>
-              <CardTitle className="text-primary-foreground">Filtre</CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-5">
-              <Input placeholder="Søk..." className="lg:w-72 w-full " />
-              <Button className="flex gap-2.5 w-full">
-                <PlusIcon size={16} /> Ny artikkel
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+        <Card className="lg:w-fit w-full h-fit lg:order-2 order-1 sticky">
+          <CardHeader>
+            <CardTitle className="text-primary-foreground">Filtre</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-5">
+            <Input placeholder="Søk..." className="lg:w-72 w-full " />
+            <Button className="flex gap-2.5 w-full">
+              <PlusIcon size={16} /> Ny artikkel
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     </PageWrapper>
   );

@@ -10,13 +10,9 @@ const Hero = ({ className, ...props }: HeroProps) => {
   return (
     <div
       className={cn(
-        "h-fit w-full lg:bg-hero-wave md:block flex justify-center flex-col",
+        "z-10 h-fit w-full relative md:block flex justify-center flex-col",
         className
       )}
-      style={{
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "calc(100% - 17.2rem)",
-      }}
     >
       <div className="px-20 py-52 text-primary-foreground md:w-[calc(60%_-_17.2rem)] w-full h-2/3 md:h-fit">
         <Typography variant="h1" className="text-2xl">
@@ -52,6 +48,19 @@ const Hero = ({ className, ...props }: HeroProps) => {
         </div>
       </div>
       <div className="w-[500px] aspect-square bg-primary rounded-full -translate-x-1/2 hidden md:block" />
+      <div
+        className="md:block hidden w-full h-full top-0 right-0 absolute bg-no-repeat bg-cover bg-center md:bg-left -z-10"
+        style={{
+          backgroundImage: 'url("revetalhagen logo.png")',
+        }}
+      />
+      <Image
+        src={"/hero-wave.svg"}
+        alt="bølge"
+        width={100}
+        height={100}
+        className="md:block hidden bg-no-repeat absolute left-0 top-0 -z-10 w-[calc(100%_-_17.2rem)]"
+      />
     </div>
   );
 };
