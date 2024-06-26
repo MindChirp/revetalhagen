@@ -4,9 +4,11 @@ import { Button } from "./button";
 import Image from "next/image";
 import Link from "next/link";
 
-interface HeroProps extends React.SVGProps<SVGSVGElement> {}
+interface HeroProps extends React.SVGProps<SVGSVGElement> {
+  displayBg?: boolean;
+}
 
-const Hero = ({ className, ...props }: HeroProps) => {
+const Hero = ({ displayBg, className, ...props }: HeroProps) => {
   return (
     <div
       className={cn(
@@ -48,12 +50,14 @@ const Hero = ({ className, ...props }: HeroProps) => {
         </div>
       </div>
       <div className="w-[500px] aspect-square bg-primary rounded-full -translate-x-1/2 hidden md:block" />
-      <div
-        className="md:block hidden w-full h-full top-0 right-0 absolute bg-no-repeat bg-cover bg-center md:bg-left -z-10"
-        style={{
-          backgroundImage: 'url("revetalhagen logo.png")',
-        }}
-      />
+      {displayBg && (
+        <div
+          className="md:block hidden w-full h-full top-0 right-0 absolute bg-no-repeat bg-cover bg-center md:bg-left -z-10"
+          style={{
+            backgroundImage: 'url("revetalhagen logo.png")',
+          }}
+        />
+      )}
       <Image
         src={"/hero-wave.svg"}
         alt="bølge"
