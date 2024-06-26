@@ -8,7 +8,10 @@ describe("<Header />", () => {
     const header = cy.mount(<Header />);
     header.get("header").should("be.visible");
     header.should("contain.text", "Revetalhagen");
-    header.should("contain.text", "Medlemsområde");
+    header.should(
+      "contain.text",
+      "RevetalhagenNyheterOm oss Støtt oss Kontakt oss"
+    );
     header.should("contain.text", "Utleie");
     header.should("contain.text", "Nyheter");
   });
