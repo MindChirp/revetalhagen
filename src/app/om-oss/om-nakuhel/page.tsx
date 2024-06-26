@@ -8,7 +8,7 @@ const AboutNaKuHel = () => {
   return (
     <PageWrapper>
       <PageCard>
-        <CardHeader className="flex flex-col">
+        <CardHeader className="flex flex-col md:items-start items-center">
           <Typography>Om NaKuHel</Typography>
           <SquigglyDivider />
         </CardHeader>

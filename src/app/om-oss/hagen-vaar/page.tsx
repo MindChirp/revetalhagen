@@ -8,7 +8,7 @@ const OurGarden = () => {
   return (
     <PageWrapper>
       <PageCard>
-        <CardHeader>
+        <CardHeader className="flex flex-col md:items-start items-center">
           <Typography>Hagen vår</Typography>
           <SquigglyDivider />
         </CardHeader>

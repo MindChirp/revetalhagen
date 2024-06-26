@@ -8,7 +8,7 @@ const Board = () => {
   return (
     <PageWrapper>
       <PageCard className="mx-auto">
-        <CardHeader className="flex flex-col">
+        <CardHeader className="flex flex-col md:items-start items-center">
           <Typography>Styret</Typography>
           <SquigglyDivider />
         </CardHeader>

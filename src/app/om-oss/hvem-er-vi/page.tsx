@@ -10,7 +10,7 @@ const WhoAreWe = () => {
   return (
     <PageWrapper>
       <PageCard>
-        <CardHeader className="flex flex-col">
+        <CardHeader className="flex flex-col md:items-start items-center">
           <Typography>Hvem er vi?</Typography>
           <SquigglyDivider />
         </CardHeader>
