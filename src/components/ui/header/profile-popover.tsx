@@ -59,11 +59,11 @@ const SignedInContent = ({
         <Button variant="default" className="w-full">
           Min side
         </Button>
-        <Link href={"/api/auth/logout"}>
+        <a href={"/api/auth/logout"}>
           <Button variant="destructive" className="w-full">
             Logg ut
           </Button>
-        </Link>
+        </a>
       </div>
     </div>
   );
@@ -75,11 +75,11 @@ const SignedOutContent = () => {
       <Typography variant="h2" className="border-none">
         Hei, gjest!
       </Typography>
-      <Link href={"/api/auth/login"} className="w-full">
+      <a href={"/api/auth/login"} className="w-full">
         <Button variant="default" className="w-full">
           Logg inn
         </Button>
-      </Link>
+      </a>
     </div>
   );
 };

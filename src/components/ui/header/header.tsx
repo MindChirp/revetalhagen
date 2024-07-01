@@ -4,14 +4,6 @@ import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { routes } from "@/lib/routes";
-import { UserIcon } from "lucide-react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 import ProfilePopover from "./profile-popover";
 import { Button } from "../button";
 import Typography from "../typography";
@@ -19,6 +11,8 @@ import MenuItems, { MenuItemsProps } from "./menu-items";
 import Support from "./support";
 import About from "./about";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { NewsService } from "@/lib/api";
+import { postNews } from "./thing";
 
 const Items: MenuItemsProps["items"] = [
   {
@@ -37,6 +31,13 @@ interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
 const Header = ({ className, ...props }: HeaderProps) => {
   const [scroll, setScroll] = useState(0);
   const data = useUser();
+
+  const doShit = () => {
+    postNews("Dette er en test", "Mor di")
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     if (data.isLoading) return;
     console.log(data);
@@ -83,7 +84,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
             <Button variant={"ghost"}>Nyheter</Button>
           </Link>
           <MenuItems items={Items} />
-          <Button variant={"ghost"} className="ml-16">
+          <Button onClick={doShit} variant={"ghost"} className="ml-16">
             Kontakt oss
           </Button>
           <ProfilePopover
