@@ -5,7 +5,8 @@ import { cn } from "@/lib/utils";
 import Header from "@/components/ui/header/header";
 import { useEffect, useState } from "react";
 import Footer from "@/components/ui/footer";
-
+import { UserProvider } from "@auth0/nextjs-auth0/client";
+import { Auth0Provider } from "@auth0/auth0-react";
 const fontSans = FontSans({
   subsets: ["latin"],
 });
@@ -22,17 +23,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={cn(
-          "min-h-screen bg-background antialiased",
-          fontSans.className
-        )}
-      >
-        <Header className="fixed" />
+      <UserProvider>
+        <body
+          className={cn(
+            "min-h-screen bg-background antialiased",
+            fontSans.className
+          )}
+        >
+          <Header className="fixed" />
 
-        {children}
-        <Footer className="mt-32" />
-      </body>
+          {children}
+          <Footer className="mt-32" />
+        </body>
+      </UserProvider>
     </html>
   );
 }

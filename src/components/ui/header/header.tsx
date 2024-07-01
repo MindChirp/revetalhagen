@@ -16,11 +16,15 @@ import ProfilePopover from "./profile-popover";
 import { Button } from "../button";
 import Typography from "../typography";
 import SupportButton from "./support-button";
-
+import { useUser } from "@auth0/nextjs-auth0/client";
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
 const Header = ({ className, ...props }: HeaderProps) => {
   const [scroll, setScroll] = useState(0);
-
+  const data = useUser();
+  useEffect(() => {
+    if (data.isLoading) return;
+    console.log(data);
+  }, [data, data.isLoading]);
   useEffect(() => {
     const scrollHandler = () => {
       setScroll(window.scrollY);
@@ -54,7 +58,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
           </Button>
         </Link>
         <div className="w-full h-full md:flex hidden items-center justify-end gap-2">
-          <Button variant={"ghost"}>Medlemsområde</Button>
+          {data.user && <Button variant={"ghost"}>Medlemsområde</Button>}
           <Button variant={"ghost"}>Utleie</Button>
           <Link href="/nyheter">
             <Button variant={"ghost"}>Nyheter</Button>
@@ -63,7 +67,10 @@ const Header = ({ className, ...props }: HeaderProps) => {
           <Button variant={"ghost"} className="ml-16">
             Kontakt oss
           </Button>
-          <ProfilePopover name={"Ola"} />
+          <ProfilePopover
+            name={"Ola"}
+            className="min-w-72 w-fit max-w-screen-sm"
+          />
         </div>
       </header>
     </div>
