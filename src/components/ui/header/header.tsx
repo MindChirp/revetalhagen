@@ -15,8 +15,24 @@ import {
 import ProfilePopover from "./profile-popover";
 import { Button } from "../button";
 import Typography from "../typography";
-import SupportButton from "./support-button";
+import MenuItems, { MenuItemsProps } from "./menu-items";
+import Support from "./support";
+import About from "./about";
 import { useUser } from "@auth0/nextjs-auth0/client";
+
+const Items: MenuItemsProps["items"] = [
+  {
+    label: "Om oss",
+    variant: "ghost",
+    content: <About />,
+  },
+  {
+    label: "Støtt oss",
+    variant: "primary",
+    content: <Support />,
+  },
+];
+
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
 const Header = ({ className, ...props }: HeaderProps) => {
   const [scroll, setScroll] = useState(0);
@@ -60,10 +76,13 @@ const Header = ({ className, ...props }: HeaderProps) => {
         <div className="w-full h-full md:flex hidden items-center justify-end gap-2">
           {data.user && <Button variant={"ghost"}>Medlemsområde</Button>}
           <Button variant={"ghost"}>Utleie</Button>
+          {/* <Button variant={"ghost"}>Medlemsområde</Button>
+          <Button variant={"ghost"}>Arrangementer</Button>
+          <Button variant={"ghost"}>Utleie</Button> */}
           <Link href="/nyheter">
             <Button variant={"ghost"}>Nyheter</Button>
           </Link>
-          <SupportButton />
+          <MenuItems items={Items} />
           <Button variant={"ghost"} className="ml-16">
             Kontakt oss
           </Button>

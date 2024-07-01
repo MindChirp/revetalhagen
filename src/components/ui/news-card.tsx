@@ -13,6 +13,7 @@ import { format } from "date-fns";
 import { Button } from "./button";
 import UserAvatar from "./header/user-avatar";
 import BackButton from "./back-button";
+import Link from "next/link";
 interface NewsCardProps extends React.HTMLAttributes<HTMLElement> {
   title?: string;
   description?: string;
@@ -50,9 +51,11 @@ const NewsCard = ({
               </Typography>
             </div>
           </div>
-          <Button className="flex gap-2.5 w-fit">
-            <BookOpenTextIcon size={16} /> Les artikkel
-          </Button>
+          <Link href="/artikkel/15" className="w-fit">
+            <Button className="flex gap-2.5 w-fit">
+              <BookOpenTextIcon size={16} /> Les artikkel
+            </Button>
+          </Link>
         </CardContent>
       </CardHeader>
     </Card>

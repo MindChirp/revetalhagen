@@ -17,7 +17,7 @@ const Footer = ({ className, ...props }: FooterProps) => {
           "w-full py-20 bg-secondary-background flex gap-5 flex-col items-center"
         )}
       >
-        <div className="flex gap-5">
+        <div className="w-full px-10 mx-auto justify-center md:flex-row flex-col flex gap-5">
           <Sponsor>Samarbeidspartner A</Sponsor>
           <Sponsor>Samarbeidspartner B</Sponsor>
         </div>
@@ -30,7 +30,7 @@ const Footer = ({ className, ...props }: FooterProps) => {
 const Sponsor = ({ ...props }: React.HTMLProps<HTMLParagraphElement>) => {
   return (
     <p
-      className="w-40 aspect-square bg-page-background rounded-lg flex place-content-center items-center text-center p-3"
+      className="md:w-40 w-full aspect-square bg-page-background rounded-2xl md:rounded-lg flex place-content-center items-center text-center p-3"
       {...props}
     />
   );
