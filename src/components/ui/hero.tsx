@@ -48,7 +48,6 @@ const Hero = ({ displayBg, className, ...props }: HeroProps) => {
             </Typography>
           </div>
         </div>
-        <div className="w-[500px] aspect-square bg-primary rounded-full -translate-x-1/2 hidden md:block" />
       </div>
       <div className="w-[500px] aspect-square bg-primary rounded-full -translate-x-1/2 hidden md:block" />
       {displayBg && (
