@@ -43,6 +43,7 @@ const News = async ({
                   author={item.publishedBy?.fullName ?? ""}
                   authorImage={item.publishedBy?.avatarUri ?? ""}
                   date={item.lastEdited ?? ""}
+                  articleId={item.id?.toString()}
                 />
               ))}
               {/* TODO: Create suspense with content streaming, allowing for displaying of a loading state */}

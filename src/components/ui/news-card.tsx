@@ -20,6 +20,7 @@ interface NewsCardProps extends React.HTMLAttributes<HTMLElement> {
   author?: string;
   authorImage?: string;
   date?: string;
+  articleId?: string;
 }
 const NewsCard = ({
   title,
@@ -27,6 +28,7 @@ const NewsCard = ({
   description,
   author,
   authorImage,
+  articleId,
   date,
   ...props
 }: NewsCardProps) => {
@@ -51,9 +53,10 @@ const NewsCard = ({
               </Typography>
             </div>
           </div>
-          <Link href="/artikkel/15" className="w-fit">
+          <Link href={`/artikkel/${articleId}`} className="w-fit">
             <Button className="flex gap-2.5 w-fit">
-              <BookOpenTextIcon size={16} /> Les artikkel
+              <BookOpenTextIcon size={16} />
+              Les artikkel
             </Button>
           </Link>
         </CardContent>
