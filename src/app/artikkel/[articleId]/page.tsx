@@ -8,10 +8,12 @@ import { ClockIcon } from "lucide-react";
 import Image from "next/image";
 import { format } from "date-fns";
 import BackButton from "@/components/ui/back-button";
+import { NewsService } from "@/lib/api";
 
-const ArticlePage = ({ params }: PathParams<{ articleId: string }>) => {
+const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
   const { articleId } = params;
   // Fetch news info
+  const article = await NewsService.getApiNews1(articleId as unknown as number);
   return (
     <PageWrapper>
       <div className="flex flex-col gap-5 relative w-fit mx-auto">
@@ -31,15 +33,15 @@ const ArticlePage = ({ params }: PathParams<{ articleId: string }>) => {
           </CardHeader>
           <CardContent>
             <div className="w-full flex gap-5 items-center justify-center flex-col">
-              <Typography className="text-center">Nye grønnsaker!</Typography>
+              <Typography className="text-center">{article.title}</Typography>
               <div className="flex gap-5 w-fit items-center">
                 <div className="flex gap-2.5 items-center">
-                  <UserAvatar src={"/bryggerhuset.jpg"} />
+                  <UserAvatar src={article.publishedBy?.avatarUri ?? ""} />
                   <Typography
                     variant="small"
                     className="text-primary-foreground"
                   >
-                    Ola Nordmann
+                    {article.publishedBy?.fullName}
                   </Typography>
                 </div>
                 <div className="h-5 w-[1px] bg-primary-foreground md:block hidden" />
@@ -49,7 +51,7 @@ const ArticlePage = ({ params }: PathParams<{ articleId: string }>) => {
                     variant="small"
                     className="text-primary-foreground"
                   >
-                    {format(new Date() as Date, "dd.MM.yyyy")}
+                    {format(article.lastEdited ?? "", "dd.MM.yyyy")}
                   </Typography>
                 </div>
               </div>
@@ -57,13 +59,7 @@ const ArticlePage = ({ params }: PathParams<{ articleId: string }>) => {
                 variant="p"
                 className="md:max-w-[600px] w-fit md:mx-20"
               >
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque
-                in impedit aliquam magnam cumque vitae magni a commodi
-                voluptatem. Numquam tenetur minima ex quod similique fuga
-                dignissimos vero sed officiis. Lorem ipsum, dolor sit amet
-                consectetur adipisicing elit. Neque in impedit aliquam magnam
-                cumque vitae magni a commodi voluptatem. Numquam tenetur minima
-                ex quod similique fuga dignissimos vero sed officiis.
+                {article.content}
               </Typography>
             </div>
           </CardContent>

@@ -1,5 +1,4 @@
 import PageWrapper from "@/components/layout/page-wrapper";
-import BackButton from "@/components/ui/back-button";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,22 +9,25 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import NewsCard from "@/components/ui/news-card";
-import { fetchNews } from "@/lib/api/news";
+import { NewsService } from "@/lib/api";
 import { PlusIcon } from "lucide-react";
+import { redirect, RedirectType } from "next/navigation";
+import Filters from "./components/filters";
+import Typography from "@/components/ui/typography";
 
 export interface ParamsProps<T extends { [key: string]: string }> {
   searchParams?: T;
 }
 
-const News = ({
+const News = async ({
   searchParams,
 }: ParamsProps<{ page?: string; query?: string }>) => {
   const page = searchParams?.page ?? 0;
   const query = searchParams?.query ?? "";
+
   // Perform a query based on the provided page number
-  const result = fetchNews({ query, page: page as number });
-  // Check if the promise resolves
-  result.then((data) => console.log(data));
+  const result = await NewsService.getApiNews(query);
+
   return (
     <PageWrapper innerClassName="w-full">
       <div className="flex lg:flex-row flex-col gap-10">
@@ -33,35 +35,31 @@ const News = ({
           <NewsHeader />
           <CardContent>
             <div className="flex flex-col gap-5 w-full">
-              <NewsCard
-                title="Nye grønnsaker!"
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
-                author="Ola Nordmann"
-                authorImage="/bryggerhuset.jpg"
-                date={new Date()}
-              />
-              <NewsCard
-                title="Nytt styremedlem"
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
-                author="Ola Nordmann"
-                authorImage="/bryggerhuset.jpg"
-                date={new Date()}
-              />
+              {result.map((item) => (
+                <NewsCard
+                  key={item.id}
+                  title={item.title ?? ""}
+                  description={item.shortContent ?? ""}
+                  author={item.publishedBy?.fullName ?? ""}
+                  authorImage={item.publishedBy?.avatarUri ?? ""}
+                  date={item.lastEdited ?? ""}
+                  articleId={item.id?.toString()}
+                />
+              ))}
+              {/* TODO: Create suspense with content streaming, allowing for displaying of a loading state */}
+              {result.length === 0 && (
+                <Card className="bg-accent shadow-none">
+                  <CardHeader>
+                    <Typography className="text-center" variant="p">
+                      Her var det tomt...
+                    </Typography>
+                  </CardHeader>
+                </Card>
+              )}
             </div>
           </CardContent>
         </Card>
-
-        <Card className="lg:w-fit w-full h-fit lg:order-2 order-1 sticky">
-          <CardHeader>
-            <CardTitle className="text-primary-foreground">Filtre</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-5">
-            <Input placeholder="Søk..." className="lg:w-72 w-full " />
-            <Button className="flex gap-2.5 w-full">
-              <PlusIcon size={16} /> Ny artikkel
-            </Button>
-          </CardContent>
-        </Card>
+        <Filters />
       </div>
     </PageWrapper>
   );
