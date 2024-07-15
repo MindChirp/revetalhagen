@@ -63,6 +63,7 @@ const Hero = ({ displayBg, className, ...props }: HeroProps) => {
         alt="bølge"
         width={100}
         height={100}
+        loading="eager"
         className="md:block hidden bg-no-repeat absolute left-0 top-0 -z-10 w-[calc(100%_-_17.2rem)]"
       />
     </div>

@@ -19,7 +19,7 @@ interface NewsCardProps extends React.HTMLAttributes<HTMLElement> {
   description?: string;
   author?: string;
   authorImage?: string;
-  date?: Date;
+  date?: string;
 }
 const NewsCard = ({
   title,
@@ -47,7 +47,7 @@ const NewsCard = ({
             <div className="flex gap-2.5 items-center">
               <ClockIcon size={16} className="text-primary-foreground" />
               <Typography variant="small" className="text-primary-foreground">
-                {format(date as Date, "dd.MM.yyyy")}
+                {format(new Date(date ?? ""), "dd.MM.yyyy")}
               </Typography>
             </div>
           </div>
