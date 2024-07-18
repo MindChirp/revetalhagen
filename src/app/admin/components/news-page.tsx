@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Typography from "@/components/ui/typography";
+import NewsForm from "./news-form";
 
 export default function NewsPage() {
   return (
@@ -22,7 +23,9 @@ export default function NewsPage() {
               Eksisterende artikler
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="new-article"></TabsContent>
+          <TabsContent value="new-article">
+            <NewsForm />
+          </TabsContent>
           <TabsContent value="existing-articles"></TabsContent>
         </Tabs>
       </CardContent>
