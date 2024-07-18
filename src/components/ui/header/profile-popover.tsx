@@ -10,6 +10,8 @@ import { Button } from "../button";
 import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 import Typography from "../typography";
 import UserAvatar from "./user-avatar";
+import Link from "next/link";
+import { routes } from "@/lib/routes";
 
 interface ProfilePopoverProps extends React.HTMLProps<HTMLDivElement> {
   name?: string;
@@ -58,9 +60,11 @@ const SignedInContent = ({
       </div>
 
       <div className="flex w-full flex-col gap-2">
-        <Button variant="default" className="w-full">
-          Admin
-        </Button>
+        <Link href={routes.ADMIN}>
+          <Button variant="default" className="w-full">
+            Admin
+          </Button>
+        </Link>
         <Button variant="default" className="w-full">
           Min side
         </Button>

@@ -14,10 +14,7 @@ import { PlusIcon } from "lucide-react";
 import { redirect, RedirectType } from "next/navigation";
 import Filters from "./components/filters";
 import Typography from "@/components/ui/typography";
-
-export interface ParamsProps<T extends { [key: string]: string }> {
-  searchParams?: T;
-}
+import { ParamsProps } from "@/lib/utils";
 
 const News = async ({
   searchParams,
