@@ -1,33 +1,38 @@
-import { getSession } from "@auth0/nextjs-auth0";
+import {
+  SignedIn,
+  SignedOut,
+  SignIn,
+  SignInButton,
+  SignOutButton,
+  useUser,
+} from "@clerk/nextjs";
 import { Button } from "../button";
 import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 import Typography from "../typography";
 import UserAvatar from "./user-avatar";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import Link from "next/link";
-import { useAuth0 } from "@auth0/auth0-react";
 
 interface ProfilePopoverProps extends React.HTMLProps<HTMLDivElement> {
   name?: string;
 }
 const ProfilePopover = ({ ...props }: ProfilePopoverProps) => {
-  const { user, isLoading, error } = useUser();
+  const { user, isLoaded } = useUser();
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button variant={"ghost"} className="px-0" cy-data="avatar-button">
-          <UserAvatar src={user?.picture ?? ""} />
+          <UserAvatar src={user?.imageUrl ?? ""} />
         </Button>
       </PopoverTrigger>
       <PopoverContent {...props} cy-data="popover-content">
-        {user ? (
+        <SignedIn>
           <SignedInContent
-            userName={user.nickname ?? ""}
-            image={user.picture ?? ""}
+            userName={user?.fullName ?? ""}
+            image={user?.imageUrl ?? ""}
           />
-        ) : (
+        </SignedIn>
+        <SignedOut>
           <SignedOutContent />
-        )}
+        </SignedOut>
       </PopoverContent>
     </Popover>
   );
@@ -59,11 +64,12 @@ const SignedInContent = ({
         <Button variant="default" className="w-full">
           Min side
         </Button>
-        <a href={"/api/auth/logout"}>
+
+        <SignOutButton>
           <Button variant="destructive" className="w-full">
             Logg ut
           </Button>
-        </a>
+        </SignOutButton>
       </div>
     </div>
   );
@@ -75,11 +81,11 @@ const SignedOutContent = () => {
       <Typography variant="h2" className="border-none">
         Hei, gjest!
       </Typography>
-      <a href={"/api/auth/login"} className="w-full">
+      <SignInButton mode="modal">
         <Button variant="default" className="w-full">
           Logg inn
         </Button>
-      </a>
+      </SignInButton>
     </div>
   );
 };
