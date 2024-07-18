@@ -16,8 +16,6 @@
 // Import commands.js using ES2015 syntax:
 import "./commands";
 
-import { UserProvider } from "@auth0/nextjs-auth0/client";
-
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
@@ -35,13 +33,7 @@ declare global {
   }
 }
 
-// Cypress.Commands.add("mount", mount);
-
-Cypress.Commands.add("mount", (component) => {
-  const wrapped = <UserProvider>{component}</UserProvider>;
-  // const wrapped = <MemoryRouter {...routerProps}>{component}</MemoryRouter>;
-  return mount(wrapped);
-});
+Cypress.Commands.add("mount", mount);
 
 // Example use:
 // cy.mount(<MyComponent />)

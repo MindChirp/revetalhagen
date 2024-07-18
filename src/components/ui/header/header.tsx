@@ -10,9 +10,7 @@ import Typography from "../typography";
 import MenuItems, { MenuItemsProps } from "./menu-items";
 import Support from "./support";
 import About from "./about";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { NewsService } from "@/lib/api";
-import { postNews } from "./thing";
+import { useUser } from "@clerk/nextjs";
 
 const Items: MenuItemsProps["items"] = [
   {
@@ -32,16 +30,10 @@ const Header = ({ className, ...props }: HeaderProps) => {
   const [scroll, setScroll] = useState(0);
   const data = useUser();
 
-  const doShit = () => {
-    postNews("Dette er en test", "Mor di")
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
-
   useEffect(() => {
-    if (data.isLoading) return;
+    if (!data.isLoaded) return;
     console.log(data);
-  }, [data, data.isLoading]);
+  }, [data, data.isLoaded]);
   useEffect(() => {
     const scrollHandler = () => {
       setScroll(window.scrollY);
@@ -84,7 +76,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
             <Button variant={"ghost"}>Nyheter</Button>
           </Link>
           <MenuItems items={Items} />
-          <Button onClick={doShit} variant={"ghost"} className="ml-16">
+          <Button variant={"ghost"} className="ml-16">
             Kontakt oss
           </Button>
           <ProfilePopover
