@@ -1,4 +1,4 @@
-import { ClerkProvider, useSession } from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import { nbNO } from "@clerk/localizations";
 import type { Metadata } from "next";
 import { Work_Sans as FontSans } from "next/font/google";
@@ -7,6 +7,7 @@ import Header from "@/components/ui/header/header";
 import Footer from "@/components/ui/footer";
 import { OpenAPI } from "@/lib/api";
 import { auth } from "@clerk/nextjs/server";
+import { Toaster } from "@/components/ui/toaster";
 const fontSans = FontSans({
   subsets: ["latin"],
 });
@@ -33,6 +34,7 @@ export default async function RootLayout({
         <body>
           <Header className="fixed" />
           {children}
+          <Toaster />
           <Footer className="mt-32" />
         </body>
       </html>

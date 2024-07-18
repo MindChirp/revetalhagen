@@ -10,7 +10,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { CreateNewsDto, NewsService } from "@/lib/api";
+import { useToast } from "@/components/ui/use-toast";
+import { CreateNewsDto, NewsService, OpenAPI, SimpleNewsDto } from "@/lib/api";
+import { IFetch } from "@/lib/IFetch";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SendHorizonalIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -26,11 +28,44 @@ export default function NewsForm() {
     resolver: zodResolver(formSchema),
   });
 
+  const { toast } = useToast();
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     // Send a request to the backend
-    NewsService.postApiNews(values as CreateNewsDto).then(() => {
-      console.log("News created!");
-    });
+
+    IFetch<SimpleNewsDto>({
+      url: process.env.NEXT_PUBLIC_API_URL + "/api/News",
+      config: {
+        body: JSON.stringify(values),
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    })
+      .then((res) => {
+        toast({
+          title: "Nyhet opprettet!",
+          description: "Nyheten er nå opprettet.",
+        });
+      })
+      .catch((error) => {
+        toast({
+          title: "Noe gikk galt!",
+          description: error + "",
+          variant: "destructive",
+        });
+      });
+    // NewsService.postApiNews(values as CreateNewsDto)
+    //   .then(() => {
+    //     console.log("News created!");
+    //   })
+    //   .catch((error) => {
+    //     toast({
+    //       title: "Noe gikk galt!",
+    //       description: error + "",
+    //       variant: "destructive",
+    //     });
+    //   });
   };
 
   return (

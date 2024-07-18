@@ -9,12 +9,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import NewsCard from "@/components/ui/news-card";
-import { NewsService } from "@/lib/api";
+import { NewsService, SimpleNewsDto } from "@/lib/api";
 import { PlusIcon } from "lucide-react";
 import { redirect, RedirectType } from "next/navigation";
 import Filters from "./components/filters";
 import Typography from "@/components/ui/typography";
 import { ParamsProps } from "@/lib/utils";
+import { IFetch } from "@/lib/IFetch";
 
 const News = async ({
   searchParams,
@@ -23,7 +24,12 @@ const News = async ({
   const query = searchParams?.query ?? "";
 
   // Perform a query based on the provided page number
-  const result = await NewsService.getApiNews();
+  const result = await IFetch<SimpleNewsDto[]>({
+    url: "/api/News",
+    config: {
+      method: "GET",
+    },
+  });
 
   return (
     <PageWrapper innerClassName="w-full">
