@@ -5,7 +5,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Typography from "@/components/ui/typography";
 import NewsForm from "./news-form";
 
 export default function NewsPage() {

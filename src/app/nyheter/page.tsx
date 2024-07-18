@@ -23,7 +23,7 @@ const News = async ({
   const query = searchParams?.query ?? "";
 
   // Perform a query based on the provided page number
-  const result = await NewsService.getApiNews(query);
+  const result = await NewsService.getApiNews();
 
   return (
     <PageWrapper innerClassName="w-full">

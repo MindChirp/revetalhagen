@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { CreateNewsDto, NewsService } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SendHorizonalIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -25,7 +26,12 @@ export default function NewsForm() {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {};
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    // Send a request to the backend
+    NewsService.postApiNews(values as CreateNewsDto).then(() => {
+      console.log("News created!");
+    });
+  };
 
   return (
     <Form {...form}>
