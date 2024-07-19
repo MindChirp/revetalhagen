@@ -2,28 +2,19 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CreateUserDto } from '../models/CreateUserDto';
 import type { DetailedUserDto } from '../models/DetailedUserDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class UserService {
     /**
-     * @param requestBody
-     * @returns DetailedUserDto Created
+     * @returns any Success
      * @throws ApiError
      */
-    public static postApiUser(
-        requestBody?: CreateUserDto,
-    ): CancelablePromise<DetailedUserDto> {
+    public static postApiUser(): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User',
-            body: requestBody,
-            mediaType: 'application/json-patch+json',
-            errors: {
-                400: `Bad Request`,
-            },
         });
     }
     /**

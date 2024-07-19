@@ -6,3 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export type PathParams<T> = { params: T };
+
+export interface ParamsProps<T extends { [key: string]: string }> {
+  searchParams?: T;
+}

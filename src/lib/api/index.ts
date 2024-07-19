@@ -8,7 +8,6 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { CreateNewsDto } from './models/CreateNewsDto';
-export type { CreateUserDto } from './models/CreateUserDto';
 export type { DateOnly } from './models/DateOnly';
 export { DayOfWeek } from './models/DayOfWeek';
 export type { DetailedNewsDto } from './models/DetailedNewsDto';

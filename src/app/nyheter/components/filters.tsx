@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { routes } from "@/lib/routes";
 import { PlusIcon } from "lucide-react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -29,9 +30,12 @@ export default function Filters() {
             router.replace(`${routes.NEWS}?query=${e.target.value}`)
           }
         />
-        <Button className="flex gap-2.5 w-full">
-          <PlusIcon size={16} /> Ny artikkel
-        </Button>
+        <Link href={routes.ADMIN}>
+          <Button className="flex gap-2.5 w-full">
+            <PlusIcon size={16} />
+            Ny artikkel
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   );

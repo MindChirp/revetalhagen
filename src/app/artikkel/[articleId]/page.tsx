@@ -1,7 +1,6 @@
 import PageWrapper from "@/components/layout/page-wrapper";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import UserAvatar from "@/components/ui/header/user-avatar";
-import { Separator } from "@/components/ui/separator";
 import Typography from "@/components/ui/typography";
 import { PathParams } from "@/lib/utils";
 import { ClockIcon } from "lucide-react";
@@ -13,7 +12,12 @@ import { NewsService } from "@/lib/api";
 const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
   const { articleId } = params;
   // Fetch news info
-  const article = await NewsService.getApiNews1(articleId as unknown as number);
+  let article;
+  try {
+    article = await NewsService.getApiNews1(articleId as unknown as number);
+  } catch (error) {
+    console.log("Something went wrong!", error);
+  }
   return (
     <PageWrapper>
       <div className="flex flex-col gap-5 relative w-fit mx-auto">
@@ -33,15 +37,15 @@ const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
           </CardHeader>
           <CardContent>
             <div className="w-full flex gap-5 items-center justify-center flex-col">
-              <Typography className="text-center">{article.title}</Typography>
+              <Typography className="text-center">{article?.title}</Typography>
               <div className="flex gap-5 w-fit items-center">
                 <div className="flex gap-2.5 items-center">
-                  <UserAvatar src={article.publishedBy?.avatarUri ?? ""} />
+                  <UserAvatar src={article?.publishedBy?.avatarUri ?? ""} />
                   <Typography
                     variant="small"
                     className="text-primary-foreground"
                   >
-                    {article.publishedBy?.fullName}
+                    {article?.publishedBy?.fullName}
                   </Typography>
                 </div>
                 <div className="h-5 w-[1px] bg-primary-foreground md:block hidden" />
@@ -51,7 +55,7 @@ const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
                     variant="small"
                     className="text-primary-foreground"
                   >
-                    {format(article.lastEdited ?? "", "dd.MM.yyyy")}
+                    {format(article?.lastEdited ?? "", "dd.MM.yyyy")}
                   </Typography>
                 </div>
               </div>
@@ -59,7 +63,7 @@ const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
                 variant="p"
                 className="md:max-w-[600px] w-fit md:mx-20"
               >
-                {article.content}
+                {article?.content}
               </Typography>
             </div>
           </CardContent>
