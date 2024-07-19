@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SendHorizonalIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import NewsEditor from "./news-editor";
 
 export default function NewsForm() {
   const formSchema = z.object({
@@ -90,11 +91,7 @@ export default function NewsForm() {
             <FormItem>
               <FormLabel>Innhold</FormLabel>
               <FormControl>
-                <Textarea
-                  spellCheck={false}
-                  className="min-h-52 rounded-3xl"
-                  {...field}
-                />
+                <NewsEditor />
               </FormControl>
             </FormItem>
           )}
