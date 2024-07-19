@@ -41,7 +41,10 @@ const NewsCard = ({
           <div className="flex md:flex-row flex-col gap-5 md:items-center">
             <div className="flex gap-2.5 items-center justify-start">
               <UserAvatar src={authorImage} />
-              <Typography variant="small" className="text-primary-foreground">
+              <Typography
+                variant="small"
+                className="capitalize text-primary-foreground"
+              >
                 {author}
               </Typography>
             </div>
