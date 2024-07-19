@@ -7,17 +7,16 @@ import { ClockIcon } from "lucide-react";
 import Image from "next/image";
 import { format } from "date-fns";
 import BackButton from "@/components/ui/back-button";
-import { NewsService } from "@/lib/api";
+import { DetailedNewsDto, NewsService } from "@/lib/api";
+import { IFetch } from "@/lib/IFetch";
 
 const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
   const { articleId } = params;
   // Fetch news info
-  let article;
-  try {
-    article = await NewsService.getApiNews1(articleId as unknown as number);
-  } catch (error) {
-    console.log("Something went wrong!", error);
-  }
+  const article = await IFetch<DetailedNewsDto>({
+    url: `/api/News/${articleId}`,
+    config: { method: "GET" },
+  });
   return (
     <PageWrapper>
       <div className="flex flex-col gap-5 relative w-fit mx-auto">
