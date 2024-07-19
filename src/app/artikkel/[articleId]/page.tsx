@@ -21,7 +21,7 @@ const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
     <PageWrapper>
       <div className="flex flex-col gap-5 relative w-fit mx-auto">
         <BackButton className="absolute -top-5 -translate-y-full" />
-        <Card className="mx-auto md:w-fit w-full md:min-w-[700px]">
+        <Card className="mx-auto md:w-fit w-full md:min-w-[700px] shadow-md">
           <CardHeader>
             <div className="relative px-5 w-full h-56">
               <Image
