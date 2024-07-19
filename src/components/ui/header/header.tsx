@@ -67,8 +67,8 @@ const Header = ({ className, ...props }: HeaderProps) => {
           </Button>
         </Link>
         <div className="w-full h-full md:flex hidden items-center justify-end gap-2">
-          {data.user && <Button variant={"ghost"}>Medlemsområde</Button>}
-          <Button variant={"ghost"}>Utleie</Button>
+          {/* {data.user && <Button variant={"ghost"}>Medlemsområde</Button>} */}
+          {/* <Button variant={"ghost"}>Utleie</Button> */}
           {/* <Button variant={"ghost"}>Medlemsområde</Button>
           <Button variant={"ghost"}>Arrangementer</Button>
           <Button variant={"ghost"}>Utleie</Button> */}
