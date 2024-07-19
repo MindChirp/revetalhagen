@@ -33,7 +33,7 @@ export default function NewsForm() {
     // Send a request to the backend
 
     IFetch<SimpleNewsDto>({
-      url: process.env.NEXT_PUBLIC_API_URL + "/api/News",
+      url: "/api/News",
       config: {
         body: JSON.stringify(values),
         method: "POST",
