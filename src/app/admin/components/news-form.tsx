@@ -69,6 +69,8 @@ export default function NewsForm() {
     //   });
   };
 
+  const formData = form.watch("content");
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -91,7 +93,7 @@ export default function NewsForm() {
             <FormItem>
               <FormLabel>Innhold</FormLabel>
               <FormControl>
-                <NewsEditor />
+                <NewsEditor {...field} />
               </FormControl>
             </FormItem>
           )}
@@ -100,6 +102,7 @@ export default function NewsForm() {
           <SendHorizonalIcon size={16} />
           Send inn
         </Button>
+        {formData}
       </form>
     </Form>
   );
