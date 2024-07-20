@@ -1,5 +1,4 @@
 import PageWrapper from "@/components/layout/page-wrapper";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,15 +6,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import NewsCard from "@/components/ui/news-card";
-import { NewsService, SimpleNewsDto } from "@/lib/api";
-import { PlusIcon } from "lucide-react";
-import { redirect, RedirectType } from "next/navigation";
+import { SimpleNewsDto } from "@/lib/api";
 import Filters from "./components/filters";
 import Typography from "@/components/ui/typography";
 import { ParamsProps } from "@/lib/utils";
 import { IFetch } from "@/lib/IFetch";
+import { Suspense } from "react";
+import SuspenseUI from "@/components/ui/suspense-ui";
+import NewsList from "./components/news-list";
 
 const News = async ({
   searchParams,
@@ -23,43 +22,15 @@ const News = async ({
   const page = searchParams?.page ?? 0;
   const query = searchParams?.query ?? "";
 
-  // Perform a query based on the provided page number
-  const result = await IFetch<SimpleNewsDto[]>({
-    url: "/api/News",
-    config: {
-      method: "GET",
-    },
-  });
-
   return (
     <PageWrapper innerClassName="w-full">
       <div className="flex lg:flex-row flex-col gap-10">
         <Card className="w-full mx-auto order-2 lg:order-1">
           <NewsHeader />
           <CardContent>
-            <div className="flex flex-col gap-5 w-full">
-              {result.map((item) => (
-                <NewsCard
-                  key={item.id}
-                  title={item.title ?? ""}
-                  description={item.shortContent ?? ""}
-                  author={item.publishedBy?.fullName ?? ""}
-                  authorImage={item.publishedBy?.avatarUri ?? ""}
-                  date={item.lastEdited ?? ""}
-                  articleId={item.id?.toString()}
-                />
-              ))}
-              {/* TODO: Create suspense with content streaming, allowing for displaying of a loading state */}
-              {result.length === 0 && (
-                <Card className="bg-accent shadow-none">
-                  <CardHeader>
-                    <Typography className="text-center" variant="p">
-                      Her var det tomt...
-                    </Typography>
-                  </CardHeader>
-                </Card>
-              )}
-            </div>
+            <Suspense fallback={<SuspenseUI className="h-full" />}>
+              <NewsList />
+            </Suspense>
           </CardContent>
         </Card>
         <Filters />
