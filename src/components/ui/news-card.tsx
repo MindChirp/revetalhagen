@@ -33,7 +33,13 @@ const NewsCard = ({
   ...props
 }: NewsCardProps) => {
   return (
-    <Card className={cn("bg-secondary-card shadow-none", className)} {...props}>
+    <Card
+      className={cn(
+        "bg-secondary-card border-[1px] border-primary border-solid",
+        className
+      )}
+      {...props}
+    >
       <CardHeader>
         <CardTitle className="text-primary-foreground">{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
