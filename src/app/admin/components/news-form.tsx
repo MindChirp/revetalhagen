@@ -32,7 +32,7 @@ export default function NewsForm() {
   const { toast } = useToast();
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     // Send a request to the backend
-
+    console.log(JSON.stringify(values));
     IFetch<SimpleNewsDto>({
       url: "/api/News",
       config: {
@@ -102,7 +102,6 @@ export default function NewsForm() {
           <SendHorizonalIcon size={16} />
           Send inn
         </Button>
-        {formData}
       </form>
     </Form>
   );
