@@ -40,7 +40,7 @@ export default function Error() {
               src={animalURL}
               objectFit="cover"
               alt={"Dyr"}
-              className="animate-in opacity-100 fill-mode-both fade-in-0 delay-1000 rounded-3xl shadow-lg"
+              className="animate-bounce mx-auto fade-in-0 delay-1000 rounded-3xl shadow-lg"
               width={200}
               height={200}
             />
