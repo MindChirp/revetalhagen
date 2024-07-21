@@ -80,7 +80,8 @@ const Header = ({ className, ...props }: HeaderProps) => {
             Kontakt oss
           </Button>
           <ProfilePopover
-            name={"Ola"}
+            name={data.user?.firstName ?? ""}
+            image={data.user?.imageUrl}
             className="min-w-72 w-fit max-w-screen-sm"
           />
         </div>
