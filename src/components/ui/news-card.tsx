@@ -41,7 +41,9 @@ const NewsCard = ({
       {...props}
     >
       <CardHeader>
-        <CardTitle className="text-primary-foreground">{title}</CardTitle>
+        <CardTitle className="break-words whitespace-break-spaces text-primary-foreground">
+          {title}
+        </CardTitle>
         {/* <CardDescription>{description}</CardDescription> */}
         <CardContent className="p-0 pt-2.5 flex flex-col gap-5">
           <div className="flex md:flex-row flex-col gap-5 md:items-center">
@@ -63,7 +65,7 @@ const NewsCard = ({
             </div>
           </div>
           <Link href={`/artikkel/${articleId}`} className="w-fit">
-            <Button className="flex gap-2.5 w-fit">
+            <Button className="md:w-fit w-full flex gap-2.5 ">
               <BookOpenTextIcon size={16} />
               Les artikkel
             </Button>

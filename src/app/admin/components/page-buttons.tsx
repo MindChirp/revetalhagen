@@ -1,17 +1,23 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { routes } from "@/lib/routes";
-import { LightbulbIcon, NewspaperIcon, Users } from "lucide-react";
+import { LightbulbIcon, NewspaperIcon, TextIcon, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const Buttons: {
   label: string;
   icon: React.ReactNode;
+  props?: ButtonProps;
 }[] = [
   { label: "Nyheter", icon: <NewspaperIcon size={16} /> },
-  { label: "Interessegrupper", icon: <LightbulbIcon size={16} /> },
   { label: "Brukere", icon: <Users size={16} /> },
+  {
+    label: "Interessegrupper",
+    icon: <LightbulbIcon size={16} />,
+    props: { disabled: true },
+  },
+  { label: "Innhold", icon: <TextIcon size={16} />, props: { disabled: true } },
 ];
 
 interface PageButtonsProps {
@@ -35,6 +41,7 @@ export default function PageButtons({ currentPage }: PageButtonsProps) {
             onClick={() =>
               router.replace(`${routes.ADMIN}?page=${page.label.toLowerCase()}`)
             }
+            {...page.props}
           >
             {page.icon}
             {page.label}

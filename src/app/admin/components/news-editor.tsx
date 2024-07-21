@@ -1,7 +1,7 @@
 "use client";
 
 import "@blocknote/core/fonts/inter.css";
-import { useCreateBlockNote } from "@blocknote/react";
+import { SideMenu, useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 interface NewsEditorProps {
@@ -16,7 +16,13 @@ export default function NewsEditor({ onChange, ...props }: NewsEditorProps) {
   };
   return (
     <div className="border-2 border-solid border-input rounded-3xl p-3">
-      <BlockNoteView editor={editor} lang="no-nb" onChange={changeHandler} />
+      <BlockNoteView
+        sideMenu={true}
+        editor={editor}
+        lang="no-nb"
+        onChange={changeHandler}
+        theme={"light"}
+      />
     </div>
   );
 }

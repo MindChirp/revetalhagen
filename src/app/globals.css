@@ -75,6 +75,10 @@
   }
 }
 
+.bn-editor {
+  padding-inline: 2rem !important;
+}
+
 @layer base {
   * {
     @apply border-border;

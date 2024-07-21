@@ -18,7 +18,7 @@ export default async function ArticleContent({
     config: { method: "GET" },
   });
   return (
-    <div>
+    <div className="">
       {/* <CardHeader>
         <div className="relative px-5 w-full h-56">
           <Image
@@ -31,10 +31,12 @@ export default async function ArticleContent({
           />
         </div>
       </CardHeader> */}
-      <CardContent className="pt-6">
+      <CardContent className="pt-6 overflow-hidden">
         <div className="w-full flex gap-5 items-center justify-center flex-col">
           <div className="w-full h-fit bg-accent gap-5 rounded-3xl p-3 flex items-center flex-col">
-            <Typography className="text-center">{article?.title}</Typography>
+            <Typography className="text-center break-words whitespace-break-spaces max-w-full">
+              {article?.title}
+            </Typography>
             <div className="flex gap-5 w-fit items-center">
               <div className="flex gap-2.5 items-center">
                 <UserAvatar src={article?.publishedBy?.avatarUri ?? ""} />

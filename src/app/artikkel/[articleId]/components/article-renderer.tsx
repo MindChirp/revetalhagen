@@ -21,9 +21,14 @@ export default function ArticleRenderer({ article }: ArticleRendererProps) {
   // });
 
   return (
-    <div className="w-full p-5">
+    <div className="w-full md:p-5">
       <div dangerouslySetInnerHTML={{ __html: htmlString }} />
-      <BlockNoteView editable={false} editor={editor} lang="no-nb" />
+      <BlockNoteView
+        editable={false}
+        editor={editor}
+        lang="no-nb"
+        theme={"light"}
+      />
     </div>
   );
 }
