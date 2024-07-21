@@ -32,7 +32,7 @@ const News = async ({
           <NewsHeader />
           <CardContent>
             <Suspense fallback={<SuspenseUI className="h-full" />}>
-              <NewsList query={query} page={page} />
+              <NewsList query={query} page={page as string} />
             </Suspense>
           </CardContent>
         </Card>
