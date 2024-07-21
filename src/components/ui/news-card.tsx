@@ -64,7 +64,7 @@ const NewsCard = ({
               </Typography>
             </div>
           </div>
-          <Link href={`/artikkel/${articleId}`} className="w-fit">
+          <Link href={`/artikkel/${articleId}`} className="md:w-fit w-full">
             <Button className="md:w-fit w-full flex gap-2.5 ">
               <BookOpenTextIcon size={16} />
               Les artikkel

@@ -8,7 +8,7 @@ import Footer from "@/components/ui/footer";
 import { OpenAPI } from "@/lib/api";
 import { auth } from "@clerk/nextjs/server";
 import { Toaster } from "@/components/ui/toaster";
-import BottomHeader from "@/components/ui/bottom-header";
+import BottomHeader from "@/components/ui/bottom-header/bottom-header";
 const fontSans = FontSans({
   subsets: ["latin"],
 });
