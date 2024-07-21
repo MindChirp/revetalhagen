@@ -13,7 +13,7 @@ export default async function NewsList({
 }) {
   // Perform a query based on the provided page number
   const result = await IFetch<SimpleNewsDto[]>({
-    url: `/api/News?query=${query}&page=${page}`,
+    url: `/api/News?title=${query}&page=${page}`,
     config: {
       method: "GET",
     },
