@@ -16,7 +16,7 @@ const BackButton = ({ className, ...props }: BackButtonProps) => {
 
   return (
     <Button
-      className={cn("flex gap-2.5 w-fit shadow-md", className)}
+      className={cn("hidden md:flex gap-2.5 w-fit shadow-md", className)}
       onClick={handleClick}
       variant={"ghost"}
       {...props}

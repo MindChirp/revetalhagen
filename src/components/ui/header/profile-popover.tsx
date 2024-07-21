@@ -15,22 +15,19 @@ import { routes } from "@/lib/routes";
 
 interface ProfilePopoverProps extends React.HTMLProps<HTMLDivElement> {
   name?: string;
+  image?: string;
 }
-const ProfilePopover = ({ ...props }: ProfilePopoverProps) => {
-  const { user, isLoaded } = useUser();
+const ProfilePopover = ({ name, image, ...props }: ProfilePopoverProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button variant={"ghost"} className="px-0" cy-data="avatar-button">
-          <UserAvatar src={user?.imageUrl ?? ""} />
+          <UserAvatar src={image} />
         </Button>
       </PopoverTrigger>
       <PopoverContent {...props} cy-data="popover-content">
         <SignedIn>
-          <SignedInContent
-            userName={user?.fullName ?? ""}
-            image={user?.imageUrl ?? ""}
-          />
+          <SignedInContent userName={name ?? ""} image={image ?? ""} />
         </SignedIn>
         <SignedOut>
           <SignedOutContent />
@@ -53,7 +50,7 @@ const SignedInContent = ({
         <UserAvatar src={image} className="w-24 h-24" />
         <Typography
           variant="h2"
-          className="text-center overflow-hidden w-full border-none"
+          className="capitalize text-center overflow-hidden w-full border-none"
         >
           Hei, {userName.substring(0, 12)}!
         </Typography>

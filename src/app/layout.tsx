@@ -8,6 +8,7 @@ import Footer from "@/components/ui/footer";
 import { OpenAPI } from "@/lib/api";
 import { auth } from "@clerk/nextjs/server";
 import { Toaster } from "@/components/ui/toaster";
+import BottomHeader from "@/components/ui/bottom-header/bottom-header";
 const fontSans = FontSans({
   subsets: ["latin"],
 });
@@ -35,7 +36,8 @@ export default async function RootLayout({
           <Header className="fixed" />
           {children}
           <Toaster />
-          <Footer className="mt-32" />
+          <BottomHeader className="bottom-0 left-0 z-50 md:hidden" />
+          <Footer className="" />
         </body>
       </html>
     </ClerkProvider>

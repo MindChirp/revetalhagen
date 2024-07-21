@@ -98,7 +98,7 @@ export default function NewsForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="flex gap-2.5">
+        <Button type="submit" className="md:w-fit w-full flex gap-2.5">
           <SendHorizonalIcon size={16} />
           Send inn
         </Button>
