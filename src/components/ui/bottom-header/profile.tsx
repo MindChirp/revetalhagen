@@ -33,11 +33,11 @@ export default async function Profile({ className, ...props }: ButtonProps) {
         <ProfileDrawer user={user ?? undefined}>
           <Button
             variant={"ghost"}
-            className={cn("px-0", className)}
+            className={cn("-mb-2 px-0", className)}
             cy-data="avatar-button"
           >
             <UserAvatar
-              className="shadow-lg h-20 w-20"
+              className="shadow-lg h-16 w-16"
               src={user?.imageUrl ?? ""}
             />
           </Button>
