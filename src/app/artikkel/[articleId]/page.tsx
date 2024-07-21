@@ -11,7 +11,7 @@ const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
   // Fetch news info
 
   return (
-    <PageWrapper>
+    <PageWrapper innerClassName="w-full md:w-fit">
       <Card className="animate-in opacity-0 direction-reverse fill-mode-both mx-auto md:w-fit w-full md:min-w-[700px]">
         <Suspense fallback={<SuspenseUI />}>
           <ArticleContent articleId={articleId} />

@@ -9,8 +9,9 @@ import {
   SignOutButton,
 } from "@clerk/nextjs";
 import { Card } from "../card";
-import { TriangleAlertIcon } from "lucide-react";
+import { LogInIcon, TriangleAlertIcon } from "lucide-react";
 import Typography from "../typography";
+import ProfileDrawer from "./profile-drawer";
 
 export default async function Profile({ className, ...props }: ButtonProps) {
   const user = await currentUser();
@@ -19,17 +20,17 @@ export default async function Profile({ className, ...props }: ButtonProps) {
       <SignedOut>
         <Card className="flex gap-2.5 items-center p-2 shadow-lg rounded-full">
           <div className="bg-accent p-2 rounded-full">
-            <TriangleAlertIcon className="text-primary-foreground" />
+            <LogInIcon className="text-primary-foreground" />
           </div>
           <SignInButton mode="modal">
             <Typography variant="small" className="text-primary-foreground">
-              Du er ikke logget inn
+              Medlem? Trykk for å logge inn
             </Typography>
           </SignInButton>
         </Card>
       </SignedOut>
       <SignedIn>
-        <SignOutButton>
+        <ProfileDrawer user={user ?? undefined}>
           <Button
             variant={"ghost"}
             className={cn("px-0", className)}
@@ -40,7 +41,7 @@ export default async function Profile({ className, ...props }: ButtonProps) {
               src={user?.imageUrl ?? ""}
             />
           </Button>
-        </SignOutButton>
+        </ProfileDrawer>
       </SignedIn>
     </div>
   );
