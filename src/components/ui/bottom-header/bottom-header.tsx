@@ -49,7 +49,7 @@ export default async function BottomHeader({
   return (
     <div className={cn("h-fit w-full px-5 fixed pb-3", className)} {...props}>
       <Profile />
-      <Card className="items-center rounded-full p-2 flex justify-between gap-0 shadow-lg">
+      <Card className="border-accent border-2 border-solid items-center rounded-full p-2 flex justify-between gap-0 shadow-lg">
         {/*  Mobile bottom bar buttons    */}
         {Buttons.map((button, index) => {
           if (!button.role || button.role === user.sessionClaims?.metadata.role)
