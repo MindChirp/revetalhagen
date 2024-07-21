@@ -8,7 +8,11 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function Filters() {
+export default function Filters({
+  enableCreateArticle,
+}: {
+  enableCreateArticle?: boolean;
+}) {
   const router = useRouter();
   const params = useSearchParams();
   const [value, setValue] = useState(params.get("query"));
@@ -30,12 +34,14 @@ export default function Filters() {
             router.replace(`${routes.NEWS}?query=${e.target.value}`)
           }
         />
-        <Link href={routes.ADMIN}>
-          <Button className="flex gap-2.5 w-full">
-            <PlusIcon size={16} />
-            Ny artikkel
-          </Button>
-        </Link>
+        {enableCreateArticle && (
+          <Link href={routes.ADMIN}>
+            <Button className="flex gap-2.5 w-full">
+              <PlusIcon size={16} />
+              Ny artikkel
+            </Button>
+          </Link>
+        )}
       </CardContent>
     </Card>
   );
