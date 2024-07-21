@@ -4,11 +4,15 @@ import { ParamsProps } from "@/lib/utils";
 import PageButtons from "./components/page-buttons";
 import PageManager from "./components/page-manager";
 import { routes } from "@/lib/routes";
-import { redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
+import { requireRole } from "@/lib/auth-guard";
 
 export type Pages = "nyheter" | "interessegrupper" | "brukere";
 
 export default function Admin({ searchParams }: ParamsProps<{ page?: Pages }>) {
+  requireRole("admin"); // Subject to change, as we are implementing a different role system in the end
+
   if (!searchParams?.page) {
     redirect(`${routes.ADMIN}?page=nyheter`);
   }

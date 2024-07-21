@@ -15,12 +15,15 @@ import { IFetch } from "@/lib/IFetch";
 import { Suspense } from "react";
 import SuspenseUI from "@/components/ui/suspense-ui";
 import NewsList from "./components/news-list";
+import { auth } from "@clerk/nextjs/server";
 
 const News = async ({
   searchParams,
 }: ParamsProps<{ page?: string; query?: string }>) => {
   const page = searchParams?.page ?? 0;
   const query = searchParams?.query ?? "";
+  const { sessionClaims } = auth();
+  const enableCreateArticle = sessionClaims?.metadata.role == "admin";
 
   return (
     <PageWrapper innerClassName="w-full">
@@ -29,11 +32,11 @@ const News = async ({
           <NewsHeader />
           <CardContent>
             <Suspense fallback={<SuspenseUI className="h-full" />}>
-              <NewsList />
+              <NewsList query={query} page={page as string} />
             </Suspense>
           </CardContent>
         </Card>
-        <Filters />
+        <Filters enableCreateArticle={enableCreateArticle} />
       </div>
     </PageWrapper>
   );

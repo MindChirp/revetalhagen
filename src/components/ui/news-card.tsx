@@ -42,7 +42,7 @@ const NewsCard = ({
     >
       <CardHeader>
         <CardTitle className="text-primary-foreground">{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        {/* <CardDescription>{description}</CardDescription> */}
         <CardContent className="p-0 pt-2.5 flex flex-col gap-5">
           <div className="flex md:flex-row flex-col gap-5 md:items-center">
             <div className="flex gap-2.5 items-center justify-start">
