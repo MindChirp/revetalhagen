@@ -23,12 +23,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Set the tokens for OpenAPI usage
-  const session = await auth();
-  const token = await session.getToken();
-  OpenAPI.TOKEN = token ?? "";
-  OpenAPI.BASE = process.env.NEXT_PUBLIC_API_URL ?? "";
-
   return (
     <ClerkProvider localization={nbNO}>
       <html lang="en">
