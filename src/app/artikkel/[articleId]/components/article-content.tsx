@@ -38,7 +38,10 @@ export default async function ArticleContent({
             <div className="flex gap-5 w-fit items-center">
               <div className="flex gap-2.5 items-center">
                 <UserAvatar src={article?.publishedBy?.avatarUri ?? ""} />
-                <Typography variant="small" className="text-primary-foreground">
+                <Typography
+                  variant="small"
+                  className="capitalize text-primary-foreground"
+                >
                   {article?.publishedBy?.fullName}
                 </Typography>
               </div>

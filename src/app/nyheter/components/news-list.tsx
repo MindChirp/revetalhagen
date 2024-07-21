@@ -4,14 +4,21 @@ import Typography from "@/components/ui/typography";
 import { SimpleNewsDto } from "@/lib/api";
 import { IFetch } from "@/lib/IFetch";
 
-export default async function NewsList() {
+export default async function NewsList({
+  query,
+  page,
+}: {
+  query?: string;
+  page?: string;
+}) {
   // Perform a query based on the provided page number
   const result = await IFetch<SimpleNewsDto[]>({
-    url: "/api/News",
+    url: `/api/News?query=${query}&page=${page}`,
     config: {
       method: "GET",
     },
   });
+
   return (
     <div className="flex flex-col gap-5 w-full">
       {result.map((item) => (
