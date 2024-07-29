@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -13,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { SendHorizonalIcon } from "lucide-react";
 import { z } from "zod";
+import SubmitButton from "@/components/ui/submit-button";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -61,10 +61,13 @@ const InterestForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="md:w-fit w-full gap-2.5">
+        <SubmitButton
+          submitting={form.formState.isLoading}
+          submitted={form.formState.isSubmitSuccessful}
+        >
           <SendHorizonalIcon size={16} />
           Meld interesse!
-        </Button>
+        </SubmitButton>
       </form>
     </Form>
   );

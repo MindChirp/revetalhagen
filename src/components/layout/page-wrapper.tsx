@@ -5,20 +5,26 @@ import { ClassNameValue } from "tailwind-merge";
 
 interface PageWrapperProps extends React.HTMLAttributes<HTMLElement> {
   innerClassName?: ClassNameValue;
+  backgroundImage?: string;
 }
 
 const PageWrapper = ({
   children,
   innerClassName,
   className,
+  backgroundImage,
   ...props
 }: PageWrapperProps) => {
   return (
     <div
       className={cn(
-        "bg-page-background w-full max-w-[100vw] pt-64 min-h-screen flex flex-col",
+        "bg-page-background bg-cover w-full max-w-[100vw] pt-64 min-h-screen flex flex-col",
         className
       )}
+      style={{
+        backgroundPositionY: "0",
+        backgroundImage: backgroundImage,
+      }}
       {...props}
     >
       <Wave6 className="block -mb-[1px] text-background w-full" />

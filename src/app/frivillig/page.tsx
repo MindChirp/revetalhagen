@@ -7,11 +7,12 @@ import {
 } from "@/components/ui/card";
 import Typography from "@/components/ui/typography";
 import InterestForm from "./components/interest-form";
+import PageCard from "@/components/ui/page-card";
 
 const VolunteerPage = () => {
   return (
-    <PageWrapper>
-      <Card className="w-fit min-w-[50%] mx-auto">
+    <PageWrapper backgroundImage='url("roar.jpg")'>
+      <PageCard className="">
         <CardHeader>
           <Typography>Lyst til å bidra?</Typography>
           <CardDescription>
@@ -21,7 +22,7 @@ const VolunteerPage = () => {
         <CardContent className="flex flex-col gap-5">
           <InterestForm />
         </CardContent>
-      </Card>
+      </PageCard>
     </PageWrapper>
   );
 };
