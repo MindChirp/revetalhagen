@@ -12,6 +12,7 @@ import Support from "./support";
 import About from "./about";
 import { useUser } from "@clerk/nextjs";
 import Offerings from "../offerings";
+import Image from "next/image";
 
 const Items: MenuItemsProps["items"] = [
   {
@@ -62,8 +63,14 @@ const Header = ({ className, ...props }: HeaderProps) => {
       )}
     >
       <header className="flex justify-center md:justify-start">
-        <Link href={routes.LANDING}>
-          <Button variant="ghost">
+        <Link href={routes.LANDING} className="w-fit">
+          <Button variant="ghost" className="gap-2.5">
+            <Image
+              src="/nakuhel-logo.webp"
+              width={50}
+              height={50}
+              alt="Nakuhel logo"
+            />
             <Typography
               variant="h1"
               className="w-fit md:text-base text-primary-foreground !text-3xl"
