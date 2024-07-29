@@ -18,7 +18,7 @@ const PageWrapper = ({
   return (
     <div
       className={cn(
-        "bg-page-background bg-cover w-full max-w-[100vw] pt-64 min-h-screen flex flex-col",
+        "mx-auto bg-page-background bg-cover w-full max-w-[2000px] pt-64 min-h-screen flex flex-col",
         className
       )}
       style={{

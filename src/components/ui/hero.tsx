@@ -12,7 +12,7 @@ const Hero = ({ displayBg, className, ...props }: HeroProps) => {
   return (
     <div
       className={cn(
-        "z-10 h-fit w-full max-w-7xl mx-auto relative md:block flex justify-center flex-col",
+        "z-10 h-fit w-full relative md:block flex justify-center flex-col",
         className
       )}
     >
