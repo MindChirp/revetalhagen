@@ -5,8 +5,8 @@ import About from "@/components/ui/about";
 
 export default function Home() {
   return (
-    <main className="min-h-screen w-full">
-      <div className="bg-page-background">
+    <main className="min-h-screen w-full max-w-[2000px] mx-auto overflow-hidden">
+      <div className="bg-white">
         <Hero className="md:-mb-[200px]" displayBg />
         <About className="z-10 relative" />
       </div>

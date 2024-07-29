@@ -15,11 +15,11 @@ const About = () => {
 
 interface MenuLinkProps extends React.ComponentProps<typeof Link> {}
 
-const MenuLink = ({ className, ...props }: MenuLinkProps) => {
+export const MenuLink = ({ className, ...props }: MenuLinkProps) => {
   return (
     <Link
       className={cn(
-        "py-2 px-4 transition-colors hover:bg-accent bg-popover rounded-full",
+        "py-2 px-4 transition-colors hover:bg-accent bg-popover rounded-full flex gap-2.5 items-center",
         className
       )}
       {...props}
