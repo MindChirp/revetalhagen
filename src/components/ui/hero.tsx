@@ -54,7 +54,7 @@ const Hero = ({ displayBg, className, ...props }: HeroProps) => {
         <div
           className="md:block hidden w-full h-full top-0 right-0 absolute bg-no-repeat bg-cover bg-center md:bg-left -z-10"
           style={{
-            backgroundImage: 'url("revetalhagen logo.png")',
+            backgroundImage: 'url("bakgrunn3.jpg")',
           }}
         />
       )}
