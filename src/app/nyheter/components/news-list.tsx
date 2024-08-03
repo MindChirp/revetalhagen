@@ -12,12 +12,17 @@ export default async function NewsList({
   page?: string;
 }) {
   // Perform a query based on the provided page number
-  const result = await IFetch<SimpleNewsDto[]>({
-    url: `/api/News?query=${query}&page=${page}`,
-    config: {
-      method: "GET",
-    },
-  });
+  let result: SimpleNewsDto[] = [];
+  try {
+    result = await IFetch<SimpleNewsDto[]>({
+      url: `/api/News?query=${query}&page=${page}`,
+      config: {
+        method: "GET",
+      },
+    });
+  } catch (error) {
+    result = [];
+  }
 
   return (
     <div className="flex flex-col gap-5 w-full">

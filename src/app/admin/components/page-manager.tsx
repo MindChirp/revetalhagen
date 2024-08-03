@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { Pages } from "../page";
+import AdminSkeleton from "./admin-skeleton";
 import NewsPage from "./news-page";
 
 interface PageManagerProps {

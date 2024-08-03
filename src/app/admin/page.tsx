@@ -7,6 +7,7 @@ import { routes } from "@/lib/routes";
 import { redirect, RedirectType } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { requireRole } from "@/lib/auth-guard";
+import AdminSkeleton from "./components/admin-skeleton";
 
 export type Pages = "nyheter" | "interessegrupper" | "brukere";
 
@@ -22,6 +23,7 @@ export default function Admin({ searchParams }: ParamsProps<{ page?: Pages }>) {
       <div className="flex lg:flex-row flex-col gap-10 w-full">
         <Card className="w-full flex-1 order-2 md:order-1">
           <PageManager currentPage={searchParams?.page} />
+          {!searchParams?.page ? <AdminSkeleton /> : null}
         </Card>
         <PageButtons currentPage={searchParams?.page} />
       </div>
