@@ -27,7 +27,7 @@ export default async function RootLayout({
     <ClerkProvider localization={nbNO}>
       <html lang="en">
         <body>
-          <Header className="fixed" />
+          <Header className="fixed max-w-[2000px] left-1/2 -translate-x-1/2" />
           {children}
           <Toaster />
           <BottomHeader className="bottom-0 left-0 z-50 md:hidden" />

@@ -12,7 +12,7 @@ import {
 import Typography from "../typography";
 import Link from "next/link";
 import Profile from "./profile";
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import { Roles } from "@/types/globals";
 
 const Buttons: (ActionButtonLooks & { role?: Roles })[] = [

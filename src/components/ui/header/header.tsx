@@ -11,8 +11,14 @@ import MenuItems, { MenuItemsProps } from "./menu-items";
 import Support from "./support";
 import About from "./about";
 import { useUser } from "@clerk/nextjs";
+import Offerings from "../offerings";
 
 const Items: MenuItemsProps["items"] = [
+  {
+    label: "Tilbud",
+    variant: "ghost",
+    content: <Offerings />,
+  },
   {
     label: "Om oss",
     variant: "ghost",
