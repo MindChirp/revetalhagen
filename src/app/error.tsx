@@ -1,4 +1,5 @@
 "use client";
+import ErrorPage from "@/components/layout/error-page";
 import PageWrapper from "@/components/layout/page-wrapper";
 import {
   Card,
@@ -7,6 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Typography, { TypographyProps } from "@/components/ui/typography";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 type APIResponse = {
@@ -14,43 +17,6 @@ type APIResponse = {
   link: string;
 };
 
-export default function Error() {
-  const [animalURL, setAnimalURL] = useState<string | null>(null);
-
-  useEffect(() => {
-    getRandomFoxUrl()
-      .then((res) => res.json())
-      .then((data) => {
-        setAnimalURL((data as APIResponse).image);
-      });
-  }, []);
-
-  return (
-    <PageWrapper innerClassName="w-full">
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle>Noe gikk galt!</CardTitle>
-          <CardDescription>
-            Vi jobber på spreng for å fikse det!
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {animalURL && (
-            <Image
-              src={animalURL}
-              objectFit="cover"
-              alt={"Dyr"}
-              className="animate-bounce mx-auto fade-in-0 delay-1000 rounded-3xl shadow-lg"
-              width={200}
-              height={200}
-            />
-          )}
-        </CardContent>
-      </Card>
-    </PageWrapper>
-  );
+export default function Error({ statusCode }: { statusCode: number }) {
+  return <ErrorPage code={statusCode} label="en feil oppstod" />;
 }
-
-const getRandomFoxUrl = () => {
-  return fetch("https://randomfox.ca/floof/?ref=apilist.fun");
-};
