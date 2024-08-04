@@ -11,8 +11,8 @@ interface ErrorProps {
 export default function ErrorPage({ code, label }: ErrorProps) {
   return (
     <PageWrapper innerClassName="w-full">
-      <Card className="w-full animate-in slide-in-from-bottom-10 fade-in duration-200">
-        <CardHeader className="text-center overflow-hidden">
+      <Card className="w-full animate-in fade-in duration-200">
+        <CardHeader className="text-center animate-in slide-in-from-bottom-10 overflow-hidden">
           <ImageText variant="h1" className="lg:text-[20rem] text-9xl">
             {code ?? 500}
           </ImageText>
