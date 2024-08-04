@@ -10,5 +10,6 @@ export type DetailedUserDto = {
     email?: string | null;
     avatarUri?: string | null;
     news?: Array<SimpleNewsDto> | null;
+    sub?: string | null;
 };
 

@@ -13,12 +13,12 @@ const Hero = ({ displayBg, className, ...props }: HeroProps) => {
   return (
     <div
       className={cn(
-        "z-10 h-fit w-full relative md:block flex justify-center flex-col",
+        "bg-primary z-10 h-fit w-full relative md:block flex justify-center flex-col",
         className
       )}
     >
       <HeroBackground>
-        <div className="px-20 py-52 text-primary-foreground md:w-[calc(60%_-_17.2rem)] w-full h-2/3 md:h-fit">
+        <div className="px-20 py-52 text-primary-foreground w-full h-2/3 md:h-fit">
           <Typography variant="h1" className="text-2xl">
             Revetalhagen
           </Typography>
@@ -56,7 +56,7 @@ const Hero = ({ displayBg, className, ...props }: HeroProps) => {
         <div
           className="md:block hidden w-full h-full top-0 right-0 absolute bg-no-repeat bg-cover bg-center md:bg-left -z-10"
           style={{
-            backgroundImage: 'url("revetalhagen logo.png")',
+            backgroundImage: 'url("bakgrunn3.jpg")',
           }}
         />
       )}

@@ -16,6 +16,7 @@ import { Suspense } from "react";
 import SuspenseUI from "@/components/ui/suspense-ui";
 import NewsList from "./components/news-list";
 import { auth } from "@clerk/nextjs/server";
+import { NewspaperIcon } from "lucide-react";
 
 const News = async ({
   searchParams,
@@ -27,8 +28,8 @@ const News = async ({
 
   return (
     <PageWrapper innerClassName="w-full">
-      <div className="flex lg:flex-row flex-col gap-10">
-        <Card className="w-full mx-auto order-2 lg:order-1">
+      <div className="flex lg:flex-row flex-col gap-10 animate-in fade-in duration-500">
+        <Card className="w-full mx-auto order-2 lg:order-1 shadow-md">
           <NewsHeader />
           <CardContent>
             <Suspense fallback={<SuspenseUI className="h-full" />}>
@@ -45,7 +46,9 @@ const News = async ({
 const NewsHeader = () => {
   return (
     <CardHeader>
-      <CardTitle className="text-primary-foreground">Nyheter</CardTitle>
+      <CardTitle className="text-primary-foreground flex gap-2.5">
+        <NewspaperIcon /> Nyheter
+      </CardTitle>
       <CardDescription className="text-primary-foreground">
         Her kan du se de siste oppdateringene fra Revetalhagen!
       </CardDescription>

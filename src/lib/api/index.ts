@@ -15,6 +15,7 @@ export type { DetailedUserDto } from './models/DetailedUserDto';
 export type { ProblemDetails } from './models/ProblemDetails';
 export type { SimpleNewsDto } from './models/SimpleNewsDto';
 export type { SimpleUserDto } from './models/SimpleUserDto';
+export type { UpdateNewsDto } from './models/UpdateNewsDto';
 export type { WeatherForecast } from './models/WeatherForecast';
 
 export { NewsService } from './services/NewsService';

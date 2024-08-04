@@ -12,7 +12,7 @@ const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
 
   return (
     <PageWrapper innerClassName="w-full md:w-fit">
-      <Card className="animate-in opacity-0 direction-reverse fill-mode-both mx-auto md:w-fit w-full md:min-w-[700px]">
+      <Card className="animate-in fade-in duration-500 mx-auto md:w-fit w-full md:min-w-[700px] shadow-md">
         <Suspense fallback={<SuspenseUI />}>
           <ArticleContent articleId={articleId} />
         </Suspense>

@@ -6,22 +6,26 @@ import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 interface NewsEditorProps {
   onChange?: (value: string) => void;
+  value?: string;
 }
 
-export default function NewsEditor({ onChange, ...props }: NewsEditorProps) {
+export default function NewsEditor({ onChange, value }: NewsEditorProps) {
   // Creates a new editor instance.
-  const editor = useCreateBlockNote();
+  const editor = useCreateBlockNote({
+    initialContent: value && JSON.parse(value ?? ""),
+  });
   const changeHandler = () => {
     onChange?.(JSON.stringify(editor.document));
   };
   return (
     <div className="border-2 border-solid border-input rounded-3xl p-3">
       <BlockNoteView
-        sideMenu={true}
+        className="min-h-52 px-4"
         editor={editor}
         lang="no-nb"
         onChange={changeHandler}
         theme={"light"}
+        content={value}
       />
     </div>
   );

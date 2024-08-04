@@ -10,3 +10,11 @@ export function requireRole(role: Roles) {
     redirect(routes.LANDING, RedirectType.replace);
   }
 }
+
+export function isRole(role: Roles) {
+  const { sessionClaims } = auth();
+  if (sessionClaims?.metadata.role == role) {
+    return true;
+  }
+  return false;
+}

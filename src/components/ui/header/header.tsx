@@ -37,10 +37,6 @@ const Header = ({ className, ...props }: HeaderProps) => {
   const data = useUser();
 
   useEffect(() => {
-    if (!data.isLoaded) return;
-    console.log(data);
-  }, [data, data.isLoaded]);
-  useEffect(() => {
     const scrollHandler = () => {
       setScroll(window.scrollY);
     };

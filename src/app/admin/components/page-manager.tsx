@@ -1,10 +1,9 @@
-import { useEffect } from "react";
-import { Pages } from "../page";
-import AdminSkeleton from "./admin-skeleton";
+import { AdminSearchParams, Pages } from "../page";
 import NewsPage from "./news-page";
 
 interface PageManagerProps {
   currentPage?: Pages;
+  searchParams?: AdminSearchParams;
 }
 
 // const PageMap: {
@@ -15,12 +14,20 @@ interface PageManagerProps {
 //   },
 // ];
 
-const PageMap: Record<Pages, React.ReactNode> = {
-  nyheter: <NewsPage />,
-  interessegrupper: <></>,
-  brukere: <></>,
+const PageMap: {
+  [T in Pages]?: React.FC<{ searchParams?: AdminSearchParams }>;
+} = {
+  nyheter: NewsPage,
+  // interessegrupper: undefined,
+  // brukere: undefined,
 };
 
-export default function PageManager({ currentPage }: PageManagerProps) {
-  return <>{PageMap[currentPage as Pages]}</>;
+export default function PageManager({ searchParams }: PageManagerProps) {
+  return (
+    <>
+      {PageMap[searchParams?.page as Pages]?.({
+        searchParams,
+      })}
+    </>
+  );
 }
