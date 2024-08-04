@@ -8,12 +8,14 @@ import {
 } from "./card";
 import Typography from "./typography";
 import { Separator } from "./separator";
-import { BookIcon, BookOpenTextIcon, ClockIcon } from "lucide-react";
+import { BookIcon, BookOpenTextIcon, ClockIcon, EditIcon } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "./button";
 import UserAvatar from "./header/user-avatar";
 import BackButton from "./back-button";
 import Link from "next/link";
+import { routes } from "@/lib/routes";
+import Conditional from "./conditional";
 interface NewsCardProps extends React.HTMLAttributes<HTMLElement> {
   title?: string;
   description?: string;
@@ -21,6 +23,7 @@ interface NewsCardProps extends React.HTMLAttributes<HTMLElement> {
   authorImage?: string;
   date?: string;
   articleId?: string;
+  canEdit?: boolean;
 }
 const NewsCard = ({
   title,
@@ -29,13 +32,14 @@ const NewsCard = ({
   author,
   authorImage,
   articleId,
+  canEdit,
   date,
   ...props
 }: NewsCardProps) => {
   return (
     <Card
       className={cn(
-        "bg-secondary-card border-[1px] border-primary border-solid",
+        "shadow-sm bg-secondary-card border-[1px] border-primary border-solid",
         className
       )}
       {...props}
@@ -64,12 +68,25 @@ const NewsCard = ({
               </Typography>
             </div>
           </div>
-          <Link href={`/artikkel/${articleId}`} className="md:w-fit w-full">
-            <Button className="md:w-fit w-full flex gap-2.5 ">
-              <BookOpenTextIcon size={16} />
-              Les artikkel
-            </Button>
-          </Link>
+          <div className="flex gap-2.5">
+            <Link href={`/artikkel/${articleId}`} className="md:w-fit w-full">
+              <Button className="md:w-fit w-full gap-2.5 ">
+                <BookOpenTextIcon size={16} />
+                Les artikkel
+              </Button>
+            </Link>
+
+            <Conditional render={canEdit ?? false}>
+              <Link
+                href={`${routes.ADMIN}?page=nyheter&articleId=${articleId}`}
+              >
+                <Button variant={"ghost"} className="md:w-fit w-full gap-2.5">
+                  <EditIcon size={16} />
+                  Rediger
+                </Button>
+              </Link>
+            </Conditional>
+          </div>
         </CardContent>
       </CardHeader>
     </Card>

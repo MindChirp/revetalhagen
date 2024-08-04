@@ -9,7 +9,7 @@ const OurGarden = () => {
     <PageWrapper>
       <PageCard>
         <CardHeader className="flex flex-col md:items-start items-center">
-          <Typography>Hagen vår</Typography>
+          <Typography variant="h1">Hagen vår</Typography>
           <SquigglyDivider />
         </CardHeader>
         <CardContent>

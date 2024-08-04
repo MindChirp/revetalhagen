@@ -11,7 +11,7 @@ const WhoAreWe = () => {
     <PageWrapper>
       <PageCard>
         <CardHeader className="flex flex-col md:items-start items-center">
-          <Typography>Hvem er vi?</Typography>
+          <Typography variant="h1">Hvem er vi?</Typography>
           <SquigglyDivider />
         </CardHeader>
         <CardContent>

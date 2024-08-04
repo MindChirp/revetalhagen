@@ -9,7 +9,7 @@ const AboutNaKuHel = () => {
     <PageWrapper>
       <PageCard>
         <CardHeader className="flex flex-col md:items-start items-center">
-          <Typography>Om NaKuHel</Typography>
+          <Typography variant="h1">Om NaKuHel</Typography>
           <SquigglyDivider />
         </CardHeader>
         <CardContent>

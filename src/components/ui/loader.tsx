@@ -1,6 +1,10 @@
 "use client";
 import { newtonsCradle } from "ldrs";
-export default function Loader() {
+
+interface LoaderProps {
+  color?: string;
+}
+export default function Loader({ color }: LoaderProps) {
   newtonsCradle.register();
-  return <l-newtons-cradle color={"hsl(149 41% 21%)"}></l-newtons-cradle>;
+  return <l-ring color={color ?? "hsl(149 41% 21%)"}></l-ring>;
 }
