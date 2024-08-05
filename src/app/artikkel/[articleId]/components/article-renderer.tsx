@@ -1,11 +1,10 @@
 "use client";
 import { DetailedNewsDto } from "@/lib/api";
-import { BlockNoteEditor } from "@blocknote/core";
 import { BlockNoteView } from "@blocknote/mantine";
 
 import "@blocknote/mantine/style.css";
 import { useCreateBlockNote } from "@blocknote/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 interface ArticleRendererProps {
   article: DetailedNewsDto;
 }
@@ -13,8 +12,9 @@ interface ArticleRendererProps {
 export default function ArticleRenderer({ article }: ArticleRendererProps) {
   const [htmlString, setHtmlString] = useState<string>("");
   const editor = useCreateBlockNote({
-    initialContent: JSON.parse(article.content ?? ""),
+    initialContent: article.content && JSON.parse(article.content ?? ""),
   });
+  editor;
   // editor.blocksToFullHTML(JSON.parse(article.content ?? "")).then((html) => {
   //   console.log(html);
   //   setHtmlString(html);

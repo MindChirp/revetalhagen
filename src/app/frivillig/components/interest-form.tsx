@@ -10,9 +10,14 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SendHorizonalIcon } from "lucide-react";
+import { HelpCircleIcon, SendHorizonalIcon } from "lucide-react";
 import { z } from "zod";
 import SubmitButton from "@/components/ui/submit-button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -61,13 +66,25 @@ const InterestForm = () => {
             </FormItem>
           )}
         />
-        <SubmitButton
-          submitting={form.formState.isLoading}
-          submitted={form.formState.isSubmitSuccessful}
-        >
-          <SendHorizonalIcon size={16} />
-          Meld interesse!
-        </SubmitButton>
+        <div className="w-full flex gap-2.5">
+          <SubmitButton
+            className="md:w-fit w-full"
+            submitting={form.formState.isLoading}
+            submitted={form.formState.isSubmitSuccessful}
+          >
+            <SendHorizonalIcon size={16} />
+            Meld interesse!
+          </SubmitButton>
+          <Tooltip>
+            <TooltipTrigger>
+              <HelpCircleIcon className="text-primary-foreground" />
+            </TooltipTrigger>
+            <TooltipContent>
+              Dersom vi tar kontakt med deg, blir terskelen for å melde
+              interesse lavere. Vi gleder oss til å høre fra deg!
+            </TooltipContent>
+          </Tooltip>
+        </div>
       </form>
     </Form>
   );

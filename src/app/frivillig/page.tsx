@@ -14,7 +14,7 @@ const VolunteerPage = () => {
     <PageWrapper backgroundImage='url("roar.jpg")'>
       <PageCard className="">
         <CardHeader>
-          <Typography>Lyst til å bidra?</Typography>
+          <Typography variant="h1">Lyst til å bidra?</Typography>
           <CardDescription>
             Fyll inn detailjene dine under, så tar vi kontakt!
           </CardDescription>

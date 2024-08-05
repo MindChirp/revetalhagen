@@ -1,10 +1,15 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
+
+type CustomConfig = {
+  revalidateTags?: string[];
+};
 
 interface IFetchProps {
   url: string;
-  config?: RequestInit;
+  config?: RequestInit & CustomConfig;
 }
 
 export interface ErrorType {
@@ -41,6 +46,10 @@ export const IFetch = <T extends unknown>({ url, config }: IFetchProps) => {
         response: message,
       };
       throw new Error(JSON.stringify(errorObject));
+    }
+
+    for (const tag of config?.revalidateTags ?? []) {
+      revalidateTag(tag);
     }
 
     return res.json();

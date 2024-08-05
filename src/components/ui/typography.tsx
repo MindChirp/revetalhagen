@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
 
-interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
+export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
   variant?: "h1" | "h2" | "h3" | "h4" | "p" | "large" | "small" | "muted";
 }
 
 const Typography = ({
-  variant = "h1",
+  variant = "p",
   className,
   ...props
 }: TypographyProps) => {

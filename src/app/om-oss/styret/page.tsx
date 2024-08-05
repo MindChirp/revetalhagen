@@ -9,7 +9,7 @@ const Board = () => {
     <PageWrapper>
       <PageCard className="mx-auto">
         <CardHeader className="flex flex-col md:items-start items-center">
-          <Typography>Styret</Typography>
+          <Typography variant="h1">Styret</Typography>
           <SquigglyDivider />
         </CardHeader>
         <CardContent>

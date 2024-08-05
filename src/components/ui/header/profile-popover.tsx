@@ -1,17 +1,16 @@
+import { routes } from "@/lib/routes";
 import {
   SignedIn,
   SignedOut,
-  SignIn,
   SignInButton,
   SignOutButton,
-  useUser,
 } from "@clerk/nextjs";
+import Link from "next/link";
 import { Button } from "../button";
+import Conditional from "../conditional";
 import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 import Typography from "../typography";
 import UserAvatar from "./user-avatar";
-import Link from "next/link";
-import { routes } from "@/lib/routes";
 
 interface ProfilePopoverProps extends React.HTMLProps<HTMLDivElement> {
   name?: string;
@@ -57,11 +56,13 @@ const SignedInContent = ({
       </div>
 
       <div className="flex w-full flex-col gap-2">
-        <Link href={routes.ADMIN}>
-          <Button variant="default" className="w-full">
-            Admin
-          </Button>
-        </Link>
+        <Conditional render={true}>
+          <Link href={routes.ADMIN}>
+            <Button variant="default" className="w-full">
+              Admin
+            </Button>
+          </Link>
+        </Conditional>
         <Button variant="default" className="w-full">
           Min side
         </Button>

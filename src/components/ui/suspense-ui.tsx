@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import Loader from "./loader";
+import { Loader2 } from "lucide-react";
 
 export default function SuspenseUI({
   className,
@@ -13,7 +14,7 @@ export default function SuspenseUI({
       )}
       {...props}
     >
-      <Loader />
+      <Loader2 className="animate-spin" />
     </div>
   );
 }
