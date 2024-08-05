@@ -22,8 +22,7 @@ const Hero = ({ displayBg, className, ...props }: HeroProps) => {
         </Typography>
         <Typography variant="h3">Tønsberg NaKuHel</Typography>
         <Typography variant="p" className="leading-none font-medium">
-          Arbeidsinkludering, frivillighet, språkpraksis og aktiviteter for
-          målgrupper i alle aldre og livssituasjoner
+          Et hus og en hage i hjertet av Revetal - Tilgjengelig for alle.
         </Typography>
         <div className="relative w-fit">
           <Link href={"/frivillig"}>
