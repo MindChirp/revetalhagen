@@ -23,7 +23,10 @@ const Hero = ({ displayBg, className, ...props }: HeroProps) => {
             Revetalhagen
           </Typography>
           <Typography variant="h3">Tønsberg NaKuHel</Typography>
-          <Typography variant="p" className="leading-none font-medium">
+          <Typography
+            variant="p"
+            className="leading-none font-medium max-w-full"
+          >
             Arbeidsinkludering, frivillighet, språkpraksis og aktiviteter for
             målgrupper i alle aldre og livssituasjoner
           </Typography>

@@ -62,10 +62,12 @@ export default async function NewsList({
           </CardHeader>
         </Card>
       )}
-      <AbstractedPagination
-        maxPagesVisible={10}
-        currentPage={parseInt(page ?? "0")}
-      />
+      <Conditional render={!isError}>
+        <AbstractedPagination
+          maxPagesVisible={10}
+          currentPage={parseInt(page ?? "0")}
+        />
+      </Conditional>
     </div>
   );
 }
