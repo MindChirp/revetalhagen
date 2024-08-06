@@ -93,7 +93,7 @@ const DeleteDialog = ({
   ...props
 }: DeleteDialogProps) => {
   return (
-    <Dialog {...props}>
+    <Dialog onOpenChange={onOpenChange} {...props}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
