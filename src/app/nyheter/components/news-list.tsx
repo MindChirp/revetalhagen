@@ -49,7 +49,7 @@ export default async function NewsList({
       ))}
       {/* TODO: Create suspense with content streaming, allowing for displaying of a loading state */}
       {result.length === 0 && (
-        <Card className="bg-accent shadow-none">
+        <Card className="bg-accent shadow-none animate-in fade-in duration-500">
           <CardHeader>
             <Conditional render={isError}>
               <Typography className="text-center">

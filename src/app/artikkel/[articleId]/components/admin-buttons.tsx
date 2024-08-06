@@ -14,6 +14,7 @@ import Loader from "@/components/ui/loader";
 import { useToast } from "@/components/ui/use-toast";
 import { IFetch } from "@/lib/IFetch";
 import { routes } from "@/lib/routes";
+import { useUser } from "@clerk/nextjs";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { EditIcon, Loader2, TrashIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -30,6 +31,8 @@ export default function AdminButtons({
   const { toast } = useToast();
   const router = useRouter();
   const [deleteOpen, setDeleteOpen] = useState(false);
+
+  const user = useUser();
 
   const deleteArticle = () => {
     setIsDeleting(true);

@@ -5,10 +5,10 @@ import BackButton from "@/components/ui/back-button";
 import { Suspense } from "react";
 import ArticleContent from "./components/article-content";
 import SuspenseUI from "@/components/ui/suspense-ui";
+import ArticleComments from "./components/article-comments";
 
 const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
   const { articleId } = params;
-  // Fetch news info
 
   return (
     <PageWrapper innerClassName="w-full md:w-fit">
@@ -16,6 +16,7 @@ const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
         <Suspense fallback={<SuspenseUI />}>
           <ArticleContent articleId={articleId} />
         </Suspense>
+        <ArticleComments articleId={articleId} />
       </Card>
     </PageWrapper>
   );

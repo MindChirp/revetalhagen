@@ -24,7 +24,7 @@ export default function ArticlePreview({
       <div className="w-full flex gap-5 items-center justify-center flex-col">
         <div className="w-full h-fit bg-accent gap-5 rounded-3xl p-3 flex items-center flex-col">
           <Typography
-            className="text-center break-words whitespace-break-spaces max-w-[50vw]"
+            className="text-center break-words whitespace-break-spaces md:max-w-[50vw] max-w-full"
             variant="h1"
           >
             {article?.title}
