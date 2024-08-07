@@ -6,17 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import NewsCard from "@/components/ui/news-card";
-import { SimpleNewsDto } from "@/lib/api";
-import Filters from "./components/filters";
-import Typography from "@/components/ui/typography";
-import { ParamsProps } from "@/lib/utils";
-import { IFetch } from "@/lib/IFetch";
-import { Suspense } from "react";
 import SuspenseUI from "@/components/ui/suspense-ui";
-import NewsList from "./components/news-list";
+import { ParamsProps } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { NewspaperIcon } from "lucide-react";
+import { Suspense } from "react";
+import Filters from "./components/filters";
+import NewsList from "./components/news-list";
 
 const News = async ({
   searchParams,

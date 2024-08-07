@@ -1,5 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import Conditional from "@/components/ui/conditional";
@@ -15,19 +14,21 @@ import {
 import { Input } from "@/components/ui/input";
 import Loader from "@/components/ui/loader";
 import Typography from "@/components/ui/typography";
+import { IFetch } from "@/lib/IFetch";
+import { CreateCommentDto } from "@/lib/api";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "framer-motion";
 import { SendIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { cn } from "@/lib/utils";
-import CommentsWrapper from "./comments-wrapper";
+import { Schema, z } from "zod";
 
 interface ArticleCommentsProps {
   articleId: string;
 }
 
-const formSchema = z.object({
-  comment: z
+const formSchema: Schema<CreateCommentDto> = z.object({
+  message: z
     .string()
     .min(1, "Kommentaren må ha minst ett tegn")
     .max(255, "Kommentaren kan ikke ha mer enn 255 tegn"),
@@ -38,26 +39,32 @@ export default function ArticleComments({ articleId }: ArticleCommentsProps) {
     resolver: zodResolver(formSchema),
   });
 
-  const comments: unknown[] = [];
-
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        return resolve(true);
-      }, 5000);
-    });
+  const submitComment = async (data: CreateCommentDto) => {
+    return IFetch({
+      url: `/api/Comment/articles/${articleId}`,
+      config: {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        revalidateTags: ["comments", articleId],
+        next: {
+          tags: ["comments", articleId],
+        },
+      },
+    }).then(() => form.reset());
   };
-
   return (
     <CardContent className="w-full">
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(submitComment)}
           className="justify-center flex gap-5 space-y-8"
         >
           <FormField
             control={form.control}
-            name="comment"
+            name="message"
             render={({ field, fieldState }) => (
               <FormItem className="flex justify-center md:flex-row flex-col w-full items-center">
                 <div
@@ -117,7 +124,7 @@ export default function ArticleComments({ articleId }: ArticleCommentsProps) {
           />
         </form>
       </Form>
-      <CommentsWrapper className="mt-5" comments={comments} />
+      {/* <CommentsWrapper className="mt-5" comments={comments} /> */}
     </CardContent>
   );
 }
