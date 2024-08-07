@@ -7,7 +7,6 @@ export type SimpleUserDto = {
     fullName?: string | null;
     username?: string | null;
     email?: string | null;
-    sub?: string | null;
     avatarUri?: string | null;
 };
 

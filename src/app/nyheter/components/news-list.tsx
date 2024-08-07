@@ -44,7 +44,7 @@ export default async function NewsList({
           authorImage={item.publishedBy?.avatarUri ?? ""}
           date={item.lastEdited ?? ""}
           articleId={item.id?.toString()}
-          canEdit={user?.id == item.publishedBy?.sub || isRole("admin")}
+          canEdit={user?.id == item.publishedBy?.id || isRole("admin")}
         />
       ))}
       {/* TODO: Create suspense with content streaming, allowing for displaying of a loading state */}

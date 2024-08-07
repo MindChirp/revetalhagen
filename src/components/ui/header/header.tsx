@@ -53,8 +53,8 @@ const Header = ({ className, ...props }: HeaderProps) => {
     <div
       {...props}
       className={cn(
-        "w-full h-fit px-20 py-5 z-50 transition-colors duration-500",
-        scroll > 0 ? "bg-background/70 backdrop-blur-sm" : "",
+        "w-full h-fit px-20 bg-background/30 md:bg-transparent py-5 z-50 transition-colors duration-500",
+        scroll > 0 ? "md:bg-background/70 backdrop-blur-sm" : "",
         className
       )}
     >
