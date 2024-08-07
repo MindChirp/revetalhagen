@@ -20,7 +20,9 @@ export default async function ArticleContent({
     <div className="">
       <ArticlePreview
         article={article}
-        adminButtons={user?.id === article?.publishedBy?.sub || isRole("admin")}
+        adminButtons={
+          user?.username === article?.publishedBy?.username || isRole("admin")
+        }
       />
     </div>
   );
