@@ -63,9 +63,9 @@ const SignedInContent = ({
             </Button>
           </Link>
         </Conditional>
-        <Button variant="default" className="w-full">
+        {/* <Button variant="default" className="w-full">
           Min side
-        </Button>
+        </Button> */}
 
         <SignOutButton>
           <Button variant="destructive" className="w-full">

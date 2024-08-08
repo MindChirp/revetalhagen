@@ -12,6 +12,7 @@ import Support from "./support";
 import About from "./about";
 import { useUser } from "@clerk/nextjs";
 import Offerings from "../offerings";
+import Image from "next/image";
 
 const Items: MenuItemsProps["items"] = [
   {
@@ -52,14 +53,20 @@ const Header = ({ className, ...props }: HeaderProps) => {
     <div
       {...props}
       className={cn(
-        "w-full h-fit px-20 py-5 z-50 transition-colors duration-500",
-        scroll > 0 ? "bg-background/70 backdrop-blur-sm" : "",
+        "w-full h-fit px-20 bg-background/30 md:bg-transparent py-5 z-50 transition-colors duration-500",
+        scroll > 0 ? "md:bg-background/70 backdrop-blur-sm" : "",
         className
       )}
     >
       <header className="flex justify-center md:justify-start">
-        <Link href={routes.LANDING}>
-          <Button variant="ghost">
+        <Link href={routes.LANDING} className="w-fit">
+          <Button variant="ghost" className="gap-2.5 px-10 bg-transparent">
+            <Image
+              src="/nakuhel-logo-uten-tekst.webp"
+              width={50}
+              height={50}
+              alt="Nakuhel logo"
+            />
             <Typography
               variant="h1"
               className="w-fit md:text-base text-primary-foreground !text-3xl"
@@ -78,9 +85,11 @@ const Header = ({ className, ...props }: HeaderProps) => {
             <Button variant={"ghost"}>Nyheter</Button>
           </Link>
           <MenuItems items={Items} />
-          <Button variant={"ghost"} className="ml-16">
-            Kontakt oss
-          </Button>
+          <Link href={routes.CONTACT_US}>
+            <Button variant={"ghost"} className="ml-16">
+              Kontakt oss
+            </Button>
+          </Link>
           <ProfilePopover
             name={data.user?.firstName ?? ""}
             image={data.user?.imageUrl}

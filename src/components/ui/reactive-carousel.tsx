@@ -39,7 +39,7 @@ const ReactiveCarousel = ({
           stopOnFocusIn: true,
         }),
       ]}
-      className={cn("mx-auto md:w-full", className)}
+      className={cn("mx-auto md:w-full w-3/4", className)}
       {...props}
     >
       <CarouselContent>

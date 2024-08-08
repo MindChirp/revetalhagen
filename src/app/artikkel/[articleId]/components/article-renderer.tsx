@@ -21,7 +21,7 @@ export default function ArticleRenderer({ article }: ArticleRendererProps) {
   // });
 
   return (
-    <div className="w-full md:p-5">
+    <div className="w-full max-w-3xl md:p-5">
       <div dangerouslySetInnerHTML={{ __html: htmlString }} />
       <BlockNoteView
         editable={false}

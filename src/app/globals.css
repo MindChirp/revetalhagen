@@ -38,7 +38,7 @@
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 89.8%;
-    --input: 141 84% 93%;
+    --input: 142 77% 73%;
     --ring: 0 0% 3.9%;
 
     --radius: 0.5rem;
@@ -86,4 +86,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.text-stroke-2 {
+  -webkit-text-stroke: 2px black;
 }

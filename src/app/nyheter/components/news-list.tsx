@@ -44,12 +44,12 @@ export default async function NewsList({
           authorImage={item.publishedBy?.avatarUri ?? ""}
           date={item.lastEdited ?? ""}
           articleId={item.id?.toString()}
-          canEdit={user?.id == item.publishedBy?.sub || isRole("admin")}
+          canEdit={user?.id == item.publishedBy?.id || isRole("admin")}
         />
       ))}
       {/* TODO: Create suspense with content streaming, allowing for displaying of a loading state */}
       {result.length === 0 && (
-        <Card className="bg-accent shadow-none">
+        <Card className="bg-accent shadow-none animate-in fade-in duration-500">
           <CardHeader>
             <Conditional render={isError}>
               <Typography className="text-center">
@@ -62,10 +62,12 @@ export default async function NewsList({
           </CardHeader>
         </Card>
       )}
-      <AbstractedPagination
-        maxPagesVisible={10}
-        currentPage={parseInt(page ?? "0")}
-      />
+      <Conditional render={!isError}>
+        <AbstractedPagination
+          maxPagesVisible={10}
+          currentPage={parseInt(page ?? "0")}
+        />
+      </Conditional>
     </div>
   );
 }
