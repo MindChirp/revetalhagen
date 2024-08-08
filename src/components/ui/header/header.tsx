@@ -62,7 +62,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
         <Link href={routes.LANDING} className="w-fit">
           <Button variant="ghost" className="gap-2.5 px-10 bg-transparent">
             <Image
-              src="/nakuhel-logo-uten-tekst.webp"
+              src="/nakuhel-logo.webp"
               width={50}
               height={50}
               alt="Nakuhel logo"
