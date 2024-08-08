@@ -20,7 +20,7 @@ const Hero = ({ displayBg, className, ...props }: HeroProps) => {
     >
       <HeroBackground>
         <div className="md:px-20 px-10 py-52 text-primary-foreground w-full h-2/3 md:h-fit">
-          <Card className="w-full md:shadow-none shadow-md">
+          <Card className="w-full md:shadow-none shadow-md bg-background">
             <CardContent className="pt-6 md:p-0">
               <Typography variant="h1" className="text-2xl">
                 Revetalhagen

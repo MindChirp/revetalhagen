@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import ArticleComments from "./components/article-comments";
 import ArticleContent from "./components/article-content";
 import CommentsFetcher from "./components/comments-fetcher";
+import { Separator } from "@/components/ui/separator";
 
 const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
   const { articleId } = params;
@@ -16,6 +17,7 @@ const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
         <Suspense fallback={<SuspenseUI />}>
           <ArticleContent articleId={articleId} />
         </Suspense>
+        <Separator orientation="horizontal" className="my-6" />
         <ArticleComments articleId={articleId} />
         <CommentsFetcher articleId={parseInt(articleId)} />
       </Card>
