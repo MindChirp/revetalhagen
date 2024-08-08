@@ -13,9 +13,8 @@ import CommentActions from "./comment-actions";
 
 interface CommentProps {
   comment: CommentDto;
-  articleId: number;
 }
-const Comment = ({ comment, articleId }: CommentProps) => {
+const Comment = ({ comment }: CommentProps) => {
   return (
     <motion.div
       initial={{ y: -100, opacity: 0 }}

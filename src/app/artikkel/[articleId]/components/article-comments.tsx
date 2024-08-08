@@ -151,7 +151,6 @@ export default function ArticleComments({ articleId }: ArticleCommentsProps) {
       <SignedOut>
         <Typography variant="h3">Logg inn for å kommentere</Typography>
       </SignedOut>
-      {/* <CommentsWrapper className="mt-5" comments={comments} /> */}
     </CardContent>
   );
 }

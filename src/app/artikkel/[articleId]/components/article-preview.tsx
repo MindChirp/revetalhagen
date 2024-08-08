@@ -7,6 +7,7 @@ import { ClockIcon } from "lucide-react";
 import ArticleRenderer from "./article-renderer";
 import AdminButtons from "./admin-buttons";
 import { cn } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
 
 interface ArticlePreviewProps extends React.ComponentProps<typeof CardContent> {
   article: DetailedNewsDto;
@@ -22,7 +23,7 @@ export default function ArticlePreview({
   return (
     <CardContent className={cn("pt-6 overflow-hidden", className)} {...props}>
       <div className="w-full flex gap-5 items-center justify-center flex-col">
-        <div className="w-full h-fit bg-accent gap-5 rounded-3xl p-3 flex items-center flex-col">
+        <div className="w-full h-fit bg-accent gap-5 rounded-3xl p-6 flex items-center flex-col">
           <Typography
             className="text-center break-words whitespace-break-spaces md:max-w-[50vw] max-w-full"
             variant="h1"

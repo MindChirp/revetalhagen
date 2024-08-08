@@ -18,7 +18,7 @@ export default function CommentsWrapper({
   return (
     <div className={cn("px-6 flex gap-2.5 flex-col", className)} {...props}>
       {comments.map((comment, index) => (
-        <Comment articleId={articleId} key={index} comment={comment} />
+        <Comment key={index} comment={comment} />
       ))}
       <Conditional render={!comments.length}>
         <Card className="bg-secondary-background py-10 shadow-none text-center">

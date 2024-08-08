@@ -1,19 +1,18 @@
+"use client";
+
 import { cn } from "@/lib/utils";
-import { Card } from "../card";
-import { Button, ButtonProps } from "../button";
+import { Roles } from "@/types/globals";
 import {
   BookHeartIcon,
-  InfoIcon,
   NewspaperIcon,
   PiggyBank,
-  Shield,
   ShieldIcon,
 } from "lucide-react";
-import Typography from "../typography";
 import Link from "next/link";
+import { Button, ButtonProps } from "../button";
+import { Card } from "../card";
+import Typography from "../typography";
 import Profile from "./profile";
-import { auth } from "@clerk/nextjs/server";
-import { Roles } from "@/types/globals";
 
 const Buttons: (ActionButtonLooks & { role?: Roles })[] = [
   {
@@ -39,20 +38,17 @@ const Buttons: (ActionButtonLooks & { role?: Roles })[] = [
   },
 ];
 interface BottomHeaderProps extends React.HTMLProps<HTMLDivElement> {}
-export default async function BottomHeader({
+export default function BottomHeader({
   className,
   ...props
 }: BottomHeaderProps) {
-  const user = await auth();
-  if (user.sessionClaims?.metadata.role === "admin") {
-  }
   return (
     <div className={cn("h-fit w-full px-5 fixed pb-3", className)} {...props}>
       <Profile />
       <Card className="border-accent border-2 border-solid items-center rounded-full p-2 flex justify-between gap-0 shadow-lg">
         {/*  Mobile bottom bar buttons    */}
         {Buttons.map((button, index) => {
-          if (!button.role || button.role === user.sessionClaims?.metadata.role)
+          if (!button.role)
             return (
               <ActionButton
                 className="w-full flex flex-col h-fit"

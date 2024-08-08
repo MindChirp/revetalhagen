@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -32,8 +33,6 @@ export default function AdminButtons({
   const router = useRouter();
   const [deleteOpen, setDeleteOpen] = useState(false);
 
-  const user = useUser();
-
   const deleteArticle = () => {
     setIsDeleting(true);
     IFetch({
@@ -57,7 +56,7 @@ export default function AdminButtons({
     router.push(`${routes.ADMIN}?page=nyheter&articleId=${articleId}`);
   };
   return (
-    <div className="flex gap-5 w-full">
+    <Card className="flex gap-5 w-full shadow-none bg-accent/30 border-accent border p-6">
       <Button className="gap-2.5 flex-1" onClick={editArticle}>
         <EditIcon size={16} />
         Rediger
@@ -81,7 +80,7 @@ export default function AdminButtons({
           {isDeleting && <Loader2 className="animate-spin" />}
         </Button>
       </DeleteDialog>
-    </div>
+    </Card>
   );
 }
 
