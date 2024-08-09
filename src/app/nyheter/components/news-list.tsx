@@ -25,7 +25,7 @@ export default async function NewsList({
       config: {
         method: "GET",
         next: {
-          tags: ["news", "page-" + page],
+          tags: ["news", "page-" + page, "query-" + query],
         },
       },
     });

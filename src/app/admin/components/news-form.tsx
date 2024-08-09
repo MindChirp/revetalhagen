@@ -15,7 +15,13 @@ import { DetailedNewsDto, SimpleNewsDto } from "@/lib/api";
 import { IFetch } from "@/lib/IFetch";
 import { routes } from "@/lib/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EyeIcon, Loader2, ScanEyeIcon, SendHorizonalIcon } from "lucide-react";
+import {
+  EyeIcon,
+  Loader2,
+  SaveIcon,
+  ScanEyeIcon,
+  SendHorizonalIcon,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -130,8 +136,17 @@ export default function NewsForm({ article }: NewsFormProps) {
         <div className="flex gap-2.5">
           <Button type="submit" className="md:w-fit w-full flex gap-2.5">
             <Conditional render={!form.formState.isSubmitting}>
-              <SendHorizonalIcon size={16} />
-              {state === "creating" ? "Opprett" : "Oppdater"}
+              {state === "creating" ? (
+                <>
+                  <SendHorizonalIcon size={16} />
+                  Opprett
+                </>
+              ) : (
+                <>
+                  <SaveIcon size={16} />
+                  Oppdater
+                </>
+              )}
             </Conditional>
             <Conditional render={form.formState.isSubmitting}>
               <Loader2 className="animate-spin" />
