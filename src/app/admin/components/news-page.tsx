@@ -39,7 +39,7 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
         <CardDescription>Administrer nyhetsfeeden</CardDescription>
       </CardHeader>
       <CardContent>
-        <Tabs defaultValue="new-article">
+        <Tabs defaultValue="new-article" key="news">
           <TabsList>
             <TabsTrigger value="new-article">Ny artikkel</TabsTrigger>
             <TabsTrigger value="existing-articles">

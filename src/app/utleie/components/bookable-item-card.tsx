@@ -23,13 +23,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { DetailedBookableItemDto, SimpleBookableItemDto } from "@/lib/api";
 import { IFetch } from "@/lib/IFetch";
 import { DialogTrigger } from "@radix-ui/react-dialog";
-import {
-  ArrowRightIcon,
-  ChevronRightIcon,
-  HammerIcon,
-  PencilIcon,
-  TrashIcon,
-} from "lucide-react";
+import { ArrowRightIcon, PencilIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 
 interface BookableItemCardProps {
@@ -129,12 +123,16 @@ const DeleteDialog = ({
             Du kan ikke angre denne handlingen.
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
-          <DialogClose>
+        <DialogFooter className="flex md:flex-row flex-col gap-2.5">
+          <DialogClose asChild>
             <Button variant={"secondary"}>Avbryt</Button>
           </DialogClose>
-          <DialogClose onClick={onDelete}>
-            <Button variant="destructive" className="flex gap-2.5">
+          <DialogClose asChild>
+            <Button
+              variant="destructive"
+              className="flex gap-2.5"
+              onClick={onDelete}
+            >
               <TrashIcon size={16} /> Slett
             </Button>
           </DialogClose>

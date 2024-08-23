@@ -22,7 +22,7 @@ export default function BookingPage() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Tabs>
+        <Tabs defaultValue="items" key="booking">
           <TabsList defaultValue={"items"}>
             <TabsTrigger value="items">Gjenstander</TabsTrigger>
             <TabsTrigger value="requests">Forespørsler</TabsTrigger>
