@@ -1,4 +1,5 @@
 import { AdminSearchParams, Pages } from "../page";
+import BookingPage from "./booking-page";
 import NewsPage from "./news-page";
 
 interface PageManagerProps {
@@ -18,6 +19,7 @@ const PageMap: {
   [T in Pages]?: React.FC<{ searchParams?: AdminSearchParams }>;
 } = {
   nyheter: NewsPage,
+  utleie: BookingPage,
   // interessegrupper: undefined,
   // brukere: undefined,
 };

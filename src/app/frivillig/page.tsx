@@ -12,13 +12,17 @@ import PageCard from "@/components/ui/page-card";
 const VolunteerPage = () => {
   return (
     <PageWrapper backgroundImage='url("roar.jpg")'>
-      <PageCard className="">
-        <CardHeader>
-          <Typography variant="h1">Lyst til å bidra?</Typography>
-          <CardDescription>
-            Fyll inn detailjene dine under, så tar vi kontakt!
-          </CardDescription>
-        </CardHeader>
+      <PageCard
+        className=""
+        header={
+          <>
+            <Typography variant="h1">Lyst til å bidra?</Typography>
+            <CardDescription>
+              Fyll inn detailjene dine under, så tar vi kontakt!
+            </CardDescription>
+          </>
+        }
+      >
         <CardContent className="flex flex-col gap-5">
           <InterestForm />
         </CardContent>

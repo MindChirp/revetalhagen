@@ -36,7 +36,7 @@ interface PageButtonsProps {
 export default function PageButtons({ currentPage }: PageButtonsProps) {
   const router = useRouter();
   return (
-    <Card className="order-1 md:order-2 h-fit">
+    <Card className="order-1 md:order-2 h-fit sticky">
       <div className="flex flex-col p-5 md:min-w-72 md:w-fit w-full gap-1">
         {Buttons.map((page, _i) => (
           <Button
@@ -46,7 +46,7 @@ export default function PageButtons({ currentPage }: PageButtonsProps) {
                 : "default"
             }
             key={_i}
-            className="justify-start gap-2.5"
+            className="justify-start gap-2.5 w-full"
             onClick={() =>
               router.replace(`${routes.ADMIN}?page=${page.label.toLowerCase()}`)
             }
