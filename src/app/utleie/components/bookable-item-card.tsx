@@ -1,3 +1,5 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,34 +9,137 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { SimpleBookableItemDto } from "@/lib/api";
-import { ArrowRightIcon, ChevronRightIcon } from "lucide-react";
+import Conditional from "@/components/ui/conditional";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
+import { DetailedBookableItemDto, SimpleBookableItemDto } from "@/lib/api";
+import { IFetch } from "@/lib/IFetch";
+import { DialogTrigger } from "@radix-ui/react-dialog";
+import {
+  ArrowRightIcon,
+  ChevronRightIcon,
+  HammerIcon,
+  PencilIcon,
+  TrashIcon,
+} from "lucide-react";
 import Link from "next/link";
 
 interface BookableItemCardProps {
   item: SimpleBookableItemDto;
+  type?: "default" | "admin";
 }
-export default function BookableItemCard({ item }: BookableItemCardProps) {
+export default function BookableItemCard({
+  item,
+  type = "default",
+}: BookableItemCardProps) {
+  const { toast } = useToast();
+
+  const deleteItem = () => {
+    IFetch<DetailedBookableItemDto>({
+      url: `/api/BookableItem/${item.id}`,
+      config: {
+        method: "DELETE",
+        revalidateTags: ["bookableitems", item.id + ""],
+        next: {
+          tags: ["bookableitems", item.id + ""],
+        },
+      },
+    })
+      .then(() => {
+        toast({
+          title: "Gjenstanden ble slettet",
+        });
+      })
+      .catch(() => {
+        toast({
+          title: "Noe gikk galt",
+          description: "Gjenstanden ble ikke slettet",
+          variant: "destructive",
+        });
+      });
+  };
+
   return (
-    <Card className="bg-background shadow-sm border-input border">
-      <CardHeader>
-        <CardTitle>{item.name}</CardTitle>
-        <CardDescription>{item.description}</CardDescription>
-        <Badge className="w-fit" variant={"secondary"}>
-          {item.category?.title}
-        </Badge>
-      </CardHeader>
-      <CardContent>
-        <Link href={`/utleie/kalender/${item.id}`}>
-          <Button className="md:w-fit w-full flex gap-2.5 items-center group">
-            Gå til kalender
-            <ArrowRightIcon
-              size={16}
-              className="group-hover:translate-x-1 transition-transform"
-            />
-          </Button>
-        </Link>
-      </CardContent>
-    </Card>
+    <>
+      <Card className="bg-background shadow-sm border-input border flex flex-col">
+        <CardHeader className="flex-1">
+          <CardTitle>{item.name}</CardTitle>
+          <CardDescription>{item.description}</CardDescription>
+          <Badge className="w-fit" variant={"secondary"}>
+            {item.category?.title}
+          </Badge>
+        </CardHeader>
+        <CardContent>
+          <Conditional render={type === "default"}>
+            {" "}
+            <Link href={`/utleie/kalender/${item.id}`}>
+              <Button className="md:w-fit w-full flex gap-2.5 items-center group">
+                Gå til kalender
+                <ArrowRightIcon
+                  size={16}
+                  className="group-hover:translate-x-1 transition-transform"
+                />
+              </Button>
+            </Link>
+          </Conditional>
+          <Conditional render={type === "admin"}>
+            <div className="w-full flex gap-2.5">
+              <DeleteDialog onDelete={deleteItem}>
+                <Button variant={"destructive"} className="flex gap-2.5 w-fit">
+                  <TrashIcon size={16} />
+                </Button>
+              </DeleteDialog>
+              <Button className="w-full flex gap-2.5">
+                <PencilIcon size={16} /> Rediger
+              </Button>
+            </div>
+          </Conditional>
+        </CardContent>
+      </Card>
+    </>
   );
 }
+
+const DeleteDialog = ({
+  children,
+  onDelete,
+}: {
+  children: React.ReactNode;
+  onDelete: () => void;
+}) => {
+  return (
+    <Dialog>
+      <DialogTrigger className="w-full" asChild>
+        {children}
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>
+            Er du sikker på at du vil slette denne gjenstanden?
+          </DialogTitle>
+          <DialogDescription>
+            Du kan ikke angre denne handlingen.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <DialogClose>
+            <Button variant={"secondary"}>Avbryt</Button>
+          </DialogClose>
+          <DialogClose onClick={onDelete}>
+            <Button variant="destructive" className="flex gap-2.5">
+              <TrashIcon size={16} /> Slett
+            </Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};

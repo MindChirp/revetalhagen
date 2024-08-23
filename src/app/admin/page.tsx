@@ -8,7 +8,12 @@ import { redirect, RedirectType } from "next/navigation";
 import { requireRole } from "@/lib/auth-guard";
 import AdminSkeleton from "./components/admin-skeleton";
 
-export type Pages = "nyheter" | "interessegrupper" | "brukere" | "utleie";
+export type Pages =
+  | "nyheter"
+  | "interessegrupper"
+  | "brukere"
+  | "utleie"
+  | "sponsorer";
 
 export type AdminSearchParams = {
   page?: Pages;

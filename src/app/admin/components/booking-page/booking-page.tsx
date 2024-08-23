@@ -7,6 +7,8 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Typography from "@/components/ui/typography";
 import { BedIcon } from "lucide-react";
+import ItemsTab from "./items-tab";
+import BookingRequests from "./booking-requests";
 
 export default function BookingPage() {
   return (
@@ -26,10 +28,10 @@ export default function BookingPage() {
             <TabsTrigger value="requests">Forespørsler</TabsTrigger>
           </TabsList>
           <TabsContent value="items">
-            <Typography variant="h1">Gjenstander</Typography>
+            <ItemsTab />
           </TabsContent>
           <TabsContent value="requests">
-            <Typography variant="h1">Forespørsler</Typography>
+            <BookingRequests />
           </TabsContent>
         </Tabs>
       </CardContent>

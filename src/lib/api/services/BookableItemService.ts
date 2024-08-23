@@ -33,4 +33,36 @@ export class BookableItemService {
             url: '/api/BookableItem',
         });
     }
+    /**
+     * @param id
+     * @returns DetailedBookableItemDto Success
+     * @throws ApiError
+     */
+    public static getApiBookableItem1(
+        id: number,
+    ): CancelablePromise<DetailedBookableItemDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/BookableItem/{id}',
+            path: {
+                'id': id,
+            },
+        });
+    }
+    /**
+     * @param id
+     * @returns DetailedBookableItemDto Success
+     * @throws ApiError
+     */
+    public static deleteApiBookableItem(
+        id: number,
+    ): CancelablePromise<DetailedBookableItemDto> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/BookableItem/{id}',
+            path: {
+                'id': id,
+            },
+        });
+    }
 }

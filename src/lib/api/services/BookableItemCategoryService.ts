@@ -3,18 +3,19 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CreateBookableItemCategoryDto } from '../models/CreateBookableItemCategoryDto';
+import type { DetailedBookableItemCategoryDto } from '../models/DetailedBookableItemCategoryDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class BookableItemCategoryService {
     /**
      * @param requestBody
-     * @returns any Success
+     * @returns DetailedBookableItemCategoryDto Success
      * @throws ApiError
      */
     public static postApiBookableItemCategory(
         requestBody?: CreateBookableItemCategoryDto,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<DetailedBookableItemCategoryDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/BookableItemCategory',
@@ -23,13 +24,29 @@ export class BookableItemCategoryService {
         });
     }
     /**
-     * @returns any Success
+     * @returns DetailedBookableItemCategoryDto Success
      * @throws ApiError
      */
-    public static getApiBookableItemCategory(): CancelablePromise<any> {
+    public static getApiBookableItemCategory(): CancelablePromise<Array<DetailedBookableItemCategoryDto>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/BookableItemCategory',
+        });
+    }
+    /**
+     * @param id
+     * @returns DetailedBookableItemCategoryDto Success
+     * @throws ApiError
+     */
+    public static deleteApiBookableItemCategory(
+        id: number,
+    ): CancelablePromise<DetailedBookableItemCategoryDto> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/BookableItemCategory/{id}',
+            path: {
+                'id': id,
+            },
         });
     }
 }

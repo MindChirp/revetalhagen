@@ -4,6 +4,8 @@ import PageCard from "@/components/ui/page-card";
 import { DetailedBookableItemDto } from "@/lib/api";
 import { IFetch } from "@/lib/IFetch";
 import BookableItemCard from "./components/bookable-item-card";
+import Banner from "@/components/ui/banner";
+import Illustration from "@/components/ui/illustration";
 
 export default async function Bookings() {
   const items = await IFetch<DetailedBookableItemDto[]>({
@@ -35,6 +37,12 @@ export default async function Bookings() {
               <BookableItemCard key={index} item={item} />
             ))}
           </div>
+          {!Boolean(items.length) && (
+            <Banner>
+              <Illustration src="empty-cart.svg" />
+              Det finnes ingen gjenstander å leie
+            </Banner>
+          )}
         </CardContent>
       </PageCard>
     </PageWrapper>

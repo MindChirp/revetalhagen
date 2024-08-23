@@ -47,7 +47,7 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="new-article">
-            <NewsForm article={article} />
+            <NewsForm article={article} className="mt-5" />
           </TabsContent>
           <TabsContent value="existing-articles">
             <ExistingNews />
