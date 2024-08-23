@@ -3,7 +3,7 @@
 import "@blocknote/core/fonts/inter.css";
 import { SideMenu, useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
-import "@blocknote/shadcn/style.css";
+import "@blocknote/mantine/style.css";
 interface NewsEditorProps {
   onChange?: (value: string) => void;
   value?: string;

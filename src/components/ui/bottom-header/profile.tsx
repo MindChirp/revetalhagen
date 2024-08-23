@@ -1,20 +1,16 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { Button, ButtonProps } from "../button";
-import UserAvatar from "../header/user-avatar";
+"use client";
+
 import { cn } from "@/lib/utils";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignOutButton,
-} from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
+import { LogInIcon } from "lucide-react";
+import { Button, ButtonProps } from "../button";
 import { Card } from "../card";
-import { LogInIcon, TriangleAlertIcon } from "lucide-react";
+import UserAvatar from "../header/user-avatar";
 import Typography from "../typography";
 import ProfileDrawer from "./profile-drawer";
 
-export default async function Profile({ className, ...props }: ButtonProps) {
-  const user = await currentUser();
+export default function Profile({ className, ...props }: ButtonProps) {
+  const { user, isLoaded } = useUser();
   return (
     <div className="w-full flex items-center justify-center py-2">
       <SignedOut>
