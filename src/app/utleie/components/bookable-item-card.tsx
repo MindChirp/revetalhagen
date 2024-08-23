@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { SimpleBookableItemDto } from "@/lib/api";
 import { ArrowRightIcon, ChevronRightIcon } from "lucide-react";
+import Link from "next/link";
 
 interface BookableItemCardProps {
   item: SimpleBookableItemDto;
@@ -24,13 +25,15 @@ export default function BookableItemCard({ item }: BookableItemCardProps) {
         </Badge>
       </CardHeader>
       <CardContent>
-        <Button className="md:w-fit w-full flex gap-2.5 items-center group">
-          Gå til kalender
-          <ArrowRightIcon
-            size={16}
-            className="group-hover:translate-x-1 transition-transform"
-          />
-        </Button>
+        <Link href={`/utleie/kalender/${item.id}`}>
+          <Button className="md:w-fit w-full flex gap-2.5 items-center group">
+            Gå til kalender
+            <ArrowRightIcon
+              size={16}
+              className="group-hover:translate-x-1 transition-transform"
+            />
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   );
