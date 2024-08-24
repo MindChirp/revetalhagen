@@ -63,7 +63,17 @@ export default function ItemForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={(e) => {
+          return form
+            .handleSubmit(onSubmit)(e)
+            .then(() => {
+              form.reset({
+                categoryId: categories[0].id,
+                name: "",
+                description: "",
+              });
+            });
+        }}
         className={cn("space-y-2.5", className)}
       >
         <FormField

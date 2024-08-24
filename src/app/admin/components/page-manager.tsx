@@ -30,7 +30,7 @@ const PageMap: {
 export default function PageManager({ searchParams }: PageManagerProps) {
   return (
     <>
-      {PageMap[searchParams?.page as Pages]?.({
+      {PageMap[(searchParams?.page as Pages) ?? "nyheter"]?.({
         searchParams,
       })}
     </>
