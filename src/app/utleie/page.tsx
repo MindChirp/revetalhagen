@@ -3,7 +3,7 @@ import { CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import PageCard from "@/components/ui/page-card";
 import { DetailedBookableItemDto } from "@/lib/api";
 import { IFetch } from "@/lib/IFetch";
-import BookableItemCard from "./components/bookable-item-card";
+import BookableItemCard from "./components/bookable-item-card/index.tsx";
 import Banner from "@/components/ui/banner";
 import Illustration from "@/components/ui/illustration";
 

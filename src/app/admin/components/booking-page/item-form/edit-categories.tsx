@@ -1,7 +1,8 @@
 "use client";
-import { easeInOut, motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import Banner from "@/components/ui/banner";
 import { Button } from "@/components/ui/button";
+import Conditional from "@/components/ui/conditional";
 import {
   Dialog,
   DialogClose,
@@ -13,19 +14,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import Typography from "@/components/ui/typography";
-import {
-  CreateBookableItemCategoryDto,
-  DetailedBookableItemCategoryDto,
-} from "@/lib/api";
-import { CrossIcon, PencilIcon, PlusIcon, X } from "lucide-react";
-import { IFetch } from "@/lib/IFetch";
-import { useToast } from "@/components/ui/use-toast";
-import {
   Form,
   FormControl,
   FormField,
@@ -33,15 +21,26 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import Illustration from "@/components/ui/illustration";
+import { Input } from "@/components/ui/input";
+import Loader from "@/components/ui/loader";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import Typography from "@/components/ui/typography";
+import { useToast } from "@/components/ui/use-toast";
+import {
+  CreateBookableItemCategoryDto,
+  DetailedBookableItemCategoryDto,
+} from "@/lib/api";
+import { IFetch } from "@/lib/IFetch";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { easeInOut, motion } from "framer-motion";
+import { PencilIcon, PlusIcon, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/ui/input";
-import Conditional from "@/components/ui/conditional";
-import Banner from "@/components/ui/banner";
-import Illustration from "@/components/ui/illustration";
-import Loader from "@/components/ui/loader";
-import { Separator } from "@/components/ui/separator";
 
 interface EditCategoriesProps {
   categories: DetailedBookableItemCategoryDto[];
@@ -142,6 +141,7 @@ function CategoryForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     return IFetch<DetailedBookableItemCategoryDto>({
       url: `/api/BookableItemCategory`,
@@ -170,8 +170,9 @@ function CategoryForm() {
     <Form {...form}>
       <form
         onSubmit={(e) => {
+          e.preventDefault();
           e.stopPropagation();
-          return form.handleSubmit(onSubmit);
+          form.handleSubmit(onSubmit)();
         }}
       >
         <FormField

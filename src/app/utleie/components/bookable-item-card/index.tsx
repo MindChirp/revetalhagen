@@ -20,18 +20,25 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
-import { DetailedBookableItemDto, SimpleBookableItemDto } from "@/lib/api";
+import {
+  DetailedBookableItemCategoryDto,
+  DetailedBookableItemDto,
+  SimpleBookableItemDto,
+} from "@/lib/api";
 import { IFetch } from "@/lib/IFetch";
 import { DialogTrigger } from "@radix-ui/react-dialog";
-import { ArrowRightIcon, PencilIcon, TrashIcon } from "lucide-react";
+import { ArrowRightIcon, PencilIcon, SaveIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
+import EditDialog from "./edit-dialog";
 
 interface BookableItemCardProps {
   item: SimpleBookableItemDto;
   type?: "default" | "admin";
+  categories: DetailedBookableItemCategoryDto[];
 }
 export default function BookableItemCard({
   item,
+  categories,
   type = "default",
 }: BookableItemCardProps) {
   const { toast } = useToast();
@@ -91,9 +98,11 @@ export default function BookableItemCard({
                   <TrashIcon size={16} />
                 </Button>
               </DeleteDialog>
-              <Button className="w-full flex gap-2.5">
-                <PencilIcon size={16} /> Rediger
-              </Button>
+              <EditDialog item={item} categories={categories}>
+                <Button className="w-full flex gap-2.5">
+                  <PencilIcon size={16} /> Rediger
+                </Button>
+              </EditDialog>
             </div>
           </Conditional>
         </CardContent>

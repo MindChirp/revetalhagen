@@ -31,56 +31,34 @@ import { PlusIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import EditCategories from "./edit-categories";
+export const formSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Gjenstanden må ha et navn")
+    .max(100, "Navnet kan ikke være på mer enn 100 tegn"),
+  description: z.string().min(1, "Gjenstanden må ha en beskrivelse"),
+  categoryId: z.number().int("Gjenstanden må ha en kategori"),
+});
 
 interface ItemFormProps {
   className?: string;
   categories: DetailedBookableItemCategoryDto[];
+  children?: React.ReactNode;
+  defaultValues?: CreateBookableItemDto;
+  onSubmit: (values: z.infer<typeof formSchema>) => void;
 }
-export default function ItemForm({ className, categories }: ItemFormProps) {
-  const { toast } = useToast();
-  const formSchema = z.object({
-    name: z
-      .string()
-      .min(1, "Gjenstanden må ha et navn")
-      .max(100, "Navnet kan ikke være på mer enn 100 tegn"),
-    description: z.string().min(1, "Gjenstanden må ha en beskrivelse"),
-    categoryId: z.number().int("Gjenstanden må ha en kategori"),
-  });
+
+export default function ItemForm({
+  className,
+  children,
+  categories,
+  onSubmit,
+  defaultValues,
+}: ItemFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues,
   });
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    return IFetch<DetailedBookableItemDto>({
-      url: `/api/BookableItem`,
-      config: {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values as CreateBookableItemDto),
-        revalidateTags: ["bookableitems"],
-      },
-    })
-      .then(() => {
-        toast({
-          title: "Gjenstanden ble opprettet",
-          description: "Gjenstanden ble opprettet og lagt til i listen",
-        });
-
-        form.reset({
-          name: "",
-          description: "",
-          categoryId: categories[0]?.id,
-        });
-      })
-      .catch(() => {
-        toast({
-          title: "Noe gikk galt",
-          description: "Gjenstanden ble ikke opprettet",
-          variant: "destructive",
-        });
-      });
-  };
 
   return (
     <Form {...form}>
@@ -144,19 +122,22 @@ export default function ItemForm({ className, categories }: ItemFormProps) {
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          className="flex gap-2.5 items-center md:w-fit w-full"
-          disabled={form.formState.isSubmitting}
-        >
-          <Conditional render={form.formState.isSubmitting}>
-            <Loader />
-            Oppretter
-          </Conditional>
-          <Conditional render={!form.formState.isSubmitting}>
-            <PlusIcon size={16} /> Opprett
-          </Conditional>
-        </Button>
+        <Conditional render={!Boolean(children)}>
+          <Button
+            type="submit"
+            className="flex gap-2.5 items-center md:w-fit w-full"
+            disabled={form.formState.isSubmitting}
+          >
+            <Conditional render={form.formState.isSubmitting}>
+              <Loader />
+              Oppretter
+            </Conditional>
+            <Conditional render={!form.formState.isSubmitting}>
+              <PlusIcon size={16} /> Opprett
+            </Conditional>
+          </Button>
+        </Conditional>
+        {children}
       </form>
     </Form>
   );

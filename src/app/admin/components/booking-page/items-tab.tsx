@@ -1,10 +1,10 @@
-import { IFetch } from "@/lib/IFetch";
-import ItemsList from "./items-list";
 import {
   DetailedBookableItemCategoryDto,
   SimpleBookableItemDto,
 } from "@/lib/api";
-import ItemForm from "./item-form";
+import { IFetch } from "@/lib/IFetch";
+import ItemFormWrapper from "./item-form/form-wrapper";
+import ItemsList from "./items-list";
 
 export default async function ItemsTab() {
   const items = await IFetch<SimpleBookableItemDto[]>({
@@ -25,10 +25,11 @@ export default async function ItemsTab() {
       },
     },
   });
+
   return (
     <div>
-      <ItemsList items={items} />
-      <ItemForm className="mt-10" categories={categories} />
+      <ItemsList items={items} categories={categories} />
+      <ItemFormWrapper categories={categories} />
     </div>
   );
 }
