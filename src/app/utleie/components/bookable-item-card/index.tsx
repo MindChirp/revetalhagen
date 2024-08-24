@@ -31,15 +31,24 @@ import { ArrowRightIcon, PencilIcon, SaveIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 import EditDialog from "./edit-dialog";
 
-interface BookableItemCardProps {
-  item: SimpleBookableItemDto;
+type BookableItemCardProps = {
   type?: "default" | "admin";
+  item: SimpleBookableItemDto;
+} & (AdminProps | DefaultProps);
+
+type AdminProps = {
+  type: "admin";
   categories: DetailedBookableItemCategoryDto[];
-}
+};
+
+type DefaultProps = {
+  type?: "default";
+};
+
 export default function BookableItemCard({
   item,
-  categories,
   type = "default",
+  ...props
 }: BookableItemCardProps) {
   const { toast } = useToast();
 
@@ -98,7 +107,10 @@ export default function BookableItemCard({
                   <TrashIcon size={16} />
                 </Button>
               </DeleteDialog>
-              <EditDialog item={item} categories={categories}>
+              <EditDialog
+                item={item}
+                categories={"categories" in props ? props.categories : []}
+              >
                 <Button className="w-full flex gap-2.5">
                   <PencilIcon size={16} /> Rediger
                 </Button>

@@ -43,13 +43,21 @@ const EditDialog = ({
         body: JSON.stringify(values),
         revalidateTags: ["bookableitems", item.id + ""],
       },
-    }).catch(() => {
-      toast({
-        title: "Noe gikk galt",
-        description: "Gjenstanden ble ikke oppdatert",
-        variant: "destructive",
+    })
+      .catch(() => {
+        toast({
+          title: "Noe gikk galt",
+          description: "Gjenstanden ble ikke oppdatert",
+          variant: "destructive",
+        });
+      })
+      .then(() => {
+        toast({
+          title: "Gjenstand oppdatert",
+          description: "Gjenstanden ble oppdatert",
+          variant: "success",
+        });
       });
-    });
   };
 
   return (

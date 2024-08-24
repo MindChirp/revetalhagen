@@ -101,7 +101,9 @@ export default function ItemForm({
               <FormControl>
                 <div className="flex gap-2.5 items-center">
                   <Select
-                    onValueChange={(value) => field.onChange(parseInt(value))}
+                    onValueChange={(value: string) =>
+                      field.onChange(parseInt(value))
+                    }
                     defaultValue={field.value + ""}
                   >
                     <SelectTrigger>
