@@ -6,8 +6,8 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BedIcon } from "lucide-react";
-import BookingRequests from "./booking-requests";
 import ItemsTab from "./items-tab";
+import BookingRequests from "./booking-requests";
 
 export default function BookingPage() {
   return (
@@ -21,7 +21,7 @@ export default function BookingPage() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Tabs defaultValue="items" key="booking">
+        <Tabs defaultValue="requests" key="booking">
           <TabsList defaultValue={"items"}>
             <TabsTrigger value="items">Gjenstander</TabsTrigger>
             <TabsTrigger value="requests">Forespørsler</TabsTrigger>

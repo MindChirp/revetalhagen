@@ -26,38 +26,14 @@ const EditDialog = ({
   children,
   item,
   categories,
+  onSubmit,
 }: {
   children: React.ReactNode;
   item: DetailedBookableItemDto;
   categories: DetailedBookableItemCategoryDto[];
+  onSubmit: (values: z.infer<typeof formSchema>) => void;
 }) => {
   const { toast } = useToast();
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    return IFetch<DetailedBookableItemDto>({
-      url: `/api/BookableItem/${item.id}`,
-      config: {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-        revalidateTags: ["bookableitems", item.id + ""],
-      },
-    })
-      .catch(() => {
-        toast({
-          title: "Noe gikk galt",
-          description: "Gjenstanden ble ikke oppdatert",
-          variant: "destructive",
-        });
-      })
-      .then(() => {
-        toast({
-          title: "Gjenstand oppdatert",
-          description: "Gjenstanden ble oppdatert",
-        });
-      });
-  };
 
   return (
     <Dialog>

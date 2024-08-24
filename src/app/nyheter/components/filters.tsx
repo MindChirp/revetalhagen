@@ -35,7 +35,7 @@ export default function Filters({
           }
         />
         {enableCreateArticle && (
-          <Link href={routes.ADMIN}>
+          <Link href={routes.ADMIN + "?page=nyheter"}>
             <Button className="flex gap-2.5 w-full">
               <PlusIcon size={16} />
               Ny artikkel
