@@ -55,7 +55,6 @@ const EditDialog = ({
         toast({
           title: "Gjenstand oppdatert",
           description: "Gjenstanden ble oppdatert",
-          variant: "success",
         });
       });
   };
