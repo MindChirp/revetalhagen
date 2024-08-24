@@ -36,7 +36,7 @@ interface PageButtonsProps {
 export default function PageButtons({ currentPage }: PageButtonsProps) {
   const router = useRouter();
   return (
-    <Card className="order-1 md:order-2 h-fit sticky">
+    <Card className="order-1 md:order-2 h-fit sticky top-28">
       <div className="flex flex-col p-5 md:min-w-72 md:w-fit w-full gap-1">
         {Buttons.map((page, _i) => (
           <Button

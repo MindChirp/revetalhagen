@@ -21,7 +21,7 @@ export default function Filters({
     setValue(params.get("query") ?? "");
   }, [params]);
   return (
-    <Card className="shadow-md lg:w-fit w-full h-fit lg:order-2 order-1 sticky">
+    <Card className="shadow-md lg:w-fit w-full h-fit lg:order-2 order-1 sticky top-28">
       <CardHeader>
         <CardTitle className="text-primary-foreground">Filtre</CardTitle>
       </CardHeader>

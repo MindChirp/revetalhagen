@@ -8,7 +8,7 @@ export default function Banner({ children, className }: BannerProps) {
   return (
     <Card
       className={cn(
-        "w-full bg-accent p-6 gap-2.5 shadow-none flex flex-col items-center justify-center",
+        "w-full bg-accent p-6 gap-2.5 shadow-none text-center flex flex-col items-center justify-center",
         className
       )}
     >

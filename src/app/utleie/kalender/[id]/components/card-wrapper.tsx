@@ -28,7 +28,7 @@ export default async function CardWrapper({ id }: CardWrapperProps) {
       }
     >
       <CardContent>
-        <CalendarWrapper />
+        <CalendarWrapper item={item} />
       </CardContent>
     </PageCard>
   );
