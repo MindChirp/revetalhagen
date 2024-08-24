@@ -22,7 +22,7 @@ export default function DayView({
       <Conditional render={!!selectedDate}>
         <div
           className={
-            "flex flex-col rounded-3xl border border-border border-solid p-6 min-h-full"
+            "flex gap-5 flex-col rounded-3xl border border-border border-solid py-6 min-h-full"
           }
           {...props}
         >
