@@ -1,14 +1,9 @@
 import PageWrapper from "@/components/layout/page-wrapper";
 import { Card } from "@/components/ui/card";
+import { requireRole } from "@/lib/auth-guard";
 import { ParamsProps } from "@/lib/utils";
 import PageButtons from "./components/page-buttons";
 import PageManager from "./components/page-manager";
-import { routes } from "@/lib/routes";
-import { redirect, RedirectType } from "next/navigation";
-import { requireRole } from "@/lib/auth-guard";
-import AdminSkeleton from "./components/admin-skeleton";
-import Conditional from "@/components/ui/conditional";
-import Typography from "@/components/ui/typography";
 
 export type Pages =
   | "nyheter"
