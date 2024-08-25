@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import SuspenseUI from "@/components/ui/suspense-ui";
-import { ParamsProps } from "@/lib/utils";
+import { hasPermissions, ParamsProps, PERMISSIONS } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { NewspaperIcon } from "lucide-react";
 import { Suspense } from "react";
@@ -29,11 +29,20 @@ const News = async ({
           <NewsHeader />
           <CardContent>
             <Suspense fallback={<SuspenseUI className="h-full" />}>
-              <NewsList query={query} page={page as string} />
+              <NewsList
+                query={query}
+                page={page as string}
+                permissions={sessionClaims?.metadata.permissions}
+              />
             </Suspense>
           </CardContent>
         </Card>
-        <Filters enableCreateArticle={enableCreateArticle} />
+        <Filters
+          enableCreateArticle={hasPermissions(
+            sessionClaims?.metadata.permissions ?? [],
+            [PERMISSIONS.createArticle]
+          )}
+        />
       </div>
     </PageWrapper>
   );

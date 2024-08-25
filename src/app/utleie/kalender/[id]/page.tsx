@@ -5,11 +5,12 @@ import Typography from "@/components/ui/typography";
 import { PathParams } from "@/lib/utils";
 import CardWrapper from "./components/card-wrapper";
 import { Suspense } from "react";
+import CalendarPageSkeleton from "./components/calendar-page-skeleton";
 export default function Page({ params }: PathParams<{ id: string }>) {
   const { id } = params;
   return (
     <PageWrapper>
-      <Suspense fallback={<Typography variant="h1">Laster</Typography>}>
+      <Suspense fallback={<CalendarPageSkeleton />}>
         <CardWrapper id={id} />
       </Suspense>
     </PageWrapper>

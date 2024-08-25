@@ -11,11 +11,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Loader from "@/components/ui/loader";
 import { useToast } from "@/components/ui/use-toast";
 import { IFetch } from "@/lib/IFetch";
 import { routes } from "@/lib/routes";
-import { useUser } from "@clerk/nextjs";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { EditIcon, Loader2, TrashIcon } from "lucide-react";
 import { useRouter } from "next/navigation";

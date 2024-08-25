@@ -8,6 +8,7 @@ import Illustration from "../illustration";
 import { nb } from "date-fns/locale";
 import { Badge } from "../badge";
 import BookingTimetable from "./booking-timetable";
+import { motion } from "framer-motion";
 
 interface DayViewProps extends React.HTMLProps<HTMLDivElement> {
   selectedDate?: Date;
@@ -18,13 +19,25 @@ export default function DayView({
   ...props
 }: DayViewProps) {
   return (
-    <div className={cn("", className)}>
+    <div className={cn("", className)} {...props}>
       <Conditional render={!!selectedDate}>
-        <div
+        <motion.div
           className={
             "flex gap-5 flex-col rounded-3xl border border-border border-solid py-6 min-h-full"
           }
-          {...props}
+          initial={{
+            opacity: 0,
+            x: -50,
+          }}
+          animate={{
+            opacity: 1,
+            x: 0,
+          }}
+          transition={{
+            duration: 0.5,
+            bounce: 0.25,
+            type: "spring",
+          }}
         >
           <Badge className="w-fit mx-auto" variant={"default"}>
             <Typography className="text-center capitalize">
@@ -36,7 +49,7 @@ export default function DayView({
             </Typography>
           </Badge>
           <BookingTimetable selectedDate={selectedDate} />
-        </div>
+        </motion.div>
       </Conditional>
       <Conditional render={!selectedDate}>
         <Banner className="h-full items-center justify-center">

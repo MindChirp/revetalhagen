@@ -7,6 +7,10 @@ import {
 } from "@/components/ui/card";
 import Illustration from "@/components/ui/illustration";
 import { UserIcon } from "lucide-react";
+import UserList from "./user-list";
+import { Suspense } from "react";
+import Typography from "@/components/ui/typography";
+import UserListSkeleton from "./user-list/user-list-skeleton";
 
 export default function UserPage() {
   return (
@@ -21,9 +25,9 @@ export default function UserPage() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Banner>
-          <Illustration src="construction.svg" /> Under konstruksjon
-        </Banner>
+        <Suspense fallback={<UserListSkeleton />}>
+          <UserList />
+        </Suspense>
       </CardContent>
     </>
   );

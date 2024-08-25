@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Segment, useAnimate } from "framer-motion";
+import { formSchema } from "@/app/admin/components/booking-page/item-form";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,13 +28,12 @@ import {
 } from "@/lib/api";
 import { IFetch } from "@/lib/IFetch";
 import { DialogTrigger } from "@radix-ui/react-dialog";
-import { ArrowRightIcon, PencilIcon, SaveIcon, TrashIcon } from "lucide-react";
+import { useAnimate } from "framer-motion";
+import { ArrowRightIcon, PencilIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
-import EditDialog from "./edit-dialog";
-import { formSchema } from "@/app/admin/components/booking-page/item-form";
-import { z } from "zod";
-import { time } from "console";
 import { useEffect } from "react";
+import { z } from "zod";
+import EditDialog from "./edit-dialog";
 
 type BookableItemCardProps = {
   type?: "default" | "admin";
@@ -101,7 +100,7 @@ export default function BookableItemCard({
     animate(
       scope.current,
       { scale: [0.5, 1], opacity: [0, 1] },
-      { duration: 0.2, type: "spring" }
+      { duration: 0.5, type: "spring" }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

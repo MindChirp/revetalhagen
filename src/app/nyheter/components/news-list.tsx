@@ -7,13 +7,16 @@ import { isRole } from "@/lib/auth-guard";
 import { IFetch } from "@/lib/IFetch";
 import { currentUser } from "@clerk/nextjs/server";
 import AbstractedPagination from "./abstracted-pagination";
+import { hasPermissions, PERMISSIONS } from "@/lib/utils";
 
 export default async function NewsList({
   query,
   page,
+  permissions = [],
 }: {
   query?: string;
   page?: string;
+  permissions?: string[];
 }) {
   // Perform a query based on the provided page number
   const user = await currentUser();
@@ -44,7 +47,10 @@ export default async function NewsList({
           authorImage={item.publishedBy?.avatarUri ?? ""}
           date={item.lastEdited ?? ""}
           articleId={item.id?.toString()}
-          canEdit={user?.id == item.publishedBy?.id || isRole("admin")}
+          canEdit={
+            user?.id == item.publishedBy?.sub ||
+            hasPermissions(permissions, [PERMISSIONS.editArticle])
+          }
         />
       ))}
       {/* TODO: Create suspense with content streaming, allowing for displaying of a loading state */}

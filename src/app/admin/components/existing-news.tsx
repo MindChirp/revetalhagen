@@ -1,3 +1,6 @@
+import Banner from "@/components/ui/banner";
+import Conditional from "@/components/ui/conditional";
+import Illustration from "@/components/ui/illustration";
 import NewsCard from "@/components/ui/news-card";
 import { IFetch } from "@/lib/IFetch";
 import { SimpleNewsDto } from "@/lib/api";
@@ -26,6 +29,12 @@ export default async function ExistingNews() {
           canEdit={true}
         />
       ))}
+      <Conditional render={!Boolean(articles.length)}>
+        <Banner>
+          <Illustration src="empty-cart.svg" /> Det finnes ingen nyhetsartikler
+          for øyeblikket.
+        </Banner>
+      </Conditional>
     </div>
   );
 }

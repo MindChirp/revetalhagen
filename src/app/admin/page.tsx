@@ -1,14 +1,10 @@
 import PageWrapper from "@/components/layout/page-wrapper";
 import { Card } from "@/components/ui/card";
+import { requireRole } from "@/lib/auth-guard";
 import { ParamsProps } from "@/lib/utils";
 import PageButtons from "./components/page-buttons";
 import PageManager from "./components/page-manager";
-import { routes } from "@/lib/routes";
-import { redirect, RedirectType } from "next/navigation";
-import { requireRole } from "@/lib/auth-guard";
-import AdminSkeleton from "./components/admin-skeleton";
-import Conditional from "@/components/ui/conditional";
-import Typography from "@/components/ui/typography";
+import { auth } from "@clerk/nextjs/server";
 
 export type Pages =
   | "nyheter"
@@ -22,10 +18,11 @@ export type AdminSearchParams = {
   articleId?: string;
 };
 
-export default function Admin({
+export default async function Admin({
   searchParams,
 }: ParamsProps<AdminSearchParams>) {
   requireRole("admin"); // Subject to change, as we are implementing a different role system in the end
+  const { sessionClaims } = await auth();
 
   return (
     <PageWrapper innerClassName="w-full animate-in fade-in opacity-100 duration-500">
@@ -33,7 +30,10 @@ export default function Admin({
         <Card className="w-full flex-1 order-2 md:order-1 overflow-hidden">
           <PageManager searchParams={searchParams} />
         </Card>
-        <PageButtons currentPage={searchParams?.page} />
+        <PageButtons
+          currentPage={searchParams?.page}
+          userPermissions={sessionClaims?.metadata.permissions ?? []}
+        />
       </div>
     </PageWrapper>
   );
