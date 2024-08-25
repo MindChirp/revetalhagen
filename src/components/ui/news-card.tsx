@@ -39,7 +39,7 @@ const NewsCard = ({
   return (
     <Card
       className={cn(
-        "shadow-sm bg-secondary-card border-[1px] border-primary border-solid",
+        "shadow-sm bg-background border-[1px] border-primary border-solid",
         className
       )}
       {...props}

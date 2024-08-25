@@ -3,6 +3,7 @@ import { Button, ButtonProps } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { routes } from "@/lib/routes";
 import {
+  BedIcon,
   HandCoinsIcon,
   LightbulbIcon,
   NewspaperIcon,
@@ -19,6 +20,7 @@ const Buttons: {
   { label: "Nyheter", icon: <NewspaperIcon size={16} /> },
   { label: "Brukere", icon: <Users size={16} /> },
   { label: "Sponsorer", icon: <HandCoinsIcon size={16} /> },
+  { label: "Utleie", icon: <BedIcon size={16} /> },
   {
     label: "Interessegrupper",
     icon: <LightbulbIcon size={16} />,
@@ -34,7 +36,7 @@ interface PageButtonsProps {
 export default function PageButtons({ currentPage }: PageButtonsProps) {
   const router = useRouter();
   return (
-    <Card className="order-1 md:order-2 h-fit">
+    <Card className="order-1 md:order-2 h-fit sticky top-28">
       <div className="flex flex-col p-5 md:min-w-72 md:w-fit w-full gap-1">
         {Buttons.map((page, _i) => (
           <Button
@@ -44,7 +46,7 @@ export default function PageButtons({ currentPage }: PageButtonsProps) {
                 : "default"
             }
             key={_i}
-            className="justify-start gap-2.5"
+            className="justify-start gap-2.5 w-full"
             onClick={() =>
               router.replace(`${routes.ADMIN}?page=${page.label.toLowerCase()}`)
             }

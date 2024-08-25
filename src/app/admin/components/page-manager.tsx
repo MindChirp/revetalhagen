@@ -1,5 +1,8 @@
 import { AdminSearchParams, Pages } from "../page";
+import BookingPage from "./booking-page/booking-page";
 import NewsPage from "./news-page";
+import SponsorPage from "./sponsor-page";
+import UserPage from "./user-page";
 
 interface PageManagerProps {
   currentPage?: Pages;
@@ -18,14 +21,16 @@ const PageMap: {
   [T in Pages]?: React.FC<{ searchParams?: AdminSearchParams }>;
 } = {
   nyheter: NewsPage,
+  utleie: BookingPage,
   // interessegrupper: undefined,
-  // brukere: undefined,
+  sponsorer: SponsorPage,
+  brukere: UserPage,
 };
 
 export default function PageManager({ searchParams }: PageManagerProps) {
   return (
     <>
-      {PageMap[searchParams?.page as Pages]?.({
+      {PageMap[(searchParams?.page as Pages) ?? "nyheter"]?.({
         searchParams,
       })}
     </>

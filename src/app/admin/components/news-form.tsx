@@ -28,12 +28,14 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import NewsEditor from "./news-editor";
 import PreviewModal from "./preview-modal";
+import { cn } from "@/lib/utils";
 
 interface NewsFormProps {
   article?: DetailedNewsDto;
+  className?: string;
 }
 
-export default function NewsForm({ article }: NewsFormProps) {
+export default function NewsForm({ article, className }: NewsFormProps) {
   const router = useRouter();
   const [previewOpen, setPreviewOpen] = useState(false);
   const state = useMemo<"editing" | "creating">(() => {
@@ -95,7 +97,10 @@ export default function NewsForm({ article }: NewsFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={cn("space-y-2.5", className)}
+      >
         <FormField
           control={form.control}
           name="title"

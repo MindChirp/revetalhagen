@@ -1,17 +1,11 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { Button, ButtonProps } from "../button";
-import UserAvatar from "../header/user-avatar";
-import { cn } from "@/lib/utils";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignOutButton,
-} from "@clerk/nextjs";
+import { SignedOut, SignInButton } from "@clerk/nextjs";
+import { currentUser, User } from "@clerk/nextjs/server";
+import { LogInIcon } from "lucide-react";
+import { ButtonProps } from "../button";
 import { Card } from "../card";
-import { LogInIcon, TriangleAlertIcon } from "lucide-react";
+import Conditional from "../conditional";
 import Typography from "../typography";
-import ProfileDrawer from "./profile-drawer";
+import UserSignedIn from "./user-signed-in";
 
 export default async function Profile({ className, ...props }: ButtonProps) {
   const user = await currentUser();
@@ -29,20 +23,9 @@ export default async function Profile({ className, ...props }: ButtonProps) {
           </SignInButton>
         </Card>
       </SignedOut>
-      <SignedIn>
-        <ProfileDrawer user={user ?? undefined}>
-          <Button
-            variant={"ghost"}
-            className={cn("-mb-2 px-0", className)}
-            cy-data="avatar-button"
-          >
-            <UserAvatar
-              className="shadow-lg h-16 w-16"
-              src={user?.imageUrl ?? ""}
-            />
-          </Button>
-        </ProfileDrawer>
-      </SignedIn>
+      <Conditional render={Boolean(user)}>
+        <UserSignedIn user={user as User} />
+      </Conditional>
     </div>
   );
 }
