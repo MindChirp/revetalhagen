@@ -25,6 +25,7 @@ export type { SimpleBookableItemDto } from './models/SimpleBookableItemDto';
 export type { SimpleBookingDto } from './models/SimpleBookingDto';
 export type { SimpleNewsDto } from './models/SimpleNewsDto';
 export type { SimpleUserDto } from './models/SimpleUserDto';
+export type { UpdateBookableItemDto } from './models/UpdateBookableItemDto';
 export type { UpdateNewsDto } from './models/UpdateNewsDto';
 export type { WeatherForecast } from './models/WeatherForecast';
 
@@ -33,5 +34,6 @@ export { BookableItemCategoryService } from './services/BookableItemCategoryServ
 export { BookingService } from './services/BookingService';
 export { CommentService } from './services/CommentService';
 export { NewsService } from './services/NewsService';
+export { PermissionsService } from './services/PermissionsService';
 export { UserService } from './services/UserService';
 export { WeatherForecastService } from './services/WeatherForecastService';

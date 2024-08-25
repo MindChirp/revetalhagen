@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { CreateBookableItemDto } from '../models/CreateBookableItemDto';
 import type { DetailedBookableItemDto } from '../models/DetailedBookableItemDto';
+import type { UpdateBookableItemDto } from '../models/UpdateBookableItemDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -63,6 +64,26 @@ export class BookableItemService {
             path: {
                 'id': id,
             },
+        });
+    }
+    /**
+     * @param id
+     * @param requestBody
+     * @returns any Success
+     * @throws ApiError
+     */
+    public static putApiBookableItem(
+        id: number,
+        requestBody?: UpdateBookableItemDto,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/BookableItem/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json-patch+json',
         });
     }
 }
