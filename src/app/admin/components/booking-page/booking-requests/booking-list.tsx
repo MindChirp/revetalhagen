@@ -1,3 +1,4 @@
+import Banner from "@/components/ui/banner";
 import Conditional from "@/components/ui/conditional";
 import Illustration from "@/components/ui/illustration";
 import { DetailedBookingDto } from "@/lib/api";
@@ -16,8 +17,10 @@ export default function BookingList({ bookings }: BookingListProps) {
         ))}
       </div>
       <Conditional render={!Boolean(bookings.length)}>
-        <Illustration src="empty-cart.svg" /> Det finnes ingen
-        bookingforespørsler
+        <Banner>
+          <Illustration src="empty-cart.svg" /> Det finnes ingen
+          bookingforespørsler
+        </Banner>
       </Conditional>
     </>
   );

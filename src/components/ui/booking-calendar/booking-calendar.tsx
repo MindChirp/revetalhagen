@@ -6,8 +6,9 @@ import React from "react";
 import { Calendar } from "../calendar";
 import DayView from "./day-view";
 import { DetailedBookableItemDto } from "@/lib/api";
+import { motion } from "framer-motion";
 
-interface BookingCalendarProps extends React.HTMLProps<HTMLDivElement> {
+interface BookingCalendarProps extends React.ComponentProps<typeof motion.div> {
   item: DetailedBookableItemDto;
 }
 export default function BookingCalendar({
@@ -18,8 +19,15 @@ export default function BookingCalendar({
   const [selectedDate, setSelectedDate] = React.useState<Date | undefined>();
 
   return (
-    <div
+    <motion.div
       className={cn("flex md:flex-row gap-5 flex-col", className)}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.5,
+        bounce: 0.25,
+        type: "spring",
+      }}
       {...props}
     >
       <div className="w-fit mx-auto h-fit md:sticky top-28">
@@ -31,6 +39,6 @@ export default function BookingCalendar({
         />
       </div>
       <DayView className="w-full" selectedDate={selectedDate} />
-    </div>
+    </motion.div>
   );
 }
