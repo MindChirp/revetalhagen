@@ -48,7 +48,7 @@ export default async function NewsList({
           date={item.lastEdited ?? ""}
           articleId={item.id?.toString()}
           canEdit={
-            user?.id == item.publishedBy?.id ||
+            user?.id == item.publishedBy?.sub ||
             hasPermissions(permissions, [PERMISSIONS.editArticle])
           }
         />

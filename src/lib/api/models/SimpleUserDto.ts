@@ -4,6 +4,7 @@
 /* eslint-disable */
 export type SimpleUserDto = {
     id?: number;
+    sub?: string | null;
     fullName?: string | null;
     username?: string | null;
     email?: string | null;

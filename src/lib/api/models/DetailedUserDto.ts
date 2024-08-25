@@ -5,6 +5,7 @@
 import type { SimpleNewsDto } from './SimpleNewsDto';
 export type DetailedUserDto = {
     id?: number;
+    sub?: string | null;
     fullName?: string | null;
     username?: string | null;
     email?: string | null;
