@@ -33,25 +33,30 @@ export const IFetch = <T extends unknown>({ url, config }: IFetchProps) => {
   return fetch(process.env.NEXT_PUBLIC_API_URL + url, {
     ...config,
     headers,
-  }).then(async (res) => {
-    if (!res.ok) {
-      if (res.status === 500) {
-        throw new Error("Internal server error");
+  })
+    .then(async (res) => {
+      console.log(res);
+      if (!res.ok) {
+        if (res.status === 500) {
+          throw new Error("Internal server error");
+        }
+
+        const message = await res.json();
+        const errorObject: ErrorType = {
+          status: res.status,
+          statusText: res.statusText,
+          response: message,
+        };
+        throw new Error(JSON.stringify(errorObject));
       }
 
-      const message = await res.json();
-      const errorObject: ErrorType = {
-        status: res.status,
-        statusText: res.statusText,
-        response: message,
-      };
-      throw new Error(JSON.stringify(errorObject));
-    }
+      for (const tag of config?.revalidateTags ?? []) {
+        revalidateTag(tag);
+      }
 
-    for (const tag of config?.revalidateTags ?? []) {
-      revalidateTag(tag);
-    }
-
-    return res.json();
-  }) as Promise<T>;
+      return res.json();
+    })
+    .catch((err) => {
+      return err;
+    }) as Promise<T>;
 };

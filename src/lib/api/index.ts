@@ -20,6 +20,7 @@ export type { DetailedBookableItemDto } from './models/DetailedBookableItemDto';
 export type { DetailedBookingDto } from './models/DetailedBookingDto';
 export type { DetailedNewsDto } from './models/DetailedNewsDto';
 export type { DetailedUserDto } from './models/DetailedUserDto';
+export type { PermissionDto } from './models/PermissionDto';
 export type { ProblemDetails } from './models/ProblemDetails';
 export type { SimpleBookableItemDto } from './models/SimpleBookableItemDto';
 export type { SimpleBookingDto } from './models/SimpleBookingDto';

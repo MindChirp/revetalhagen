@@ -8,13 +8,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Typography from "@/components/ui/typography";
-import { SimpleUserDto } from "@/lib/api";
-import { HammerIcon, LockKeyholeIcon, PencilIcon } from "lucide-react";
+import { PermissionDto, SimpleUserDto } from "@/lib/api";
+import { GavelIcon, LockKeyholeIcon } from "lucide-react";
+import PermissionsDialog from "./permissions-dialog";
 
 interface UserCardProps {
   user: SimpleUserDto;
+  allPermissions: PermissionDto[];
 }
-export default function UserCard({ user }: UserCardProps) {
+export default function UserCard({ user, allPermissions }: UserCardProps) {
   return (
     <Card className="p-6 w-full border-border border border-solid shadow-none">
       <div className="flex flex-col w-full justify-center items-center gap-2.5">
@@ -32,16 +34,22 @@ export default function UserCard({ user }: UserCardProps) {
         <div className="flex gap-2.5 w-full pt-5">
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant={"destructive"} className="w-fit flex gap-2.5">
-                <HammerIcon size={16} />
+              <Button
+                variant={"destructive"}
+                className="w-fit flex gap-2.5"
+                disabled
+              >
+                <GavelIcon size={16} />
               </Button>
             </TooltipTrigger>
             <TooltipContent>Bannlys</TooltipContent>
           </Tooltip>
-          <Button className="w-full flex gap-2.5">
-            <LockKeyholeIcon size={16} />
-            Rettigheter
-          </Button>
+          <PermissionsDialog user={user} allPermissions={allPermissions}>
+            <Button className="w-full flex gap-2.5">
+              <LockKeyholeIcon size={16} />
+              Rettigheter
+            </Button>
+          </PermissionsDialog>
         </div>
       </div>
     </Card>

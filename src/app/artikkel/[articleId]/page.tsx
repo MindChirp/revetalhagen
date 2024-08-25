@@ -9,9 +9,11 @@ import CommentsFetcher from "./components/comments-fetcher";
 import { Separator } from "@/components/ui/separator";
 import Loader from "@/components/ui/loader";
 import { Skeleton } from "@/components/ui/skeleton";
+import { auth } from "@clerk/nextjs/server";
 
 const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
   const { articleId } = params;
+  const { sessionClaims } = auth();
 
   return (
     <PageWrapper innerClassName="w-full md:w-fit">
