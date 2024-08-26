@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import Conditional from "@/components/ui/conditional";
 import {
   Dialog,
   DialogContent,
@@ -21,9 +22,13 @@ import { useState } from "react";
 
 interface AdminButtonsProps {
   articleId?: number;
+  allowDelete: boolean;
+  allowEdit: boolean;
 }
 export default function AdminButtons({
   articleId,
+  allowDelete,
+  allowEdit,
   ...props
 }: AdminButtonsProps) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -39,15 +44,23 @@ export default function AdminButtons({
         method: "DELETE",
         revalidateTags: ["news"],
       },
-    }).then(() => {
-      setIsDeleting(false);
-      toast({
-        title: "Artikkel slettet",
-        description:
-          "Artikkelen ble slettet, og er ikke lenger tilgjengelig for besøkende",
+    })
+      .then(() => {
+        setIsDeleting(false);
+        toast({
+          title: "Artikkel slettet",
+          description:
+            "Artikkelen ble slettet, og er ikke lenger tilgjengelig for besøkende",
+        });
+        router.replace(routes.NEWS);
+      })
+      .catch(() => {
+        toast({
+          title: "Feil ved sletting",
+          description: "Det oppstod en feil ved sletting av artikkelen",
+          variant: "destructive",
+        });
       });
-      router.replace(routes.NEWS);
-    });
   };
 
   const editArticle = () => {
@@ -55,29 +68,33 @@ export default function AdminButtons({
   };
   return (
     <Card className="flex gap-5 w-full shadow-none bg-accent/30 border-accent border p-6">
-      <Button className="gap-2.5 flex-1" onClick={editArticle}>
-        <EditIcon size={16} />
-        Rediger
-      </Button>
-      <DeleteDialog
-        open={deleteOpen}
-        onOpenChange={(state) => setDeleteOpen(state)}
-        onDelete={deleteArticle}
-      >
-        <Button
-          variant="destructive"
-          className="gap-2.5 flex-1"
-          onClick={() => setDeleteOpen(true)}
-        >
-          {!isDeleting && (
-            <>
-              <TrashIcon size={16} />
-              Slett
-            </>
-          )}
-          {isDeleting && <Loader2 className="animate-spin" />}
+      <Conditional render={allowEdit}>
+        <Button className="gap-2.5 flex-1" onClick={editArticle}>
+          <EditIcon size={16} />
+          Rediger
         </Button>
-      </DeleteDialog>
+      </Conditional>
+      <Conditional render={allowDelete}>
+        <DeleteDialog
+          open={deleteOpen}
+          onOpenChange={(state) => setDeleteOpen(state)}
+          onDelete={deleteArticle}
+        >
+          <Button
+            variant="destructive"
+            className="gap-2.5 flex-1"
+            onClick={() => setDeleteOpen(true)}
+          >
+            {!isDeleting && (
+              <>
+                <TrashIcon size={16} />
+                Slett
+              </>
+            )}
+            {isDeleting && <Loader2 className="animate-spin" />}
+          </Button>
+        </DeleteDialog>
+      </Conditional>
     </Card>
   );
 }

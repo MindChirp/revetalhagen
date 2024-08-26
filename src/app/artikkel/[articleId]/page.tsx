@@ -19,7 +19,10 @@ const ArticlePage = async ({ params }: PathParams<{ articleId: string }>) => {
     <PageWrapper innerClassName="w-full md:w-fit">
       <Card className="animate-in fade-in duration-500 mx-auto md:w-fit w-full md:min-w-[896px] max-w-4xl shadow-md pb-6">
         <Suspense fallback={<ArticleSkeleton />}>
-          <ArticleContent articleId={articleId} />
+          <ArticleContent
+            articleId={articleId}
+            permissions={sessionClaims?.metadata.permissions}
+          />
         </Suspense>
         <Separator orientation="horizontal" className="my-6" />
         <ArticleComments articleId={articleId} />

@@ -11,11 +11,13 @@ import { Separator } from "@/components/ui/separator";
 
 interface ArticlePreviewProps extends React.ComponentProps<typeof CardContent> {
   article: DetailedNewsDto;
-  adminButtons?: boolean;
+  allowDelete?: boolean;
+  allowEdit?: boolean;
 }
 export default function ArticlePreview({
   article,
-  adminButtons,
+  allowDelete,
+  allowEdit,
   className,
   ...props
 }: ArticlePreviewProps) {
@@ -52,7 +54,13 @@ export default function ArticlePreview({
         </div>
         <ArticleRenderer article={article} />
       </div>
-      {adminButtons && <AdminButtons articleId={article?.id} />}
+      {(allowDelete || allowEdit) && (
+        <AdminButtons
+          articleId={article?.id}
+          allowDelete={allowDelete ?? false}
+          allowEdit={allowEdit ?? false}
+        />
+      )}
     </CardContent>
   );
 }

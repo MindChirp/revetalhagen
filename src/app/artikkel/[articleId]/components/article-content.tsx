@@ -1,9 +1,8 @@
 import { DetailedNewsDto } from "@/lib/api";
-import { isRole } from "@/lib/auth-guard";
 import { IFetch } from "@/lib/IFetch";
+import { hasPermissions, PERMISSIONS } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
 import ArticlePreview from "./article-preview";
-import { hasPermissions, PERMISSIONS } from "@/lib/utils";
 
 export default async function ArticleContent({
   articleId,
@@ -19,16 +18,17 @@ export default async function ArticleContent({
 
   const user = await currentUser();
 
+  const isOwnArticle = user?.username === article?.publishedBy?.username;
   return (
     <div className="">
       <ArticlePreview
         article={article}
-        adminButtons={
-          user?.username === article?.publishedBy?.username ||
-          hasPermissions(permissions, [
-            PERMISSIONS.editArticle,
-            PERMISSIONS.deleteArticle,
-          ])
+        allowDelete={
+          isOwnArticle ||
+          hasPermissions(permissions, [PERMISSIONS.deleteArticle])
+        }
+        allowEdit={
+          isOwnArticle || hasPermissions(permissions, [PERMISSIONS.editArticle])
         }
       />
     </div>
