@@ -1,4 +1,5 @@
 "use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -9,16 +10,38 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Typography from "@/components/ui/typography";
-import { PermissionDto, SimpleUserDto } from "@/lib/api";
+import { PermissionDto, RoleDto, SimpleUserDto } from "@/lib/api";
 import { GavelIcon, LockKeyholeIcon } from "lucide-react";
 import PermissionsDialog from "./permissions-dialog";
 import { motion } from "framer-motion";
+import Conditional from "@/components/ui/conditional";
+import { hasPermissions, PERMISSIONS } from "@/lib/utils";
+import { useMemo } from "react";
 
 interface UserCardProps {
   user: SimpleUserDto;
   allPermissions: PermissionDto[];
+  currentUserPermissions: string[];
+  allRoles: RoleDto[];
 }
-export default function UserCard({ user, allPermissions }: UserCardProps) {
+
+export default function UserCard({
+  user,
+  allPermissions,
+  currentUserPermissions,
+  allRoles,
+}: UserCardProps) {
+  const allowSetPermissions = useMemo(() => {
+    return hasPermissions(
+      currentUserPermissions,
+      [
+        PERMISSIONS.updateUserPermissions,
+        PERMISSIONS.getRoles,
+        PERMISSIONS.getPermissions,
+      ],
+      true
+    );
+  }, [currentUserPermissions]);
   return (
     <motion.div
       className="w-full h-full"
@@ -54,7 +77,7 @@ export default function UserCard({ user, allPermissions }: UserCardProps) {
               <TooltipTrigger asChild>
                 <Button
                   variant={"destructive"}
-                  className="w-fit flex gap-2.5"
+                  className="w-fit [&:only-child]:w-full flex gap-2.5"
                   disabled
                 >
                   <GavelIcon size={16} />
@@ -62,12 +85,18 @@ export default function UserCard({ user, allPermissions }: UserCardProps) {
               </TooltipTrigger>
               <TooltipContent>Bannlys</TooltipContent>
             </Tooltip>
-            <PermissionsDialog user={user} allPermissions={allPermissions}>
-              <Button className="w-full flex gap-2.5">
-                <LockKeyholeIcon size={16} />
-                Rettigheter
-              </Button>
-            </PermissionsDialog>
+            <Conditional render={allowSetPermissions}>
+              <PermissionsDialog
+                user={user}
+                allPermissions={allPermissions}
+                allRoles={allRoles}
+              >
+                <Button className="w-full flex gap-2.5">
+                  <LockKeyholeIcon size={16} />
+                  Rettigheter
+                </Button>
+              </PermissionsDialog>
+            </Conditional>
           </div>
         </div>
       </Card>

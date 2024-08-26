@@ -34,7 +34,7 @@ export function hasPermissions(
 
 export const PERMISSIONS = {
   createArticle: "create:article",
-  editArticle: "update:article",
+  editArticle: "edit:article",
   deleteArticle: "delete:article",
   updateItem: "update:bookable_item",
   createItem: "create:bookable_item",
@@ -43,6 +43,6 @@ export const PERMISSIONS = {
   deleteItemCategory: "delete:bookable_item_category",
   getPermissions: "get:permissions",
   getRoles: "get:roles",
-  updateUserPermissions: "update:user_permissions",
+  updateUserPermissions: "update:user-permissions",
   viewUsers: "view:users",
 };
