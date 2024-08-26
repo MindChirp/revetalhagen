@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { PermissionDto } from '../models/PermissionDto';
+import type { RoleDto } from '../models/RoleDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -18,10 +19,10 @@ export class PermissionsService {
         });
     }
     /**
-     * @returns any Success
+     * @returns RoleDto Success
      * @throws ApiError
      */
-    public static getApiPermissionsRoles(): CancelablePromise<any> {
+    public static getApiPermissionsRoles(): CancelablePromise<Array<RoleDto>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Permissions/roles',

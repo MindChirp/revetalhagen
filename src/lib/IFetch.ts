@@ -35,7 +35,6 @@ export const IFetch = <T extends unknown>({ url, config }: IFetchProps) => {
     headers,
   })
     .then(async (res) => {
-      console.log(res);
       if (!res.ok) {
         if (res.status === 500) {
           throw new Error("Internal server error");
@@ -54,9 +53,16 @@ export const IFetch = <T extends unknown>({ url, config }: IFetchProps) => {
         revalidateTag(tag);
       }
 
-      return res.json();
+      let json;
+      try {
+        json = await res.json();
+      } catch {
+        return res.statusText;
+      }
+      return json;
     })
     .catch((err) => {
+      console.log(err);
       return err;
     }) as Promise<T>;
 };
