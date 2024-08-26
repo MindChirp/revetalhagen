@@ -46,7 +46,6 @@ export default function AdminButtons({
       },
     })
       .then(() => {
-        setIsDeleting(false);
         toast({
           title: "Artikkel slettet",
           description:
@@ -60,6 +59,9 @@ export default function AdminButtons({
           description: "Det oppstod en feil ved sletting av artikkelen",
           variant: "destructive",
         });
+      })
+      .finally(() => {
+        setIsDeleting(false);
       });
   };
 
