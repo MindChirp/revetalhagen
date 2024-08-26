@@ -1,10 +1,10 @@
 import PageWrapper from "@/components/layout/page-wrapper";
 import { Card } from "@/components/ui/card";
-import { requireRole } from "@/lib/auth-guard";
+import { requireHeightenedPriveleges } from "@/lib/auth-guard";
 import { ParamsProps } from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
 import PageButtons from "./components/page-buttons";
 import PageManager from "./components/page-manager";
-import { auth } from "@clerk/nextjs/server";
 
 export type Pages =
   | "nyheter"
@@ -21,7 +21,7 @@ export type AdminSearchParams = {
 export default async function Admin({
   searchParams,
 }: ParamsProps<AdminSearchParams>) {
-  requireRole("admin"); // Subject to change, as we are implementing a different role system in the end
+  requireHeightenedPriveleges();
   const { sessionClaims } = await auth();
 
   return (

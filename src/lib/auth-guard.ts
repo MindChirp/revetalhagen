@@ -5,10 +5,19 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect, RedirectType } from "next/navigation";
 import { routes } from "./routes";
 
-export async function requireRole(role: Roles) {
+/** Deprecated */
+// export async function requireRole(role: Roles) {
+//   const { sessionClaims } = auth();
+
+//   if (sessionClaims?.metadata.role !== role) {
+//     redirect(routes.LANDING, RedirectType.replace);
+//   }
+// }
+
+export async function requireHeightenedPriveleges() {
   const { sessionClaims } = auth();
 
-  if (sessionClaims?.metadata.role !== role) {
+  if (sessionClaims?.metadata.permissions?.length === 0) {
     redirect(routes.LANDING, RedirectType.replace);
   }
 }
