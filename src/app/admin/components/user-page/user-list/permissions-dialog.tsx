@@ -96,8 +96,17 @@ export default function PermissionsDialog({
       });
   };
 
-  const removePermission = (id: number) => {};
-  const addPermission = (id: number) => {};
+  const removePermission = (id: number) => {
+    setUserPermissions((prev) => prev.filter((p) => p.id !== id));
+  };
+  const addPermission = (id: number) => {
+    if (!userPermissions.some((permission) => permission.id === id)) {
+      setUserPermissions([
+        ...userPermissions,
+        allPermissions.find((p) => p.id === id)!,
+      ]);
+    }
+  };
 
   return (
     <Dialog>
@@ -115,7 +124,11 @@ export default function PermissionsDialog({
           {userPermissions.map((permission, index) => (
             <Tooltip key={index}>
               <TooltipTrigger>
-                <Badge variant="secondary" className="w-fit">
+                <Badge
+                  variant="secondary"
+                  className="w-fit"
+                  onClick={() => removePermission(permission.id!)}
+                >
                   {
                     allPermissions.find((p) => p.id === permission.id)
                       ?.description
@@ -138,7 +151,11 @@ export default function PermissionsDialog({
             .map((permission, index) => (
               <Tooltip key={index}>
                 <TooltipTrigger>
-                  <Badge variant="secondary" className="w-fit">
+                  <Badge
+                    variant="secondary"
+                    className="w-fit"
+                    onClick={() => addPermission(permission.id!)}
+                  >
                     {permission.description}
                   </Badge>
                 </TooltipTrigger>
