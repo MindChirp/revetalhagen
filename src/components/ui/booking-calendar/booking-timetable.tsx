@@ -2,6 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import { Badge } from "../badge";
+import { useMemo } from "react";
+import { isBefore, isSameDay } from "date-fns";
 
 interface BookingTimetableProps extends React.HTMLProps<HTMLDivElement> {
   selectedDate?: Date;
@@ -11,7 +13,16 @@ export default function BookingTimetable({
   className,
   ...props
 }: BookingTimetableProps) {
-  const nowTime = new Date();
+  const disableBefore = useMemo(() => {
+    if (selectedDate && isBefore(selectedDate, new Date())) {
+      return new Date().setHours(23, 59, 59, 999);
+    }
+    if (selectedDate && isSameDay(selectedDate, new Date())) {
+      return new Date();
+    }
+
+    return new Date().setHours(0, 0, 0, 0);
+  }, [selectedDate]);
   return (
     <div className="w-full h-fit relative">
       <div className={cn("w-full h-fit relative px-6", className)} {...props}>
@@ -22,9 +33,12 @@ export default function BookingTimetable({
         ))}
       </div>
       <div
-        className="border-b-2 border-input border-solid bg-destructive/10 w-full top-0 left-0 absolute rounded-t-lg"
+        className={cn(
+          "border-b-2 border-input border-solid bg-destructive/10 w-full top-0 left-0 absolute rounded-t-lg",
+          disableBefore ? "block" : "hidden"
+        )}
         style={{
-          height: "calc(100% - 10%)",
+          height: `calc(100% - ${disableBefore})`,
         }}
       />
     </div>

@@ -16,7 +16,9 @@ export default function BookingCalendar({
   item,
   ...props
 }: BookingCalendarProps) {
-  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>();
+  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(
+    new Date()
+  );
 
   return (
     <motion.div

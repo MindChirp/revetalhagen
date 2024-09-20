@@ -1,4 +1,5 @@
 "use client";
+
 import { cn } from "@/lib/utils";
 import Typography from "../typography";
 import { format } from "date-fns";
@@ -9,6 +10,7 @@ import { nb } from "date-fns/locale";
 import { Badge } from "../badge";
 import BookingTimetable from "./booking-timetable";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 
 interface DayViewProps extends React.HTMLProps<HTMLDivElement> {
   selectedDate?: Date;
