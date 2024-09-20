@@ -11,37 +11,23 @@ import { Badge } from "../badge";
 import BookingTimetable from "./booking-timetable";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
+import { DetailedBookableItemDto } from "@/lib/api";
 
 interface DayViewProps extends React.HTMLProps<HTMLDivElement> {
   selectedDate?: Date;
+  item: DetailedBookableItemDto;
 }
 export default function DayView({
   className,
+  item,
   selectedDate,
   ...props
 }: DayViewProps) {
   return (
     <div className={cn("", className)} {...props}>
       <Conditional render={!!selectedDate}>
-        <motion.div
-          className={
-            "flex gap-5 flex-col rounded-3xl border border-border border-solid py-6 min-h-full"
-          }
-          initial={{
-            opacity: 0,
-            x: -50,
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-          }}
-          transition={{
-            duration: 0.5,
-            bounce: 0.25,
-            type: "spring",
-          }}
-        >
-          <Badge className="w-fit mx-auto" variant={"default"}>
+        <div className="flex gap-2.5 flex-col">
+          <Badge className="w-fit" variant={"default"}>
             <Typography className="text-center capitalize">
               {selectedDate
                 ? format(selectedDate ?? "", "EEEE d. MMMM", {
@@ -50,8 +36,27 @@ export default function DayView({
                 : undefined}
             </Typography>
           </Badge>
-          <BookingTimetable selectedDate={selectedDate} />
-        </motion.div>
+          <motion.div
+            className={
+              "flex gap-5 flex-col rounded-3xl border border-border border-solid pb-6 min-h-full"
+            }
+            initial={{
+              opacity: 0,
+              x: -50,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            transition={{
+              duration: 0.5,
+              bounce: 0.25,
+              type: "spring",
+            }}
+          >
+            <BookingTimetable selectedDate={selectedDate} item={item} />
+          </motion.div>
+        </div>
       </Conditional>
       <Conditional render={!selectedDate}>
         <Banner className="h-full items-center justify-center">
