@@ -9,6 +9,7 @@ interface HourStripProps extends ButtonProps {
   hour: number;
   date: Date;
   item: DetailedBookableItemDto;
+  allowCreate?: boolean;
 }
 
 export default function HourStrip({
@@ -16,6 +17,7 @@ export default function HourStrip({
   date,
   hour,
   item,
+  allowCreate = true,
   disabled,
   ...props
 }: HourStripProps) {
@@ -30,6 +32,7 @@ export default function HourStrip({
         variant={"ghost"}
         className={cn(
           "w-full h-12 flex gap-2.5 justify-start items-center relative hover:bg-accent cursor-pointer rounded-lg px-3",
+          allowCreate ? "" : "pointer-events-none",
           className
         )}
         {...props}

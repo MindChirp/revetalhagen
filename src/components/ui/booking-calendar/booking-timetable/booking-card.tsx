@@ -8,7 +8,7 @@ import Typography from "../../typography";
 import { format } from "date-fns";
 
 interface BookingCardProps extends ButtonProps {
-  booking: SimpleBookingDto;
+  booking: SimpleBookingDto & { ghost?: boolean };
   startBuffer: Date;
   endBuffer: Date;
 }
@@ -49,7 +49,10 @@ export default function BookingCard({
   return (
     <Button
       className={cn(
-        "bg-primary border-border border shadow-md w-[calc(100%_-_8rem)] right-6 rounded-lg absolute",
+        "shadow-md w-[calc(100%_-_8rem)] rounded-lg absolute",
+        booking.ghost
+          ? "bg-primary-foreground/20 z-10 left-3"
+          : "bg-primary border-border border z-0 right-6",
         className
       )}
       style={{

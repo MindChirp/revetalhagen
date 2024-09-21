@@ -11,12 +11,16 @@ import BookingCard from "./booking-card";
 interface BookingTimetableProps extends React.HTMLProps<HTMLDivElement> {
   selectedDate?: Date;
   item: DetailedBookableItemDto;
-  existingBookings: SimpleBookingDto[];
+  compact?: boolean;
+  allowCreate?: boolean;
+  existingBookings: (SimpleBookingDto & { ghost?: boolean })[];
 }
 
 export default function BookingTimetable({
   selectedDate,
   existingBookings,
+  compact = false,
+  allowCreate = true,
   item,
   className,
   ...props
@@ -58,23 +62,27 @@ export default function BookingTimetable({
   }, [selectedDate]);
 
   return (
-    <div className="w-full h-fit relative">
+    <div className={cn("w-full h-fit relative", className)}>
       <div
-        className={cn("w-full h-fit relative px-3 pt-6", className)}
+        className="w-full h-fit relative px-3 pt-6 overflow-hidden"
         {...props}
       >
-        {new Array(18).fill(0).map((_, i) => (
-          <HourStrip
-            item={item}
-            key={i}
-            hour={i + 5}
-            date={new Date(selectedDate ?? "")}
-            disabled={
-              new Date(new Date().setHours(i + 5, 0, 0, 0)).getTime() <
-              disableBefore.getTime()
-            }
-          />
-        ))}
+        {new Array(18).fill(0).map((_, i) => {
+          if (compact && i % 2 === 0) return null;
+          return (
+            <HourStrip
+              item={item}
+              allowCreate={allowCreate}
+              key={i}
+              hour={i + 5}
+              date={new Date(selectedDate ?? "")}
+              disabled={
+                new Date(new Date().setHours(i + 5, 0, 0, 0)).getTime() <
+                  disableBefore.getTime() || !allowCreate
+              }
+            />
+          );
+        })}
         <div className="w-full h-[calc(100%_-_4.5rem)] top-[3rem] absolute pointer-events-none">
           {existingBookings.map((booking, index) => (
             <BookingCard

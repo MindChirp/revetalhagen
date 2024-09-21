@@ -1,4 +1,5 @@
-import { Button } from "@/components/ui/button";
+"use client";
+
 import {
   Card,
   CardContent,
@@ -8,18 +9,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Conditional from "@/components/ui/conditional";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import UserAvatar from "@/components/ui/header/user-avatar";
 import Typography from "@/components/ui/typography";
-import { SimpleBookableItemDto, SimpleBookingDto } from "@/lib/api";
+import { SimpleBookingDto } from "@/lib/api";
 import { format } from "date-fns";
+import BookingDialog from "./booking-dialog";
 
 interface BookingCardProps {
   booking: SimpleBookingDto;
@@ -29,6 +23,10 @@ export default function BookingCard({
   booking,
   processed = true,
 }: BookingCardProps) {
+  const accept = () => {};
+
+  const reject = () => {};
+
   return (
     <Card className="bg-background shadow-sm border-input border flex flex-col">
       <CardHeader className="flex-1">
@@ -46,21 +44,7 @@ export default function BookingCard({
       </CardContent>
       <Conditional render={!processed}>
         <CardFooter>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="w-full">Behandle</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>
-                  Behandle forespørselen til {booking.bookedBy?.fullName}
-                </DialogTitle>
-                <DialogDescription>
-                  Velg om du vil endre, avslå eller godkjenne forespørselen
-                </DialogDescription>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
+          <BookingDialog booking={booking} />
         </CardFooter>
       </Conditional>
     </Card>
