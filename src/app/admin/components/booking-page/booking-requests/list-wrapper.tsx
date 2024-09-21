@@ -7,6 +7,10 @@ export default async function ListWrapper() {
     url: "/api/Booking",
     config: {
       method: "GET",
+      queryParams: {
+        Status: 0,
+        PageSize: 20,
+      },
       next: {
         tags: ["bookings"],
       },

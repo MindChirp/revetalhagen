@@ -72,7 +72,7 @@ export function DateTimePicker({
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? (
-            format(date, "d.L.y HH:mm", {
+            format(date, "d.L.y, HH:mm", {
               locale: nb,
             })
           ) : (

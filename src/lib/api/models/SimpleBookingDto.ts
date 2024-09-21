@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { BookingStatus } from './BookingStatus';
 import type { SimpleBookableItemDto } from './SimpleBookableItemDto';
 import type { SimpleUserDto } from './SimpleUserDto';
 export type SimpleBookingDto = {
@@ -11,5 +12,6 @@ export type SimpleBookingDto = {
     bookableItem?: SimpleBookableItemDto;
     applicationText?: string | null;
     bookedBy?: SimpleUserDto;
+    status?: BookingStatus;
 };
 

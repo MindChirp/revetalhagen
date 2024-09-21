@@ -7,6 +7,7 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export { BookingStatus } from './models/BookingStatus';
 export type { CommentDto } from './models/CommentDto';
 export type { CreateBookableItemCategoryDto } from './models/CreateBookableItemCategoryDto';
 export type { CreateBookableItemDto } from './models/CreateBookableItemDto';

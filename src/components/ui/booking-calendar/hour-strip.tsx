@@ -7,11 +7,13 @@ import { DetailedBookableItemDto } from "@/lib/api";
 
 interface HourStripProps extends ButtonProps {
   hour: number;
+  date: Date;
   item: DetailedBookableItemDto;
 }
 
 export default function HourStrip({
   className,
+  date,
   hour,
   item,
   disabled,
@@ -20,8 +22,8 @@ export default function HourStrip({
   return (
     <BookingDialog
       item={item}
-      startTime={new Date(new Date().setHours(hour, 0, 0, 0))}
-      endTime={new Date(new Date().setHours(hour + 1, 0, 0, 0))}
+      startTime={new Date(new Date(date.getTime()).setHours(hour, 0, 0, 0))}
+      endTime={new Date(new Date(date.getTime()).setHours(hour + 1, 0, 0, 0))}
     >
       <Button
         disabled={disabled}

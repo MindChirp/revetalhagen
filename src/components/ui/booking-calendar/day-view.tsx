@@ -1,28 +1,66 @@
 "use client";
 
+import { DetailedBookableItemDto, SimpleBookingDto } from "@/lib/api";
 import { cn } from "@/lib/utils";
-import Typography from "../typography";
 import { format } from "date-fns";
-import Conditional from "../conditional";
-import Banner from "../banner";
-import Illustration from "../illustration";
 import { nb } from "date-fns/locale";
-import { Badge } from "../badge";
-import BookingTimetable from "./booking-timetable";
 import { motion } from "framer-motion";
-import { useMemo } from "react";
-import { DetailedBookableItemDto } from "@/lib/api";
+import { Badge } from "../badge";
+import Banner from "../banner";
+import Conditional from "../conditional";
+import Illustration from "../illustration";
+import Typography from "../typography";
+import BookingTimetable from "./booking-timetable";
+import useSWR from "swr";
+import { IFetch } from "@/lib/IFetch";
 
 interface DayViewProps extends React.HTMLProps<HTMLDivElement> {
   selectedDate?: Date;
   item: DetailedBookableItemDto;
 }
+
+export const getItemBookingsTag = (
+  itemId: number | string,
+  selectedDate: Date
+) => {
+  return `bookings/${itemId}+${format(selectedDate, "d.L.y")}`;
+};
+
 export default function DayView({
   className,
   item,
   selectedDate,
   ...props
 }: DayViewProps) {
+  const { data: bookings, isLoading } = useSWR(
+    getItemBookingsTag(item.id!, selectedDate ?? new Date()),
+    () =>
+      IFetch<SimpleBookingDto[]>({
+        url: `/api/Booking`,
+        config: {
+          method: "GET",
+          queryParams: {
+            FromDate: new Date(
+              new Date(selectedDate?.toString() ?? "").setHours(0, 0, 0, 0)
+            ).toISOString(),
+            ToDate: new Date(
+              new Date(selectedDate?.toString() ?? "").setHours(23, 59, 59, 999)
+            ).toISOString(),
+            ItemId: item.id!,
+            Status: 1,
+            PageSize: 20,
+            PageNumber: 1,
+          },
+          next: {
+            tags: ["bookings"],
+          },
+        },
+      }),
+    {
+      revalidateOnMount: true,
+    }
+  );
+
   return (
     <div className={cn("", className)} {...props}>
       <Conditional render={!!selectedDate}>
@@ -54,7 +92,11 @@ export default function DayView({
               type: "spring",
             }}
           >
-            <BookingTimetable selectedDate={selectedDate} item={item} />
+            <BookingTimetable
+              selectedDate={selectedDate}
+              item={item}
+              existingBookings={bookings ?? []}
+            />
           </motion.div>
         </div>
       </Conditional>

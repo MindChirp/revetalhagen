@@ -1,16 +1,15 @@
 "use client";
 
-import { nb } from "date-fns/locale";
+import { DetailedBookableItemDto } from "@/lib/api";
 import { cn } from "@/lib/utils";
+import { nb } from "date-fns/locale";
+import { motion } from "framer-motion";
+import { InfoIcon } from "lucide-react";
 import React from "react";
 import { Calendar } from "../calendar";
-import DayView from "./day-view";
-import { DetailedBookableItemDto } from "@/lib/api";
-import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader } from "../card";
-import { InfoIcon } from "lucide-react";
-import Typography from "../typography";
 import Conditional from "../conditional";
+import Typography from "../typography";
+import DayView from "./day-view";
 
 interface BookingCalendarProps extends React.ComponentProps<typeof motion.div> {
   item: DetailedBookableItemDto;

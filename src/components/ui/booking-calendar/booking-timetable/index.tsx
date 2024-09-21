@@ -1,20 +1,22 @@
 "use client";
 
+import { DetailedBookableItemDto, SimpleBookingDto } from "@/lib/api";
 import { cn, getDayProgressPercentage } from "@/lib/utils";
-import { Badge } from "../badge";
-import { useMemo } from "react";
 import { isBefore, isSameDay } from "date-fns";
-import Conditional from "../conditional";
-import { Separator } from "../separator";
-import HourStrip from "./hour-strip";
-import { DetailedBookableItemDto } from "@/lib/api";
+import { useMemo } from "react";
+import Conditional from "../../conditional";
+import HourStrip from "../hour-strip";
+import BookingCard from "./booking-card";
 
 interface BookingTimetableProps extends React.HTMLProps<HTMLDivElement> {
   selectedDate?: Date;
   item: DetailedBookableItemDto;
+  existingBookings: SimpleBookingDto[];
 }
+
 export default function BookingTimetable({
   selectedDate,
+  existingBookings,
   item,
   className,
   ...props
@@ -30,6 +32,13 @@ export default function BookingTimetable({
     }
     return false;
   }, [selectedDate]);
+
+  const START_BUFFER = new Date(
+    new Date(selectedDate?.toString() ?? "").setHours(5, 0, 0, 0)
+  );
+  const END_BUFFER = new Date(
+    new Date(selectedDate?.toString() ?? "").setHours(22, 0, 0, 0)
+  );
 
   const disableBefore: Date = useMemo(() => {
     const date = new Date();
@@ -59,12 +68,23 @@ export default function BookingTimetable({
             item={item}
             key={i}
             hour={i + 5}
+            date={new Date(selectedDate ?? "")}
             disabled={
               new Date(new Date().setHours(i + 5, 0, 0, 0)).getTime() <
               disableBefore.getTime()
             }
           />
         ))}
+        <div className="w-full h-[calc(100%_-_4.5rem)] top-[3rem] absolute pointer-events-none">
+          {existingBookings.map((booking, index) => (
+            <BookingCard
+              booking={booking}
+              key={index}
+              startBuffer={START_BUFFER}
+              endBuffer={END_BUFFER}
+            />
+          ))}
+        </div>
       </div>
       <Conditional render={shouldShowLimit}>
         <div
@@ -75,8 +95,8 @@ export default function BookingTimetable({
           style={{
             height: `${getDayProgressPercentage(
               disableBefore,
-              new Date(new Date().setHours(5, 0, 0, 0)),
-              new Date(new Date().setHours(22, 0, 0, 0))
+              START_BUFFER,
+              END_BUFFER
             )}%`,
           }}
         />
