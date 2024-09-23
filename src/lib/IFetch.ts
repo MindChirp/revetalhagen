@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 
 type CustomConfig = {
   revalidateTags?: string[];
+  queryParams?: Record<string, unknown>;
 };
 
 interface IFetchProps {
@@ -30,7 +31,23 @@ export const IFetch = <T extends unknown>({ url, config }: IFetchProps) => {
     ...config?.headers,
   };
 
-  return fetch(process.env.NEXT_PUBLIC_API_URL + url, {
+  let qParamString = "?";
+  if (config?.queryParams) {
+    // Iterate throught each key-value pair in the queryParams object
+    for (const [key, value] of Object.entries(config.queryParams)) {
+      // If the key-value pair is not the first key-value pair, add an ampersand to the query parameter string
+      if (qParamString !== "?") {
+        qParamString += "&";
+      }
+
+      // Add the key-value pair to the query parameter string
+      qParamString += `${encodeURIComponent(key)}=${encodeURIComponent(
+        value + ""
+      )}`;
+    }
+  }
+
+  return fetch(process.env.NEXT_PUBLIC_API_URL + url + qParamString, {
     ...config,
     headers,
   })

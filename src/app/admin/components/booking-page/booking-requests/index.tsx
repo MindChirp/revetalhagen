@@ -1,12 +1,8 @@
-import Banner from "@/components/ui/banner";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
-import ListWrapper from "./list-wrapper";
+import BookingList from "./booking-list";
+import Typography from "@/components/ui/typography";
+import Loader from "@/components/ui/loader";
 
 export default function BookingRequests() {
-  return (
-    <Suspense fallback={<Skeleton className="w-full h-40" />}>
-      <ListWrapper />
-    </Suspense>
-  );
+  return <BookingList />;
 }

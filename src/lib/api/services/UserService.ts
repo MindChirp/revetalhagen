@@ -29,6 +29,22 @@ export class UserService {
         });
     }
     /**
+     * @param username
+     * @returns string Success
+     * @throws ApiError
+     */
+    public static getApiUserPermissions(
+        username: string,
+    ): CancelablePromise<Array<string>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/User/{username}/permissions',
+            path: {
+                'username': username,
+            },
+        });
+    }
+    /**
      * @returns any Success
      * @throws ApiError
      */

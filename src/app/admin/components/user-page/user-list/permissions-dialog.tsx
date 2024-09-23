@@ -1,5 +1,5 @@
 "use client";
-
+import useSWR from "swr";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Conditional from "@/components/ui/conditional";
@@ -35,35 +35,43 @@ import {
   HistoryIcon,
   InfoIcon,
   SaveIcon,
-  ToggleLeft,
 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { usePermissions } from "@/hooks/permissions";
 
 interface PermissionsDialogProps {
   children: React.ReactNode;
   user: SimpleUserDto;
+  userPermissions: string[];
   allPermissions: PermissionDto[];
   allRoles: RoleDto[];
 }
 
-const exisingUserPermissions: PermissionDto[] = [];
 export default function PermissionsDialog({
   children,
   allPermissions,
   user,
   allRoles,
 }: PermissionsDialogProps) {
-  // const userPermissions = await IFetch<string[]>({
-  //   url:
-  // })
+  const {
+    data: existingPermissions,
+    isLoading: permissionsLoading,
+    error: permissionsError,
+  } = usePermissions(user.username ?? "");
+
+  useEffect(() => {
+    if (permissionsLoading || permissionsError) return;
+
+    setUserPermissions(existingPermissions);
+  }, [existingPermissions, permissionsLoading, permissionsError]);
+
+  const [userPermissions, setUserPermissions] = useState<PermissionDto[]>();
+
   const { toast } = useToast();
-  const [userPermissions, setUserPermissions] = useState<PermissionDto[]>(
-    exisingUserPermissions
-  );
   const [submitting, setSubmitting] = useState(false);
 
   const resetChanges = () => {
-    setUserPermissions(exisingUserPermissions);
+    setUserPermissions(existingPermissions);
   };
 
   const setPermissions = () => {
@@ -75,7 +83,7 @@ export default function PermissionsDialog({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userPermissions.map((p) => p.id)),
+        body: JSON.stringify(userPermissions?.map((p) => p.id)),
       },
     })
       .then(() => {
@@ -97,12 +105,13 @@ export default function PermissionsDialog({
   };
 
   const removePermission = (id: number) => {
-    setUserPermissions((prev) => prev.filter((p) => p.id !== id));
+    setUserPermissions((prev) => prev?.filter((p) => p.id !== id));
   };
+
   const addPermission = (id: number) => {
-    if (!userPermissions.some((permission) => permission.id === id)) {
+    if (!userPermissions?.some((permission) => permission.id === id)) {
       setUserPermissions([
-        ...userPermissions,
+        ...(userPermissions ?? []),
         allPermissions.find((p) => p.id === id)!,
       ]);
     }
@@ -121,7 +130,7 @@ export default function PermissionsDialog({
 
         <Typography variant="small">Fjern</Typography>
         <div className="w-full flex gap-2.5 flex-wrap">
-          {userPermissions.map((permission, index) => (
+          {userPermissions?.map((permission, index) => (
             <Tooltip key={index}>
               <TooltipTrigger>
                 <Badge
@@ -146,7 +155,7 @@ export default function PermissionsDialog({
           {allPermissions
             .filter(
               (p) =>
-                !userPermissions.some((permission) => permission.id === p.id)
+                !userPermissions?.some((permission) => permission.id === p.id)
             )
             .map((permission, index) => (
               <Tooltip key={index}>
@@ -167,7 +176,7 @@ export default function PermissionsDialog({
               !Boolean(
                 allPermissions.filter(
                   (p) =>
-                    !userPermissions.some(
+                    !userPermissions?.some(
                       (permission) => permission.title === p.title
                     )
                 ).length

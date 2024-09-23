@@ -2,6 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { BookingStatus } from '../models/BookingStatus';
+import type { ChangeBookingStateDto } from '../models/ChangeBookingStateDto';
 import type { CreateBookingDto } from '../models/CreateBookingDto';
 import type { DetailedBookingDto } from '../models/DetailedBookingDto';
 import type { SimpleBookingDto } from '../models/SimpleBookingDto';
@@ -30,6 +32,10 @@ export class BookingService {
         });
     }
     /**
+     * @param fromDate
+     * @param toDate
+     * @param status
+     * @param itemId
      * @param title
      * @param sortBy
      * @param pageNumber
@@ -38,6 +44,10 @@ export class BookingService {
      * @throws ApiError
      */
     public static getApiBooking(
+        fromDate?: string,
+        toDate?: string,
+        status?: BookingStatus,
+        itemId?: number,
         title?: string,
         sortBy?: string,
         pageNumber?: number,
@@ -47,11 +57,35 @@ export class BookingService {
             method: 'GET',
             url: '/api/Booking',
             query: {
+                'FromDate': fromDate,
+                'ToDate': toDate,
+                'Status': status,
+                'ItemId': itemId,
                 'Title': title,
                 'SortBy': sortBy,
                 'PageNumber': pageNumber,
                 'PageSize': pageSize,
             },
+        });
+    }
+    /**
+     * @param bookingId
+     * @param requestBody
+     * @returns any Success
+     * @throws ApiError
+     */
+    public static postApiBookingState(
+        bookingId: number,
+        requestBody?: ChangeBookingStateDto,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/Booking/state/{bookingId}',
+            path: {
+                'bookingId': bookingId,
+            },
+            body: requestBody,
+            mediaType: 'application/json-patch+json',
         });
     }
 }

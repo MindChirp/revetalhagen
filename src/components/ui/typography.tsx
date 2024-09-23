@@ -21,12 +21,7 @@ const Typography = ({
         />
       );
     case "p":
-      return (
-        <p
-          className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}
-          {...props}
-        />
-      );
+      return <p className={cn("leading-7", className)} {...props} />;
     case "h2":
       return (
         <h2

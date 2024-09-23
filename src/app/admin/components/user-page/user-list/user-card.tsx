@@ -87,6 +87,7 @@ export default function UserCard({
             </Tooltip>
             <Conditional render={allowSetPermissions}>
               <PermissionsDialog
+                userPermissions={currentUserPermissions}
                 user={user}
                 allPermissions={allPermissions}
                 allRoles={allRoles}

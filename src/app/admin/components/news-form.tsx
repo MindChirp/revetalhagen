@@ -14,9 +14,9 @@ import { useToast } from "@/components/ui/use-toast";
 import { DetailedNewsDto, SimpleNewsDto } from "@/lib/api";
 import { IFetch } from "@/lib/IFetch";
 import { routes } from "@/lib/routes";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  EyeIcon,
   Loader2,
   SaveIcon,
   ScanEyeIcon,
@@ -28,7 +28,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import NewsEditor from "./news-editor";
 import PreviewModal from "./preview-modal";
-import { cn } from "@/lib/utils";
 
 interface NewsFormProps {
   article?: DetailedNewsDto;
