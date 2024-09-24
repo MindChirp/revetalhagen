@@ -1,43 +1,24 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Conditional from "../conditional";
 import Typography from "../typography";
+import EditControls from "./components/edit-controls";
+import { ContentDto } from "@/lib/api";
 
 type AboutCardProps = {
   direction?: "left" | "right";
-  img: string;
-  alt: string;
-  title: string;
-  description: string;
+  pageContent: ContentDto;
   editable: boolean;
   mirrored?: boolean;
-} & React.HTMLProps<HTMLDivElement> &
-  (EditableProps | NonEditableProps);
+  displayEditControls?: boolean;
+} & React.HTMLProps<HTMLDivElement>;
 
-type EditableProps = {
-  onChange?: ({
-    title,
-    content,
-    image,
-  }: {
-    title: string;
-    content: string;
-    image: string;
-  }) => void;
-  editable: true;
-};
-
-type NonEditableProps = {
-  editable?: false;
-};
-
-const AboutCard = ({
+const AboutCard = async ({
   className,
+  pageContent,
   direction,
-  img,
-  alt,
-  title,
-  description,
   mirrored,
+  displayEditControls = false,
   ...props
 }: AboutCardProps) => {
   return (
@@ -55,8 +36,10 @@ const AboutCard = ({
         )}
       >
         <Image
-          src={img}
-          alt={alt}
+          src={
+            "https://revetalhagenblob.blob.core.windows.net/images/IMG_0713 (1).jpg"
+          }
+          alt={"Bilde av " + pageContent.title}
           fill
           objectFit="cover"
           className="rounded-full shadow-lg"
@@ -92,9 +75,12 @@ const AboutCard = ({
         >
           <Typography
             variant="h1"
-            className="w-fit text-primary-foreground !text-5xl text-center md:text-start"
+            className={cn(
+              "w-fit text-primary-foreground !text-5xl text-center",
+              mirrored ? "md:text-end" : "md:text-start"
+            )}
           >
-            {title}
+            {pageContent.title}
           </Typography>
           <Image
             alt="Bølge"
@@ -108,8 +94,11 @@ const AboutCard = ({
           variant="p"
           className="text-primary-foreground max-w-[700px] w-full"
         >
-          {description}
+          {pageContent.content}
         </Typography>
+        <Conditional render={displayEditControls}>
+          <EditControls aboutContent={pageContent} className="mt-2.5" />
+        </Conditional>
       </div>
     </div>
   );

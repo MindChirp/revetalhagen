@@ -11,6 +11,7 @@ type CustomConfig = {
 interface IFetchProps {
   url: string;
   config?: RequestInit & CustomConfig;
+  withFile?: boolean;
 }
 
 export interface ErrorType {
@@ -22,10 +23,15 @@ export interface ErrorType {
 const TOKEN_HEADER_NAME = "Authorization";
 const ACCESS_TOKEN = "__session";
 
-export const IFetch = <T extends unknown>({ url, config }: IFetchProps) => {
+export const IFetch = <T extends unknown>({
+  url,
+  config,
+  withFile,
+}: IFetchProps) => {
   let headers: HeadersInit = {};
   headers[TOKEN_HEADER_NAME] = ("Bearer " +
     cookies().get(ACCESS_TOKEN)?.value) as string;
+
   headers = {
     ...headers,
     ...config?.headers,
@@ -56,6 +62,7 @@ export const IFetch = <T extends unknown>({ url, config }: IFetchProps) => {
         if (res.status === 500) {
           throw new Error("Internal server error");
         }
+        console.log(res);
 
         const message = await res.json();
         const errorObject: ErrorType = {

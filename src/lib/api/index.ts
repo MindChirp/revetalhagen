@@ -15,6 +15,7 @@ export type { CreateBookableItemCategoryDto } from './models/CreateBookableItemC
 export type { CreateBookableItemDto } from './models/CreateBookableItemDto';
 export type { CreateBookingDto } from './models/CreateBookingDto';
 export type { CreateCommentDto } from './models/CreateCommentDto';
+export type { CreateContentDto } from './models/CreateContentDto';
 export type { CreateNewsDto } from './models/CreateNewsDto';
 export type { DateOnly } from './models/DateOnly';
 export { DayOfWeek } from './models/DayOfWeek';

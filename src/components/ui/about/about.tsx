@@ -3,9 +3,11 @@ import { IFetch } from "@/lib/IFetch";
 import { cn, hasPermissions, PERMISSIONS } from "@/lib/utils";
 import AboutCard from "../about-card/about-card";
 import ReactiveCarousel, { ImageType } from "../reactive-carousel";
-import CreateAbout from "./components/create-about";
+import AboutDialog from "./components/about-dialog";
 import { auth } from "@clerk/nextjs/server";
 import Conditional from "../conditional";
+import { Button } from "../button";
+import { PlusIcon } from "lucide-react";
 
 const images: ImageType[] = [
   {
@@ -50,13 +52,17 @@ const About = async ({ className, ...props }: AboutProps) => {
     config: {
       method: "GET",
       next: {
-        tags: ["about"],
+        tags: ["frontpage/about"],
       },
     },
   });
 
   const session = await auth();
-
+  const canModify = hasPermissions(
+    session.sessionClaims?.metadata.permissions ?? [],
+    [PERMISSIONS.updateContent],
+    true
+  );
   return (
     <div className={cn("w-full", className)} {...props}>
       <div
@@ -71,38 +77,23 @@ const About = async ({ className, ...props }: AboutProps) => {
           <ReactiveCarousel images={images} />
           {data?.map((content, index) => (
             <AboutCard
+              pageContent={content}
+              displayEditControls={canModify}
               editable={false}
               key={index}
               mirrored={index % 2 === 1}
-              img={"/IMG_0773.jpg"}
-              alt={content.title ?? ""}
-              title={content.title ?? ""}
-              description={content.content ?? ""}
             />
           ))}
-          <AboutCard
-            editable={false}
-            img="/IMG_0773.jpg"
-            alt="Kålhode"
-            title="Hva vi gjør"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a metus porttitor odio aliquam imperdiet at et augue. Cras nec aliquam orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vivamus rutrum ipsum ut est tincidunt, eu imperdiet risus dapibus. Nunc imperdiet diam vitae felis maximus hendrerit. Praesent nunc eros, pellentesque sit amet mi eu, placerat viverra dui."
-          />
-          <AboutCard
-            editable={false}
-            mirrored
-            img="/IMG_0716.jpg"
-            alt="Bryggerhuset"
-            title="Hva vi står for"
-            description="Etiam facilisis lorem leo, in auctor orci convallis vitae. Nunc blandit, sapien non interdum imperdiet, erat mauris ultrices est, at rutrum tortor diam ac lorem. Aliquam nec ultricies eros. Nulla in sollicitudin nibh, vitae venenatis nibh. Duis leo nisl, imperdiet sodales lacinia id, faucibus et nunc. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur convallis dolor sit amet sem viverra tincidunt."
-          />
-          <Conditional
-            render={hasPermissions(
-              session.sessionClaims?.metadata.permissions ?? [],
-              [PERMISSIONS.updateContent],
-              true
-            )}
-          >
-            <CreateAbout />
+
+          <Conditional render={canModify}>
+            <AboutDialog
+              title="Legg til avsnitt"
+              description="Legg til et nytt avsnitt i området"
+            >
+              <Button className="gap-2.5 items-center">
+                <PlusIcon size={16} /> Legg til avsnitt
+              </Button>
+            </AboutDialog>
           </Conditional>
         </div>
       </section>
