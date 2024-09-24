@@ -1,15 +1,34 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import Typography from "./typography";
+import Typography from "../typography";
 
-interface AboutCardProps extends React.HTMLProps<HTMLDivElement> {
+type AboutCardProps = {
   direction?: "left" | "right";
   img: string;
   alt: string;
   title: string;
   description: string;
+  editable: boolean;
   mirrored?: boolean;
-}
+} & React.HTMLProps<HTMLDivElement> &
+  (EditableProps | NonEditableProps);
+
+type EditableProps = {
+  onChange?: ({
+    title,
+    content,
+    image,
+  }: {
+    title: string;
+    content: string;
+    image: string;
+  }) => void;
+  editable: true;
+};
+
+type NonEditableProps = {
+  editable?: false;
+};
 
 const AboutCard = ({
   className,
@@ -40,7 +59,7 @@ const AboutCard = ({
           alt={alt}
           fill
           objectFit="cover"
-          className="rounded-full shadow-lg"
+          className="rounded-full shadow-lg md:max-w-48"
         />
         <Image
           alt="Bølge"

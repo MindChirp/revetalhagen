@@ -11,7 +11,8 @@ export type Pages =
   | "interessegrupper"
   | "brukere"
   | "utleie"
-  | "sponsorer";
+  | "sponsorer"
+  | "innhold";
 
 export type AdminSearchParams = {
   page?: Pages;
