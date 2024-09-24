@@ -43,14 +43,14 @@ const AboutCard = ({
   return (
     <div
       className={cn(
-        "w-fit flex md:gap-10 gap-5 items-center flex-col md:flex-row",
+        "w-fit flex-shrink-0 flex md:gap-10 gap-5 items-center flex-col md:flex-row",
         className
       )}
       {...props}
     >
       <div
         className={cn(
-          "md:w-96 w-52 aspect-square relative items-center justify-center",
+          "md:w-72 md:h-72 w-52 h-52 aspect-square relative items-center",
           mirrored ? "md:order-2" : undefined
         )}
       >
