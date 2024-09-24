@@ -1,12 +1,11 @@
-"use client";
-import { cn, hasPermissions, PERMISSIONS } from "@/lib/utils";
-import AboutCard from "./about-card/about-card";
-import ReactiveCarousel, { ImageType } from "./reactive-carousel";
-import useSWR from "swr";
-import { IFetch } from "@/lib/IFetch";
-import { usePermissions } from "@/hooks/permissions";
-import { useUser } from "@clerk/nextjs";
 import { ContentDto } from "@/lib/api";
+import { IFetch } from "@/lib/IFetch";
+import { cn, hasPermissions, PERMISSIONS } from "@/lib/utils";
+import AboutCard from "../about-card/about-card";
+import ReactiveCarousel, { ImageType } from "../reactive-carousel";
+import CreateAbout from "./components/create-about";
+import { auth } from "@clerk/nextjs/server";
+import Conditional from "../conditional";
 
 const images: ImageType[] = [
   {
@@ -45,23 +44,18 @@ const images: ImageType[] = [
 
 interface AboutProps extends React.HTMLProps<HTMLDivElement> {}
 
-const About = ({ className, ...props }: AboutProps) => {
-  const user = useUser();
-  const { data: permissions, isLoading: permissionsLoading } = usePermissions(
-    user.user?.id ?? ""
-  );
-
-  const { data, isLoading } = useSWR("about", () =>
-    IFetch<ContentDto[]>({
-      url: `/api/Content/${encodeURIComponent("frontpage-about")}`,
-      config: {
-        method: "GET",
-        next: {
-          tags: ["about"],
-        },
+const About = async ({ className, ...props }: AboutProps) => {
+  const data = await IFetch<ContentDto[]>({
+    url: `/api/Content/${encodeURIComponent("frontpage-about")}`,
+    config: {
+      method: "GET",
+      next: {
+        tags: ["about"],
       },
-    })
-  );
+    },
+  });
+
+  const session = await auth();
 
   return (
     <div className={cn("w-full", className)} {...props}>
@@ -77,13 +71,9 @@ const About = ({ className, ...props }: AboutProps) => {
           <ReactiveCarousel images={images} />
           {data?.map((content, index) => (
             <AboutCard
+              editable={false}
               key={index}
               mirrored={index % 2 === 1}
-              editable={
-                permissions?.some(
-                  (p) => p.title === PERMISSIONS.updateContent
-                ) ?? false
-              }
               img={"/IMG_0773.jpg"}
               alt={content.title ?? ""}
               title={content.title ?? ""}
@@ -91,10 +81,7 @@ const About = ({ className, ...props }: AboutProps) => {
             />
           ))}
           <AboutCard
-            editable={
-              permissions?.some((p) => p.title === PERMISSIONS.updateContent) ??
-              false
-            }
+            editable={false}
             img="/IMG_0773.jpg"
             alt="Kålhode"
             title="Hva vi gjør"
@@ -108,6 +95,15 @@ const About = ({ className, ...props }: AboutProps) => {
             title="Hva vi står for"
             description="Etiam facilisis lorem leo, in auctor orci convallis vitae. Nunc blandit, sapien non interdum imperdiet, erat mauris ultrices est, at rutrum tortor diam ac lorem. Aliquam nec ultricies eros. Nulla in sollicitudin nibh, vitae venenatis nibh. Duis leo nisl, imperdiet sodales lacinia id, faucibus et nunc. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur convallis dolor sit amet sem viverra tincidunt."
           />
+          <Conditional
+            render={hasPermissions(
+              session.sessionClaims?.metadata.permissions ?? [],
+              [PERMISSIONS.updateContent],
+              true
+            )}
+          >
+            <CreateAbout />
+          </Conditional>
         </div>
       </section>
     </div>

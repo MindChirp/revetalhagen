@@ -50,7 +50,7 @@ const AboutCard = ({
     >
       <div
         className={cn(
-          "md:w-96 w-52 aspect-square relative items-center",
+          "md:w-96 w-52 aspect-square relative items-center justify-center",
           mirrored ? "md:order-2" : undefined
         )}
       >
@@ -59,7 +59,7 @@ const AboutCard = ({
           alt={alt}
           fill
           objectFit="cover"
-          className="rounded-full shadow-lg md:max-w-48"
+          className="rounded-full shadow-lg"
         />
         <Image
           alt="Bølge"
