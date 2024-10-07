@@ -1,6 +1,6 @@
 "use client";
 
-import { IFetch } from "@/lib/IFetch";
+import { IFetch, RequestResponse } from "@/lib/IFetch";
 import { ContentDto, CreateContentDto } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon, SaveIcon } from "lucide-react";
@@ -49,7 +49,7 @@ export default function AboutDialog({
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(arg),
+
           next: {
             tags: [tag],
           },
@@ -57,7 +57,7 @@ export default function AboutDialog({
       })
   );
 
-  const { trigger: update } = useSWRMutation(
+  const { trigger: update, error } = useSWRMutation(
     "/frontpage/about",
     (
       tag,
@@ -75,14 +75,20 @@ export default function AboutDialog({
         config: {
           revalidateTags: [tag],
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(arg.data),
           next: {
             tags: [tag],
           },
         },
+      }).then((data) => {
+        const isError = (
+          data: ContentDto | RequestResponse
+        ): data is RequestResponse => {
+          return "status" in data;
+        };
+
+        if (isError(data)) {
+          throw data;
+        }
       })
   );
 
@@ -155,6 +161,7 @@ export default function AboutDialog({
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <div>
+          {JSON.stringify(error)}
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
