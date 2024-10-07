@@ -4,6 +4,7 @@ import Conditional from "../conditional";
 import Typography from "../typography";
 import EditControls from "./components/edit-controls";
 import { ContentDto } from "@/lib/api";
+import { pages } from "next/dist/build/templates/app-page";
 
 type AboutCardProps = {
   direction?: "left" | "right";
@@ -36,9 +37,7 @@ const AboutCard = async ({
         )}
       >
         <Image
-          src={
-            "https://revetalhagenblob.blob.core.windows.net/images/IMG_0713 (1).jpg"
-          }
+          src={pageContent.image ?? ""}
           alt={"Bilde av " + pageContent.title}
           fill
           objectFit="cover"

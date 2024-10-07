@@ -3,7 +3,9 @@
 import { IFetch } from "@/lib/IFetch";
 import { ContentDto, CreateContentDto } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PlusIcon, SaveIcon } from "lucide-react";
+import { DialogProps } from "@radix-ui/react-dialog";
+import { SaveIcon } from "lucide-react";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import useSWRMutation from "swr/mutation";
 import { z } from "zod";
@@ -22,8 +24,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "../../form";
 import { Input } from "../../input";
 import { Textarea } from "../../textarea";
 import { useToast } from "../../use-toast";
-import { DialogProps } from "@radix-ui/react-dialog";
-import { useMemo, useState } from "react";
 
 interface AboutDialogProps extends DialogProps {
   title: string;
@@ -38,7 +38,7 @@ export default function AboutDialog({
   ...props
 }: AboutDialogProps) {
   const { toast } = useToast();
-  const { trigger: create } = useSWRMutation(
+  const { trigger: create, error } = useSWRMutation(
     "/frontpage/about",
     (tag, { arg }: { arg: CreateContentDto }) =>
       IFetch<ContentDto>({
@@ -46,10 +46,19 @@ export default function AboutDialog({
         config: {
           revalidateTags: [tag],
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(arg),
+          body: (() => {
+            const formData = new FormData();
+            console.log(arg);
+            Object.entries(arg).forEach(([key, value]) => {
+              const capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
+              if (value instanceof File) {
+                formData.append(capitalizedKey, value);
+              } else {
+                formData.append(capitalizedKey, value?.toString() ?? "");
+              }
+            });
+            return formData;
+          })(),
           next: {
             tags: [tag],
           },
@@ -75,10 +84,17 @@ export default function AboutDialog({
         config: {
           revalidateTags: [tag],
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(arg.data),
+          body: (() => {
+            const formData = new FormData();
+            Object.entries(arg.data).forEach(([key, value]) => {
+              if (value instanceof File) {
+                formData.append(key, value);
+              } else {
+                formData.append(key, value?.toString() ?? "");
+              }
+            });
+            return formData;
+          })(),
           next: {
             tags: [tag],
           },
