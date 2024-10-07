@@ -1,6 +1,6 @@
 "use client";
 
-import { IFetch } from "@/lib/IFetch";
+import { IFetch, RequestResponse } from "@/lib/IFetch";
 import { ContentDto, CreateContentDto } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogProps } from "@radix-ui/react-dialog";
@@ -66,7 +66,7 @@ export default function AboutDialog({
       })
   );
 
-  const { trigger: update } = useSWRMutation(
+  const { trigger: update, error } = useSWRMutation(
     "/frontpage/about",
     (
       tag,
@@ -84,6 +84,7 @@ export default function AboutDialog({
         config: {
           revalidateTags: [tag],
           method: "PUT",
+<<<<<<< HEAD
           body: (() => {
             const formData = new FormData();
             Object.entries(arg.data).forEach(([key, value]) => {
@@ -95,10 +96,22 @@ export default function AboutDialog({
             });
             return formData;
           })(),
+=======
+>>>>>>> 2d5ee37eabc009ef9cb3eb5734012b85886d87b1
           next: {
             tags: [tag],
           },
         },
+      }).then((data) => {
+        const isError = (
+          data: ContentDto | RequestResponse
+        ): data is RequestResponse => {
+          return "status" in data;
+        };
+
+        if (isError(data)) {
+          throw data;
+        }
       })
   );
 
@@ -171,6 +184,7 @@ export default function AboutDialog({
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <div>
+          {JSON.stringify(error)}
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
