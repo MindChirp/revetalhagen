@@ -38,7 +38,7 @@ export default function AboutDialog({
   ...props
 }: AboutDialogProps) {
   const { toast } = useToast();
-  const { trigger: create, error } = useSWRMutation(
+  const { trigger: create } = useSWRMutation(
     "/frontpage/about",
     (tag, { arg }: { arg: CreateContentDto }) =>
       IFetch<ContentDto>({
@@ -84,7 +84,6 @@ export default function AboutDialog({
         config: {
           revalidateTags: [tag],
           method: "PUT",
-<<<<<<< HEAD
           body: (() => {
             const formData = new FormData();
             Object.entries(arg.data).forEach(([key, value]) => {
@@ -96,8 +95,6 @@ export default function AboutDialog({
             });
             return formData;
           })(),
-=======
->>>>>>> 2d5ee37eabc009ef9cb3eb5734012b85886d87b1
           next: {
             tags: [tag],
           },
