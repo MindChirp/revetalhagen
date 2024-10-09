@@ -49,19 +49,9 @@ export const IFetch = <T extends unknown>({ url, config }: IFetchProps) => {
     }
   }
 
-  const body = config?.formData ? config.formData : undefined;
-
-  // Adjust headers if uploading files
-  if (config?.formData) {
-    if (headers["Content-Type"]) {
-      delete headers["Content-Type"];
-    }
-  }
-
   return fetch(process.env.NEXT_PUBLIC_API_URL + url + qParamString, {
     ...config,
     headers,
-    body, // Use the FormData object directly as the body
   })
     .then(async (response) => {
       const contentType = response.headers.get("content-type");

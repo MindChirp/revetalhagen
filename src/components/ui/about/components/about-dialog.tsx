@@ -50,10 +50,8 @@ export default function AboutDialog({
           method: "POST",
           body: (() => {
             const formData = new FormData();
-            console.log(arg);
             Object.entries(arg).forEach(([key, value]) => {
               const capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
-              console.log(capitalizedKey);
               if (value instanceof File) {
                 formData.append(capitalizedKey, value);
               } else {
