@@ -6,6 +6,11 @@ import { Button } from "../../button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../tooltip";
 import AboutDialog from "../../about/components/about-dialog";
 import { ContentDto } from "@/lib/api";
+import useSWRMutation from "swr/mutation";
+import { IFetch } from "@/lib/IFetch";
+import Conditional from "../../conditional";
+import Loader from "../../loader";
+import { useToast } from "../../use-toast";
 
 interface EditControlsProps extends React.HTMLProps<HTMLDivElement> {
   aboutContent: ContentDto;
@@ -15,6 +20,20 @@ export default function EditControls({
   className,
   ...props
 }: EditControlsProps) {
+  const { toast } = useToast();
+
+  const { trigger: deleteAbout, isMutating } = useSWRMutation(
+    "frontpage/about",
+    () =>
+      IFetch<ContentDto>({
+        url: `/api/Content/${aboutContent.id}`,
+        config: {
+          method: "DELETE",
+          revalidateTags: ["frontpage/about"],
+        },
+      })
+  );
+
   return (
     <div className={cn("flex gap-2.5 w-fit", className)}>
       <Tooltip>
@@ -37,8 +56,21 @@ export default function EditControls({
           <Button
             className="w-full gap-2.5 items-center"
             variant={"destructive"}
+            onClick={() =>
+              deleteAbout().then(() => {
+                toast({
+                  title: "Vellykket!",
+                  description: "Innholdet ble slettet",
+                });
+              })
+            }
           >
-            <TrashIcon size={16} />
+            <Conditional render={!isMutating}>
+              <TrashIcon size={16} />
+            </Conditional>
+            <Conditional render={isMutating}>
+              <Loader />
+            </Conditional>
           </Button>
         </TooltipTrigger>
         <TooltipContent>Slett</TooltipContent>

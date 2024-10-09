@@ -40,7 +40,7 @@ export default function AboutDialog({
   ...props
 }: AboutDialogProps) {
   const { toast } = useToast();
-  const { trigger: create, isMutating } = useSWRMutation(
+  const { trigger: create, isMutating: isCreating } = useSWRMutation(
     "/frontpage/about",
     (tag, { arg }: { arg: CreateContentDto }) =>
       IFetch<ContentDto>({
@@ -86,7 +86,11 @@ export default function AboutDialog({
         })
   );
 
-  const { trigger: update, error } = useSWRMutation(
+  const {
+    trigger: update,
+    error,
+    isMutating: isUpdating,
+  } = useSWRMutation(
     "/frontpage/about",
     (
       tag,
@@ -270,13 +274,13 @@ export default function AboutDialog({
                 <Button
                   className="items-center gap-2.5"
                   type="submit"
-                  disabled={isMutating}
+                  disabled={isCreating || isUpdating}
                 >
-                  <Conditional render={!isMutating}>
+                  <Conditional render={!isCreating && !isUpdating}>
                     <SaveIcon size={16} />
                     Lagre
                   </Conditional>
-                  <Conditional render={isMutating}>
+                  <Conditional render={isCreating || isUpdating}>
                     <Loader />
                   </Conditional>
                 </Button>
