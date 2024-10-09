@@ -75,7 +75,7 @@ const About = async ({ className, ...props }: AboutProps) => {
       <section className="bg-background py-20">
         <div className="w-fit flex mx-auto flex-col gap-20 px-10 md:px-20 max-w-[1050px] flex-0 items-center">
           <ReactiveCarousel images={images} />
-          {data?.map((content, index) => (
+          {(Array.isArray(data) ? data : [])?.map((content, index) => (
             <AboutCard
               pageContent={content}
               displayEditControls={canModify}

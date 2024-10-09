@@ -40,8 +40,7 @@ const AboutCard = async ({
           src={pageContent.image ?? ""}
           alt={"Bilde av " + pageContent.title}
           fill
-          objectFit="cover"
-          className="rounded-full shadow-lg"
+          className="rounded-full shadow-lg object-cover"
         />
         <Image
           alt="Bølge"

@@ -24,6 +24,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "../../form";
 import { Input } from "../../input";
 import { Textarea } from "../../textarea";
 import { useToast } from "../../use-toast";
+import Conditional from "../../conditional";
+import Loader from "../../loader";
 
 interface AboutDialogProps extends DialogProps {
   title: string;
@@ -38,7 +40,7 @@ export default function AboutDialog({
   ...props
 }: AboutDialogProps) {
   const { toast } = useToast();
-  const { trigger: create } = useSWRMutation(
+  const { trigger: create, isMutating } = useSWRMutation(
     "/frontpage/about",
     (tag, { arg }: { arg: CreateContentDto }) =>
       IFetch<ContentDto>({
@@ -51,6 +53,7 @@ export default function AboutDialog({
             console.log(arg);
             Object.entries(arg).forEach(([key, value]) => {
               const capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
+              console.log(capitalizedKey);
               if (value instanceof File) {
                 formData.append(capitalizedKey, value);
               } else {
@@ -64,6 +67,25 @@ export default function AboutDialog({
           },
         },
       })
+        .then((data) => {
+          console.log(data);
+          const isError = (
+            data: ContentDto | RequestResponse
+          ): data is RequestResponse => {
+            return "status" in data;
+          };
+
+          if (isError(data)) {
+            throw data;
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          throw {
+            status: 500,
+            statusText: "En ukjent feil oppstod",
+          } as RequestResponse;
+        })
   );
 
   const { trigger: update, error } = useSWRMutation(
@@ -87,10 +109,11 @@ export default function AboutDialog({
           body: (() => {
             const formData = new FormData();
             Object.entries(arg.data).forEach(([key, value]) => {
+              const capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
               if (value instanceof File) {
-                formData.append(key, value);
+                formData.append(capitalizedKey, value);
               } else {
-                formData.append(key, value?.toString() ?? "");
+                formData.append(capitalizedKey, value?.toString() ?? "");
               }
             });
             return formData;
@@ -99,17 +122,26 @@ export default function AboutDialog({
             tags: [tag],
           },
         },
-      }).then((data) => {
-        const isError = (
-          data: ContentDto | RequestResponse
-        ): data is RequestResponse => {
-          return "status" in data;
-        };
-
-        if (isError(data)) {
-          throw data;
-        }
       })
+        .then((data) => {
+          console.log(data);
+          const isError = (
+            data: ContentDto | RequestResponse
+          ): data is RequestResponse => {
+            return "status" in data;
+          };
+
+          if (isError(data)) {
+            throw data;
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          throw {
+            status: 500,
+            statusText: "En ukjent feil oppstod",
+          } as RequestResponse;
+        })
   );
 
   const mode = useMemo<"editing" | "creating">(() => {
@@ -237,9 +269,18 @@ export default function AboutDialog({
                   </Button>
                 </DialogClose>
 
-                <Button className="items-center gap-2.5" type="submit">
-                  <SaveIcon size={16} />
-                  Lagre
+                <Button
+                  className="items-center gap-2.5"
+                  type="submit"
+                  disabled={isMutating}
+                >
+                  <Conditional render={!isMutating}>
+                    <SaveIcon size={16} />
+                    Lagre
+                  </Conditional>
+                  <Conditional render={isMutating}>
+                    <Loader />
+                  </Conditional>
                 </Button>
               </DialogFooter>
             </form>

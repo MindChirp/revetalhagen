@@ -53,8 +53,7 @@ const ReactiveCarousel = ({
                     src={item.src}
                     alt={item.alt}
                     fill
-                    className="rounded-3xl w-full h-full"
-                    objectFit="cover"
+                    className="rounded-3xl w-full h-full object-cover"
                   />
                 </CardContent>
               </Card>
