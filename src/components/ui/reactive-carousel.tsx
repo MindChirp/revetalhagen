@@ -36,7 +36,7 @@ const ReactiveCarousel = ({
       }}
       plugins={[
         Autoplay({
-          delay: 2000,
+          delay: 5000,
           stopOnFocusIn: true,
         }),
       ]}

@@ -57,12 +57,21 @@ export default function EditControls({
             className="w-full gap-2.5 items-center"
             variant={"destructive"}
             onClick={() =>
-              deleteAbout().then(() => {
-                toast({
-                  title: "Vellykket!",
-                  description: "Innholdet ble slettet",
-                });
-              })
+              deleteAbout()
+                .then(() => {
+                  toast({
+                    title: "Vellykket!",
+                    description: "Innholdet ble slettet",
+                  });
+                })
+                .catch((err) =>
+                  toast({
+                    title: "Noe gikk galt",
+                    description:
+                      "Innholdet kunne ikke bli slettet. Prøv igjen senere, eller ta kontakt med en klok utvikler 🤓",
+                    variant: "destructive",
+                  })
+                )
             }
           >
             <Conditional render={!isMutating}>
