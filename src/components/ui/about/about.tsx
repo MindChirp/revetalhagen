@@ -52,7 +52,7 @@ const About = async ({ className, ...props }: AboutProps) => {
     config: {
       method: "GET",
       next: {
-        tags: ["frontpage/about"],
+        tags: ["frontpage-about"],
       },
     },
   });
@@ -79,7 +79,6 @@ const About = async ({ className, ...props }: AboutProps) => {
             <AboutCard
               pageContent={content}
               displayEditControls={canModify}
-              editable={false}
               key={index}
               mirrored={index % 2 === 1}
             />

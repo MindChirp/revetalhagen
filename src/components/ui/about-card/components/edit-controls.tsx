@@ -29,7 +29,7 @@ export default function EditControls({
         url: `/api/Content/${aboutContent.id}`,
         config: {
           method: "DELETE",
-          revalidateTags: ["frontpage/about"],
+          revalidateTags: ["frontpage-about"],
         },
       })
   );

@@ -37,6 +37,7 @@ export default function AboutDialog({
   description,
   initialValues,
   children,
+
   ...props
 }: AboutDialogProps) {
   const { toast } = useToast();
@@ -46,7 +47,7 @@ export default function AboutDialog({
       IFetch<ContentDto>({
         url: `/api/Content`,
         config: {
-          revalidateTags: [tag],
+          revalidateTags: ["frontpage-about"],
           method: "POST",
           body: (() => {
             const formData = new FormData();
@@ -154,9 +155,12 @@ export default function AboutDialog({
     title: z.string().min(1),
     content: z.string().min(1),
     slug: z.string().min(1),
-    image: z.instanceof(File).refine((file) => file.size < 50000000, {
-      message: "Bildefila kan ikke være større enn 50MB",
-    }),
+    image: z
+      .instanceof(File)
+      .refine((file) => file.size < 50000000, {
+        message: "Bildefila kan ikke være større enn 50MB",
+      })
+      .optional(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({

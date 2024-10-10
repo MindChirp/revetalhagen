@@ -1,15 +1,13 @@
+import { ContentDto } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Conditional from "../conditional";
 import Typography from "../typography";
 import EditControls from "./components/edit-controls";
-import { ContentDto } from "@/lib/api";
-import { pages } from "next/dist/build/templates/app-page";
 
 type AboutCardProps = {
   direction?: "left" | "right";
   pageContent: ContentDto;
-  editable: boolean;
   mirrored?: boolean;
   displayEditControls?: boolean;
 } & React.HTMLProps<HTMLDivElement>;
