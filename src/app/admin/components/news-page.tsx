@@ -27,6 +27,18 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
           tags: ["news"],
         },
       },
+    }).then((res) => {
+      // Check if result is of type DetailedNewsDto
+      if (
+        "id" in res &&
+        "title" in res &&
+        "content" in res &&
+        "publishedBy" in res
+      ) {
+        return res as DetailedNewsDto;
+      } else {
+        throw res;
+      }
     });
   }
 

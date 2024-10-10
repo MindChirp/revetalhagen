@@ -16,6 +16,10 @@ export default async function Bookings() {
         tags: ["bookableitems"],
       },
     },
+  }).then((res) => {
+    if (Array.isArray(res)) return res;
+
+    throw res;
   });
 
   return (

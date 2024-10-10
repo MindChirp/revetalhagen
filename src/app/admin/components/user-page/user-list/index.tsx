@@ -12,6 +12,10 @@ export default async function UserList() {
         tags: ["permissions"],
       },
     },
+  }).then((res) => {
+    if (Array.isArray(res)) return res;
+
+    throw res;
   });
 
   const allRoles = await IFetch<RoleDto[]>({
@@ -22,6 +26,10 @@ export default async function UserList() {
         tags: ["roles"],
       },
     },
+  }).then((res) => {
+    if (Array.isArray(res)) return res;
+
+    throw res;
   });
 
   const users = await IFetch<SimpleUserDto[]>({
@@ -32,6 +40,10 @@ export default async function UserList() {
         tags: ["users"],
       },
     },
+  }).then((res) => {
+    if (Array.isArray(res)) return res;
+
+    throw res;
   });
 
   const { sessionClaims } = auth();

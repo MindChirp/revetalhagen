@@ -12,6 +12,10 @@ export const usePermissions = (userId: string) => {
       config: {
         method: "GET",
       },
+    }).then((res) => {
+      if (Array.isArray(res)) return res;
+
+      throw res;
     });
   });
 };
