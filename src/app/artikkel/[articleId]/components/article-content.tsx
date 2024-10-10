@@ -14,6 +14,10 @@ export default async function ArticleContent({
   const article = await IFetch<DetailedNewsDto>({
     url: `/api/News/${articleId}`,
     config: { method: "GET" },
+  }).then((res) => {
+    if ("title" in res) return res;
+
+    throw res;
   });
 
   const user = await currentUser();

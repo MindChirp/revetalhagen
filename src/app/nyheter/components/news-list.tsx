@@ -31,6 +31,10 @@ export default async function NewsList({
           tags: ["news", "page-" + page, "query-" + query],
         },
       },
+    }).then((res) => {
+      if ("title" in res) return res as SimpleNewsDto[];
+
+      throw res;
     });
   } catch (error) {
     isError = true;

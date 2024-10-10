@@ -36,7 +36,7 @@ interface BookingDialogProps {
 }
 export default function BookingDialog({ booking }: BookingDialogProps) {
   const { toast } = useToast();
-  const { data: overlappingReservations } = useSWR(
+  const { data: overlappingReservations, error } = useSWR(
     `/api/booking/${booking.id}/overlapping`,
     () =>
       IFetch<SimpleBookingDto[]>({
@@ -51,6 +51,11 @@ export default function BookingDialog({ booking }: BookingDialogProps) {
           },
           method: "GET",
         },
+      }).then((res) => {
+        // Only return the actual data, if error occurs, throw it
+        if (Array.isArray(res)) {
+          return res;
+        } else throw res;
       })
   );
 

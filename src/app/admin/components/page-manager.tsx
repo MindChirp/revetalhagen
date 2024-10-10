@@ -1,5 +1,6 @@
 import { AdminSearchParams, Pages } from "../page";
 import BookingPage from "./booking-page/booking-page";
+import ContentPage from "./content-page";
 import NewsPage from "./news-page";
 import SponsorPage from "./sponsor-page";
 import UserPage from "./user-page";
@@ -24,6 +25,7 @@ const PageMap: {
   utleie: BookingPage,
   // interessegrupper: undefined,
   sponsorer: SponsorPage,
+  innhold: ContentPage,
   brukere: UserPage,
 };
 

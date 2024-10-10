@@ -45,6 +45,7 @@ export const PERMISSIONS = {
   getRoles: "get:roles",
   updateUserPermissions: "update:user-permissions",
   viewUsers: "view:users",
+  updateContent: "update:content",
 };
 
 export const getDayProgressPercentage = (

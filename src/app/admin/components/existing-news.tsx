@@ -14,7 +14,12 @@ export default async function ExistingNews() {
         tags: ["news"],
       },
     },
+  }).then((res) => {
+    if (Array.isArray(res)) return res;
+
+    throw res;
   });
+
   return (
     <div className="gap-2.5 w-full flex flex-col">
       {articles.map((article, index) => (

@@ -23,13 +23,7 @@ const ArticleImage = ({
         )}
         {...props}
       >
-        <Image
-          src={src}
-          objectFit="cover"
-          alt={alt}
-          className="rounded-3xl"
-          fill
-        />
+        <Image src={src} alt={alt} className="rounded-3xl object-cover" fill />
       </div>
       <div className="relative w-full">
         <Image

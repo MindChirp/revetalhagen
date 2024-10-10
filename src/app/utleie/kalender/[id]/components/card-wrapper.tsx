@@ -17,6 +17,10 @@ export default async function CardWrapper({ id }: CardWrapperProps) {
         tags: ["bookableitem", id],
       },
     },
+  }).then((res) => {
+    if ("name" in res) return res;
+
+    throw res;
   });
   return (
     <PageCard

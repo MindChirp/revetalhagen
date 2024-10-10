@@ -43,10 +43,9 @@ const Hero = ({ displayBg, className, ...props }: HeroProps) => {
                   <Image
                     src="/squiggly-arrow.svg"
                     alt="Krusedullpil"
-                    objectFit="cover"
                     width={200}
                     height={200}
-                    className="w-20 h-20 mx-auto"
+                    className="w-20 h-20 mx-auto object-cover"
                   />
                   <Typography
                     variant="p"
