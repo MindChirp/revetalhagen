@@ -9,6 +9,7 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Conditional from "../conditional";
 import { routes } from "@/lib/routes";
+import { BedIcon, NewspaperIcon, WrenchIcon } from "lucide-react";
 
 interface HeroProps extends React.SVGProps<SVGSVGElement> {
   displayBg?: boolean;
@@ -80,14 +81,23 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
                 <div className="flex gap-2.5 mt-5">
                   <Conditional render={isAdmin}>
                     <Link href={routes.ADMIN}>
-                      <Button>Admin</Button>
+                      <Button className="gap-2.5 items-center">
+                        <WrenchIcon size={16} />
+                        Admin
+                      </Button>
                     </Link>
                   </Conditional>
                   <Link href={routes.NEWS}>
-                    <Button>Nyheter</Button>
+                    <Button className="gap-2.5 items-center">
+                      <NewspaperIcon size={16} />
+                      Nyheter
+                    </Button>
                   </Link>
                   <Link href={routes.BOOKING}>
-                    <Button>Utleie</Button>
+                    <Button className="gap-2.5 items-center">
+                      <BedIcon size={16} />
+                      Utleie
+                    </Button>
                   </Link>
                 </div>
               </SignedIn>

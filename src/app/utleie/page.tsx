@@ -8,6 +8,7 @@ import Illustration from "@/components/ui/illustration";
 import BookableItemCard from "./components/bookable-item-card";
 
 export default async function Bookings() {
+  // ADD SUSPENSE!!
   const items = await IFetch<DetailedBookableItemDto[]>({
     url: `/api/BookableItem`,
     config: {
