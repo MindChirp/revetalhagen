@@ -28,10 +28,10 @@ const PageWrapper = ({
       {...props}
     >
       <Wave6 className="block -mb-[1px] text-background w-full" />
-      <div className="block md:px-20 px-2.5 w-full bg-background h-full flex-1">
+      <div className="block md:px-20 px-2.5 w-full bg-background h-full max-w-full flex-1">
         <div
           className={cn(
-            "-mt-40 md:max-w-[1200px] w-fit mx-auto max-w-full flex flex-col gap-5 relative",
+            "-mt-40 md:max-w-[1200px] mx-auto w-full max-w-full flex flex-col gap-5 relative",
             innerClassName
           )}
         >

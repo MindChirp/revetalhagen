@@ -24,17 +24,14 @@ export default async function ArticleContent({
 
   const isOwnArticle = user?.username === article?.publishedBy?.username;
   return (
-    <div className="">
-      <ArticlePreview
-        article={article}
-        allowDelete={
-          isOwnArticle ||
-          hasPermissions(permissions, [PERMISSIONS.deleteArticle])
-        }
-        allowEdit={
-          isOwnArticle || hasPermissions(permissions, [PERMISSIONS.editArticle])
-        }
-      />
-    </div>
+    <ArticlePreview
+      article={article}
+      allowDelete={
+        isOwnArticle || hasPermissions(permissions, [PERMISSIONS.deleteArticle])
+      }
+      allowEdit={
+        isOwnArticle || hasPermissions(permissions, [PERMISSIONS.editArticle])
+      }
+    />
   );
 }

@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader } from "../card";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Conditional from "../conditional";
+import { routes } from "@/lib/routes";
 
 interface HeroProps extends React.SVGProps<SVGSVGElement> {
   displayBg?: boolean;
@@ -78,10 +79,16 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
 
                 <div className="flex gap-2.5 mt-5">
                   <Conditional render={isAdmin}>
-                    <Button>Admin</Button>
+                    <Link href={routes.ADMIN}>
+                      <Button>Admin</Button>
+                    </Link>
                   </Conditional>
-                  <Button>Nyheter</Button>
-                  <Button>Utleie</Button>
+                  <Link href={routes.NEWS}>
+                    <Button>Nyheter</Button>
+                  </Link>
+                  <Link href={routes.BOOKING}>
+                    <Button>Utleie</Button>
+                  </Link>
                 </div>
               </SignedIn>
             </CardContent>

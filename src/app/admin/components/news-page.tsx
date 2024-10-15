@@ -5,13 +5,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import NewsForm from "./news-form";
-import { ParamsProps, PathParams } from "@/lib/utils";
 import { IFetch } from "@/lib/IFetch";
 import { DetailedNewsDto } from "@/lib/api";
-import { AdminSearchParams, Pages } from "../page";
 import { NewspaperIcon } from "lucide-react";
+import { AdminSearchParams } from "../page";
 import ExistingNews from "./existing-news";
+import NewsForm from "./news-form";
 
 interface NewsPageProps {
   searchParams?: AdminSearchParams;

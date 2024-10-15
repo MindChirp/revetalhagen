@@ -4,4 +4,5 @@ export const routes = {
   ARTICLE: "/artikkel",
   ADMIN: "/admin",
   CONTACT_US: "/kontakt-oss",
+  BOOKING: "/utleie",
 };

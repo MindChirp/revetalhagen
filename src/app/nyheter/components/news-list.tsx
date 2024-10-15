@@ -32,11 +32,11 @@ export default async function NewsList({
         },
       },
     }).then((res) => {
-      if ("title" in res) return res as SimpleNewsDto[];
-
+      if (Array.isArray(res)) return res;
       throw res;
     });
   } catch (error) {
+    console.log(error);
     isError = true;
     initialData = [];
   }

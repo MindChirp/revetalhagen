@@ -50,7 +50,13 @@ export default function NewsPagination({
 
   return (
     <>
-      <div className={cn("flex flex-col gap-5 w-full", className)} {...props}>
+      <div
+        className={cn(
+          "grid grid-cols-1 2xl:grid-cols-2 gap-5 w-full",
+          className
+        )}
+        {...props}
+      >
         {(data ?? []).map((item) => (
           <NewsCard
             key={item.id}
@@ -64,9 +70,9 @@ export default function NewsPagination({
           />
         ))}
       </div>
-      <Conditional render={!error}>
+      {/* <Conditional render={!error}>
         <AbstractedPagination maxPagesVisible={10} currentPage={0} />
-      </Conditional>
+      </Conditional> */}
     </>
   );
 }
