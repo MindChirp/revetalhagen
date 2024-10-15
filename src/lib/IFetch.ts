@@ -55,6 +55,11 @@ export const IFetch = <T extends unknown>({ url, config }: IFetchProps) => {
   })
     .then(async (response) => {
       const contentType = response.headers.get("content-type");
+
+      for (const tag of config?.revalidateTags ?? []) {
+        console.log("REVALIDATING: ", tag);
+        revalidateTag(tag);
+      }
       if (
         !contentType ||
         !contentType.includes("application/json") ||
