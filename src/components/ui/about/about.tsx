@@ -8,6 +8,8 @@ import { auth } from "@clerk/nextjs/server";
 import Conditional from "../conditional";
 import { Button } from "../button";
 import { PlusIcon } from "lucide-react";
+import Banner from "../banner";
+import Typography from "../typography";
 
 const images: ImageType[] = [
   {
@@ -47,6 +49,8 @@ const images: ImageType[] = [
 interface AboutProps extends React.HTMLProps<HTMLDivElement> {}
 
 const About = async ({ className, ...props }: AboutProps) => {
+  let error = false;
+
   const data = await IFetch<ContentDto[]>({
     url: `/api/Content/${encodeURIComponent("frontpage-about")}`,
     config: {
@@ -55,7 +59,17 @@ const About = async ({ className, ...props }: AboutProps) => {
         tags: ["frontpage-about"],
       },
     },
-  });
+  })
+    .then((res) => {
+      if (Array.isArray(res)) return res;
+
+      // If the response is not of type array, we have an error
+      error = true;
+    })
+    .catch((err) => {
+      console.error(err);
+      error = true;
+    });
 
   const session = await auth();
   const canModify = hasPermissions(
@@ -83,6 +97,14 @@ const About = async ({ className, ...props }: AboutProps) => {
               mirrored={index % 2 === 1}
             />
           ))}
+
+          <Conditional render={error}>
+            <Banner>
+              <Typography>
+                En feil oppstod, og innholdet kunne ikke lastes inn
+              </Typography>
+            </Banner>
+          </Conditional>
 
           <Conditional render={canModify}>
             <AboutDialog

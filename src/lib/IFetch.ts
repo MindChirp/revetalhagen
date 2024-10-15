@@ -72,6 +72,7 @@ export const IFetch = <T extends unknown>({ url, config }: IFetchProps) => {
       return response.json().then((responseData: T) => responseData);
     })
     .catch((error) => {
+      console.error(error);
       return {
         status: error.status || 500,
         response: error,
