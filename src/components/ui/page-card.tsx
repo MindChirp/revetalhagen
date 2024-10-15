@@ -7,10 +7,7 @@ interface PageCardProps extends React.ComponentProps<typeof Card> {
 }
 const PageCard = ({ header, className, children, ...props }: PageCardProps) => {
   return (
-    <Card
-      className={cn("mx-auto min-w-[50vw] max-w-[900px]", className)}
-      {...props}
-    >
+    <Card className={cn("mx-auto min-w-[50vw] w-full", className)} {...props}>
       {<CardHeader>{header}</CardHeader>}
       {children}
     </Card>

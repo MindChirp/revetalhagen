@@ -55,6 +55,10 @@ export default function DayView({
             tags: ["bookings"],
           },
         },
+      }).then((res) => {
+        if (Array.isArray(res)) return res;
+
+        throw res;
       }),
     {
       revalidateOnMount: true,

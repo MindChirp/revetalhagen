@@ -20,7 +20,6 @@ const News = async ({
   const page = searchParams?.page ?? 0;
   const query = searchParams?.query ?? "";
   const { sessionClaims } = auth();
-  const enableCreateArticle = sessionClaims?.metadata.role == "admin";
 
   return (
     <PageWrapper innerClassName="w-full">

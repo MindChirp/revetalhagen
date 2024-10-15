@@ -5,13 +5,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import NewsForm from "./news-form";
-import { ParamsProps, PathParams } from "@/lib/utils";
 import { IFetch } from "@/lib/IFetch";
 import { DetailedNewsDto } from "@/lib/api";
-import { AdminSearchParams, Pages } from "../page";
 import { NewspaperIcon } from "lucide-react";
+import { AdminSearchParams } from "../page";
 import ExistingNews from "./existing-news";
+import NewsForm from "./news-form";
 
 interface NewsPageProps {
   searchParams?: AdminSearchParams;
@@ -27,6 +26,18 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
           tags: ["news"],
         },
       },
+    }).then((res) => {
+      // Check if result is of type DetailedNewsDto
+      if (
+        "id" in res &&
+        "title" in res &&
+        "content" in res &&
+        "publishedBy" in res
+      ) {
+        return res as DetailedNewsDto;
+      } else {
+        throw res;
+      }
     });
   }
 

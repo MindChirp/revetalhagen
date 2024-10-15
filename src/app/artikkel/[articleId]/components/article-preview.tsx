@@ -23,7 +23,10 @@ export default function ArticlePreview({
 }: ArticlePreviewProps) {
   if (!article) return undefined;
   return (
-    <CardContent className={cn("pt-6 overflow-hidden", className)} {...props}>
+    <CardContent
+      className={cn("pt-6 overflow-hidden max-w-full", className)}
+      {...props}
+    >
       <div className="w-full flex gap-5 items-center justify-center flex-col">
         <div className="w-full h-fit bg-accent gap-5 rounded-3xl p-6 flex items-center flex-col">
           <Typography

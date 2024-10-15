@@ -17,6 +17,10 @@ export default async function CommentsFetcher({
         tags: ["comments", articleId.toString?.()],
       },
     },
+  }).then((res) => {
+    if (Array.isArray(res)) return res;
+
+    throw res;
   });
 
   return <CommentsWrapper articleId={articleId} comments={comments} />;

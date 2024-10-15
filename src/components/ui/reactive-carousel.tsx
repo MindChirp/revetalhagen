@@ -1,3 +1,4 @@
+"use client";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -35,28 +36,23 @@ const ReactiveCarousel = ({
       }}
       plugins={[
         Autoplay({
-          delay: 2000,
+          delay: 5000,
           stopOnFocusIn: true,
         }),
       ]}
-      className={cn("mx-auto md:w-full w-3/4", className)}
+      className={cn("mx-auto md:w-full w-3/4 min-h-40", className)}
       {...props}
     >
       <CarouselContent>
         {images.map((item, index) => (
           <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-            <div className="p-1">
-              <Card>
-                <CardContent className="relative flex aspect-square items-center justify-center p-0">
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    fill
-                    className="rounded-3xl w-full h-full"
-                    objectFit="cover"
-                  />
-                </CardContent>
-              </Card>
+            <div className="relative flex aspect-square items-center justify-center p-0 md:min-w-32">
+              <Image
+                src={item.src}
+                alt={item.alt}
+                fill
+                className="rounded-3xl w-full h-full object-cover"
+              />
             </div>
           </CarouselItem>
         ))}

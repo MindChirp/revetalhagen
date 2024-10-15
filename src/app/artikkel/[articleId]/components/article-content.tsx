@@ -14,23 +14,24 @@ export default async function ArticleContent({
   const article = await IFetch<DetailedNewsDto>({
     url: `/api/News/${articleId}`,
     config: { method: "GET" },
+  }).then((res) => {
+    if ("title" in res) return res;
+
+    throw res;
   });
 
   const user = await currentUser();
 
   const isOwnArticle = user?.username === article?.publishedBy?.username;
   return (
-    <div className="">
-      <ArticlePreview
-        article={article}
-        allowDelete={
-          isOwnArticle ||
-          hasPermissions(permissions, [PERMISSIONS.deleteArticle])
-        }
-        allowEdit={
-          isOwnArticle || hasPermissions(permissions, [PERMISSIONS.editArticle])
-        }
-      />
-    </div>
+    <ArticlePreview
+      article={article}
+      allowDelete={
+        isOwnArticle || hasPermissions(permissions, [PERMISSIONS.deleteArticle])
+      }
+      allowEdit={
+        isOwnArticle || hasPermissions(permissions, [PERMISSIONS.editArticle])
+      }
+    />
   );
 }

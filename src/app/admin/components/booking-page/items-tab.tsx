@@ -15,7 +15,12 @@ export default async function ItemsTab() {
         tags: ["bookableitems"],
       },
     },
+  }).then((res) => {
+    if (Array.isArray(res)) return res;
+
+    throw res;
   });
+
   const categories = await IFetch<DetailedBookableItemCategoryDto[]>({
     url: "/api/BookableItemCategory",
     config: {
@@ -24,6 +29,10 @@ export default async function ItemsTab() {
         tags: ["bookableitemcategories"],
       },
     },
+  }).then((res) => {
+    if (Array.isArray(res)) return res;
+
+    throw res;
   });
 
   return (

@@ -27,6 +27,10 @@ export default async function BookingList() {
         tags: ["pending-bookings"],
       },
     },
+  }).then((res) => {
+    if (Array.isArray(res)) return res;
+
+    throw res;
   });
 
   const confirmed = await IFetch<SimpleBookingDto[]>({
@@ -40,6 +44,10 @@ export default async function BookingList() {
         tags: ["confirmed-bookings"],
       },
     },
+  }).then((res) => {
+    if (Array.isArray(res)) return res;
+
+    throw res;
   });
 
   return (
@@ -60,7 +68,7 @@ export default async function BookingList() {
         </Card>
       </Conditional>
 
-      <Conditional render={confirmed?.length > 0}>
+      <Conditional render={(confirmed?.length ?? 0) > 0}>
         <Card className="shadow-none p-0">
           <CardHeader className="px-0">
             <CardTitle>Disse er du ferdig med</CardTitle>

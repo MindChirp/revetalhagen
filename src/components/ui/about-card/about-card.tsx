@@ -1,46 +1,44 @@
+import { ContentDto } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import Typography from "./typography";
+import Conditional from "../conditional";
+import Typography from "../typography";
+import EditControls from "./components/edit-controls";
 
-interface AboutCardProps extends React.HTMLProps<HTMLDivElement> {
+type AboutCardProps = {
   direction?: "left" | "right";
-  img: string;
-  alt: string;
-  title: string;
-  description: string;
+  pageContent: ContentDto;
   mirrored?: boolean;
-}
+  displayEditControls?: boolean;
+} & React.HTMLProps<HTMLDivElement>;
 
-const AboutCard = ({
+const AboutCard = async ({
   className,
+  pageContent,
   direction,
-  img,
-  alt,
-  title,
-  description,
   mirrored,
+  displayEditControls = false,
   ...props
 }: AboutCardProps) => {
   return (
     <div
       className={cn(
-        "w-fit flex md:gap-10 gap-5 items-center flex-col md:flex-row",
+        "w-fit flex-shrink-0 flex md:gap-10 gap-5 items-center flex-col md:flex-row",
         className
       )}
       {...props}
     >
       <div
         className={cn(
-          "md:w-96 w-52 aspect-square relative items-center",
+          "md:w-72 md:h-72 w-52 h-52 aspect-square relative items-center",
           mirrored ? "md:order-2" : undefined
         )}
       >
         <Image
-          src={img}
-          alt={alt}
+          src={pageContent.image ?? ""}
+          alt={"Bilde av " + pageContent.title}
           fill
-          objectFit="cover"
-          className="rounded-full shadow-lg"
+          className="rounded-full shadow-lg object-cover"
         />
         <Image
           alt="Bølge"
@@ -73,9 +71,12 @@ const AboutCard = ({
         >
           <Typography
             variant="h1"
-            className="w-fit text-primary-foreground !text-5xl text-center md:text-start"
+            className={cn(
+              "w-fit text-primary-foreground !text-5xl text-center",
+              mirrored ? "md:text-end" : "md:text-start"
+            )}
           >
-            {title}
+            {pageContent.title}
           </Typography>
           <Image
             alt="Bølge"
@@ -89,8 +90,11 @@ const AboutCard = ({
           variant="p"
           className="text-primary-foreground max-w-[700px] w-full"
         >
-          {description}
+          {pageContent.content}
         </Typography>
+        <Conditional render={displayEditControls}>
+          <EditControls aboutContent={pageContent} className="mt-2.5" />
+        </Conditional>
       </div>
     </div>
   );

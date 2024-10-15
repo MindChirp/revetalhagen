@@ -3,11 +3,11 @@ import Conditional from "@/components/ui/conditional";
 import NewsCard from "@/components/ui/news-card";
 import Typography from "@/components/ui/typography";
 import { SimpleNewsDto } from "@/lib/api";
-import { isRole } from "@/lib/auth-guard";
 import { IFetch } from "@/lib/IFetch";
+import { hasPermissions, PERMISSIONS } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
 import AbstractedPagination from "./abstracted-pagination";
-import { hasPermissions, PERMISSIONS } from "@/lib/utils";
+import NewsPagination from "./news-pagination";
 
 export default async function NewsList({
   query,
@@ -21,40 +21,33 @@ export default async function NewsList({
   // Perform a query based on the provided page number
   const user = await currentUser();
   let isError: boolean = false;
-  let result: SimpleNewsDto[] = [];
+  let initialData: SimpleNewsDto[] = [];
   try {
-    result = await IFetch<SimpleNewsDto[]>({
-      url: `/api/News?query=${query}&page=${page}`,
+    initialData = await IFetch<SimpleNewsDto[]>({
+      url: `/api/News`,
       config: {
         method: "GET",
         next: {
-          tags: ["news", "page-" + page, "query-" + query],
+          tags: ["news", "page-0"],
         },
       },
+    }).then((res) => {
+      if (Array.isArray(res)) return res;
+      throw res;
     });
   } catch (error) {
+    console.log(error);
     isError = true;
-    result = [];
+    initialData = [];
   }
   return (
-    <div className="flex flex-col gap-5 w-full">
-      {result.map((item) => (
-        <NewsCard
-          key={item.id}
-          title={item.title ?? ""}
-          description={item.shortContent ?? ""}
-          author={item.publishedBy?.fullName ?? ""}
-          authorImage={item.publishedBy?.avatarUri ?? ""}
-          date={item.lastEdited ?? ""}
-          articleId={item.id?.toString()}
-          canEdit={
-            user?.id == item.publishedBy?.sub ||
-            hasPermissions(permissions, [PERMISSIONS.editArticle])
-          }
-        />
-      ))}
+    <div>
       {/* TODO: Create suspense with content streaming, allowing for displaying of a loading state */}
-      {result.length === 0 && (
+      <NewsPagination
+        initialData={initialData ?? []}
+        canEdit={hasPermissions(permissions, [PERMISSIONS.editArticle])}
+      />
+      {initialData.length === 0 && (
         <Card className="bg-accent shadow-none animate-in fade-in duration-500">
           <CardHeader>
             <Conditional render={isError}>
@@ -68,12 +61,6 @@ export default async function NewsList({
           </CardHeader>
         </Card>
       )}
-      <Conditional render={!isError}>
-        <AbstractedPagination
-          maxPagesVisible={10}
-          currentPage={parseInt(page ?? "0")}
-        />
-      </Conditional>
     </div>
   );
 }

@@ -49,12 +49,12 @@ const Buttons: {
       ],
     },
   },
+  { label: "Innhold", icon: <TextIcon size={16} /> },
   {
     label: "Interessegrupper",
     icon: <LightbulbIcon size={16} />,
-    props: { disabled: true },
+    props: { disabled: true, title: "Fremtidig funksjon!" },
   },
-  { label: "Innhold", icon: <TextIcon size={16} />, props: { disabled: true } },
 ];
 
 interface PageButtonsProps {

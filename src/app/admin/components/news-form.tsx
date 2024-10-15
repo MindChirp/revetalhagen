@@ -79,10 +79,11 @@ export default function NewsForm({ article, className }: NewsFormProps) {
           }`,
         });
       })
-      .catch((error) => {
+      .catch((_) => {
         toast({
           title: "Noe gikk galt!",
-          description: error + "",
+          description:
+            "Nyheten kunne ikke opprettes. Dersom problemet vedvarer, ta kontakt med en klok utvikler 🤓",
           variant: "destructive",
         });
       });
