@@ -55,7 +55,7 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
                       alt="Krusedullpil"
                       width={200}
                       height={200}
-                      className="w-20 h-20 mx-auto object-cover"
+                      className="w-20 mx-auto object-cover"
                     />
                     <Typography
                       variant="p"
