@@ -12,18 +12,18 @@ import Banner from "../banner";
 import Typography from "../typography";
 
 const images: ImageType[] = [
-  {
-    alt: "Besøk",
-    src: "/besok.jpg",
-  },
-  {
-    alt: "Traktor",
-    src: "/traktor.jpg",
-  },
-  {
-    alt: "Humle",
-    src: "/humle.jpg",
-  },
+  // {
+  //   alt: "Besøk",
+  //   src: "/besok.jpg",
+  // },
+  // {
+  //   alt: "Traktor",
+  //   src: "/traktor.jpg",
+  // },
+  // {
+  //   alt: "Humle",
+  //   src: "/humle.jpg",
+  // },
   {
     alt: "Hage",
     src: "/hage.jpg",
