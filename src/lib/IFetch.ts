@@ -6,7 +6,6 @@ import { cookies } from "next/headers";
 type CustomConfig = {
   revalidateTags?: string[];
   queryParams?: Record<string, unknown>;
-  // Add a new property to handle file uploads
   formData?: FormData;
 };
 
@@ -18,13 +17,16 @@ interface IFetchProps {
 export interface ErrorType {
   status?: number;
   statusText?: string;
-  response?: Record<string, unknown>;
+  response?: any;
 }
 
 const TOKEN_HEADER_NAME = "Authorization";
 const ACCESS_TOKEN = "__session";
 
-export const IFetch = <T extends unknown>({ url, config }: IFetchProps) => {
+export const IFetch = async <T extends unknown>({
+  url,
+  config,
+}: IFetchProps) => {
   let headers: Record<string, string> = {};
   if (!config?.formData) {
     // Only set the Authorization header if not uploading files
@@ -37,64 +39,59 @@ export const IFetch = <T extends unknown>({ url, config }: IFetchProps) => {
     ...(config?.headers as Record<string, string>),
   };
 
-  let qParamString = "?";
+  let qParamString = "";
   if (config?.queryParams) {
+    const params = new URLSearchParams();
     for (const [key, value] of Object.entries(config.queryParams)) {
-      if (qParamString !== "?") {
-        qParamString += "&";
-      }
-      qParamString += `${encodeURIComponent(key)}=${encodeURIComponent(
-        value + ""
-      )}`;
+      params.append(key, String(value));
     }
+    qParamString = "?" + params.toString();
   }
 
-  return fetch(process.env.NEXT_PUBLIC_API_URL + url + qParamString, {
-    ...config,
-    headers,
-  })
-    .then(async (response) => {
-      const contentType = response.headers.get("content-type");
-
-      for (const tag of config?.revalidateTags ?? []) {
-        console.log("REVALIDATING: ", tag);
-        revalidateTag(tag);
+  try {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_API_URL + url + qParamString,
+      {
+        ...config,
+        headers,
       }
+    );
 
-      let json;
-      try {
-        json = response.json();
-      } catch (error) {}
+    const contentType = response.headers.get("content-type");
 
-      // Fix JSON handling!
-      if (
-        !contentType ||
-        !contentType.includes("application/json") ||
-        !response.ok ||
-        !json
-      ) {
-        if (!json) {
-          return response.json().then((responseData: RequestResponse) => {
-            throw responseData;
-          });
-        } else {
-          throw { statusText: response.statusText } as RequestResponse;
-        }
-      }
-      return response.json().then((responseData: T) => responseData);
-    })
-    .catch((error) => {
-      console.error(error);
-      return {
-        status: error.status || 500,
-        response: error,
-        statusText: error.statusText || "Unknown error",
+    for (const tag of config?.revalidateTags ?? []) {
+      console.log("REVALIDATING: ", tag);
+      revalidateTag(tag);
+    }
+
+    let data: any;
+    if (contentType && contentType.includes("application/json")) {
+      data = await response.json();
+    } else {
+      data = await response.text();
+    }
+
+    if (!response.ok) {
+      throw {
+        status: response.status,
+        statusText: response.statusText,
+        response: data,
       } as RequestResponse;
-    });
+    }
+
+    return data as T;
+  } catch (error) {
+    console.error(error);
+    return {
+      status: (error as any).status || 500,
+      response: error,
+      statusText: (error as any).statusText || "Unknown error",
+    } as RequestResponse;
+  }
 };
 
 export type RequestResponse = {
   status: number;
   statusText: string;
-  response: Record<string, unknown>;
+  response: any;
 };
