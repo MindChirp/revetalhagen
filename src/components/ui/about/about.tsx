@@ -13,15 +13,15 @@ import Typography from "../typography";
 
 const images: ImageType[] = [
   {
-    alt: "Stol",
+    alt: "Besøk",
     src: "/IMG_0610.jpg",
   },
   {
-    alt: "Natur",
+    alt: "Traktor",
     src: "/IMG_0714.jpg",
   },
   {
-    alt: "Bryggerhuset",
+    alt: "Humle",
     src: "/IMG_0860.jpg",
   },
   {
