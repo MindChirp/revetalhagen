@@ -5,6 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import ContentSideBar from "./content-side-bar";
+import ContentViewport from "./content-viewport";
 
 export default function ContentPage() {
   return (
@@ -13,7 +15,12 @@ export default function ContentPage() {
         <CardTitle>Innhold</CardTitle>
         <CardDescription>Administrer innhold på nettsiden</CardDescription>
       </CardHeader>
-      <CardContent></CardContent>
+      <CardContent>
+        <div className="grid grid-cols-[1fr_3fr] gap-2.5">
+          <ContentSideBar />
+          <ContentViewport />
+        </div>
+      </CardContent>
     </>
   );
 }
