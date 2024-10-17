@@ -1,15 +1,16 @@
-import { cn, hasPermissions, PERMISSIONS } from "@/lib/utils";
-import Typography from "../typography";
-import { Button } from "../button";
+import { routes } from "@/lib/routes";
+import { cn } from "@/lib/utils";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { BedIcon, NewspaperIcon, WrenchIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import HeroBackground from "./hero-background";
-import { Card, CardContent, CardHeader } from "../card";
-import { auth, currentUser } from "@clerk/nextjs/server";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { Button } from "../button";
+import { Card, CardContent } from "../card";
 import Conditional from "../conditional";
-import { routes } from "@/lib/routes";
-import { BedIcon, NewspaperIcon, WrenchIcon } from "lucide-react";
+import Typography from "../typography";
+import HeroBackground from "./hero-background";
+import { isAdmin } from "@/lib/utils/admin";
 
 interface HeroProps extends React.SVGProps<SVGSVGElement> {
   displayBg?: boolean;
@@ -17,8 +18,7 @@ interface HeroProps extends React.SVGProps<SVGSVGElement> {
 
 const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
   const userData = await currentUser();
-  const permissions = auth().sessionClaims?.metadata.permissions;
-  const isAdmin = (permissions?.length ?? 0) > 0;
+  const admin = isAdmin();
 
   return (
     <div
@@ -79,7 +79,7 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
                 </Typography>
 
                 <div className="flex gap-2.5 mt-5">
-                  <Conditional render={isAdmin}>
+                  <Conditional render={admin}>
                     <Link href={routes.ADMIN}>
                       <Button className="gap-2.5 items-center">
                         <WrenchIcon size={16} />

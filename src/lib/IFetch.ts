@@ -60,13 +60,20 @@ export const IFetch = <T extends unknown>({ url, config }: IFetchProps) => {
         console.log("REVALIDATING: ", tag);
         revalidateTag(tag);
       }
+
+      let json;
+      try {
+        json = response.json();
+      } catch (error) {}
+
+      // Fix JSON handling!
       if (
         !contentType ||
         !contentType.includes("application/json") ||
         !response.ok ||
-        response.json === undefined
+        !json
       ) {
-        if (response.json) {
+        if (!json) {
           return response.json().then((responseData: RequestResponse) => {
             throw responseData;
           });
