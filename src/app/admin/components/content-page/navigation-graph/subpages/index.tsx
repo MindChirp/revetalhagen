@@ -10,6 +10,7 @@ import {
 import { motion } from "framer-motion";
 import { atom, useAtom } from "jotai";
 import { PlusIcon } from "lucide-react";
+import PageList from "./components/page-list";
 
 export type SubPages = "about" | "support" | "add";
 const subPageAtom = atom<SubPages>("about");
@@ -26,7 +27,7 @@ export default function SubPages() {
         duration: 0.5,
         bounce: 0.25,
       }}
-      className="grid grid-cols-[1fr_3fr] w-full h-full"
+      className="grid w-full h-full"
     >
       <div className="flex gap-2.5 w-full h-full">
         <div className="flex flex-col w-full">
@@ -43,7 +44,7 @@ export default function SubPages() {
             Støtt oss
           </Button>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button className="gap-2.5 items-center" variant="ghost" disabled>
                 <PlusIcon size={16} />
                 Legg til
@@ -55,6 +56,7 @@ export default function SubPages() {
           </Tooltip>
         </div>
         <Separator orientation="vertical" />
+        <PageList parentId={page} />
       </div>
     </motion.div>
   );

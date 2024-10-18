@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import ContentSideBar from "./content-side-bar";
+import NavigationGraph from "./navigation-graph";
 import ContentViewport from "./content-viewport";
 
 export default function ContentPage() {
@@ -17,7 +17,7 @@ export default function ContentPage() {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-[1fr_3fr] gap-2.5">
-          <ContentSideBar />
+          <NavigationGraph />
           <ContentViewport />
         </div>
       </CardContent>

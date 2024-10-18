@@ -1,8 +1,8 @@
 "use client";
 
 import { useAtomValue } from "jotai";
-import { pageAtom } from "../content-side-bar";
-import SubPages from "./subpages";
+import { pageAtom } from "../navigation-graph";
+import SubPages from "../navigation-graph/subpages";
 
 export default function ContentViewport() {
   const page = useAtomValue(pageAtom);
