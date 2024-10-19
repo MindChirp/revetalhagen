@@ -57,7 +57,7 @@ const AboutCard = async ({
       </div>
       <div
         className={cn(
-          "flex flex-col place-content-center w-fit md:items-start",
+          "flex flex-col place-content-center w-fit md:items-start text-center md:text-start",
           mirrored ? "md:order-1 md:items-end md:text-end" : undefined,
           "items-center"
         )}

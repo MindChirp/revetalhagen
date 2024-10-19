@@ -9,8 +9,10 @@ export default function Home() {
     <main className="min-h-screen w-full max-w-[2000px] mx-auto overflow-hidden">
       <div className="bg-white min-h-screen">
         <Suspense fallback={<FrontpageLoader />}>
-          <Hero className="md:-mb-[200px]" displayBg />
-          <About className="z-10 relative" />
+          <div className="animate-in fade-in duration-500 delay-100 fill-mode-backwards">
+            <Hero displayBg />
+            <About className="z-10 relative lg:-mt-36" />
+          </div>
         </Suspense>
       </div>
     </main>

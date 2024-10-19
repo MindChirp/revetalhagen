@@ -53,12 +53,12 @@ const Header = ({ className, ...props }: HeaderProps) => {
     <div
       {...props}
       className={cn(
-        "w-full h-fit px-20 bg-background/30 md:bg-transparent py-5 z-50 transition-colors duration-500",
-        scroll > 0 ? "md:bg-background/70 backdrop-blur-sm" : "",
+        "w-full h-fit px-20 lg:bg-transparent py-5 z-50 transition-colors duration-500",
+        scroll > 0 ? "lg:bg-background/70 backdrop-blur-sm" : "",
         className
       )}
     >
-      <header className="flex justify-center md:justify-start">
+      <header className="flex justify-center lg:justify-start">
         <Link href={routes.LANDING} className="w-fit">
           <Button variant="ghost" className="gap-2.5 px-10 bg-transparent">
             <Image
@@ -69,13 +69,13 @@ const Header = ({ className, ...props }: HeaderProps) => {
             />
             <Typography
               variant="h1"
-              className="w-fit md:text-base text-primary-foreground !text-3xl"
+              className="w-fit lg:text-base text-primary-foreground !text-3xl"
             >
               Revetalhagen
             </Typography>
           </Button>
         </Link>
-        <div className="w-full h-full md:flex hidden items-center justify-end gap-2">
+        <div className="w-full h-full lg:flex hidden items-center justify-end gap-2">
           {/* {data.user && <Button variant={"ghost"}>Medlemsområde</Button>} */}
           {/* <Button variant={"ghost"}>Utleie</Button> */}
           {/* <Button variant={"ghost"}>Medlemsområde</Button>

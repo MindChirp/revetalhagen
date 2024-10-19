@@ -23,14 +23,14 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
   return (
     <div
       className={cn(
-        "bg-primary z-10 h-fit w-full relative md:block flex justify-center flex-col",
+        "bg-primary z-10 h-[calc(100vh_-_5rem)] w-full relative lg:block flex justify-center flex-col",
         className
       )}
     >
-      <HeroBackground>
-        <div className="md:px-20 px-10 py-52 text-primary-foreground w-full h-2/3 md:h-fit">
-          <Card className="w-full md:shadow-none shadow-md bg-background">
-            <CardContent className="pt-6 md:p-0">
+      <HeroBackground className="z-10 relative">
+        <div className="lg:px-20 py-52 px-5 text-primary-foreground w-full h-3/4 lg:h-fit">
+          <Card className="w-full shadow-none bg-transparent">
+            <CardContent className="pt-6 lg:p-0">
               <SignedOut>
                 <Typography variant="h1" className="text-2xl">
                   Revetalhagen
@@ -43,13 +43,13 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
                   Arbeidsinkludering, frivillighet, språkpraksis og aktiviteter
                   for målgrupper i alle aldre og livssituasjoner
                 </Typography>
-                <div className="relative w-fit">
-                  <Link href={"/frivillig"}>
-                    <Button className="mt-5 md:w-fit w-full" size={"wide"}>
+                <div className="relative lg:w-fit w-full">
+                  <Link href={"/frivillig"} className="lg:w-fit w-full">
+                    <Button className="mt-5 lg:w-fit w-full" size={"wide"}>
                       Bli frivillig
                     </Button>
                   </Link>
-                  <div className="hidden w-fit md:flex flex-col mt-2.5 absolute -translate-x-1/2 left-1/2">
+                  <div className="hidden w-fit lg:flex flex-col mt-2.5 absolute -translate-x-1/2 left-1/2">
                     <Image
                       src="/squiggly-arrow.svg"
                       alt="Krusedullpil"
@@ -59,7 +59,7 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
                     />
                     <Typography
                       variant="p"
-                      className="md:text-black text-nowrap !mt-0 ml-16 font-semibold"
+                      className="lg:text-black text-nowrap !mt-0 ml-16 font-semibold"
                     >
                       Det er helt gratis!
                     </Typography>
@@ -78,23 +78,23 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
                   Bruk knappene under for å navigere til de mest nyttige sidene
                 </Typography>
 
-                <div className="flex gap-2.5 mt-5">
+                <div className="grid gap-2.5 mt-5 grid-cols-2 lg:grid-cols-3">
                   <Conditional render={admin}>
-                    <Link href={routes.ADMIN}>
-                      <Button className="gap-2.5 items-center">
+                    <Link href={routes.ADMIN} className="w-full">
+                      <Button className="gap-2.5 items-center w-full">
                         <WrenchIcon size={16} />
                         Admin
                       </Button>
                     </Link>
                   </Conditional>
-                  <Link href={routes.NEWS}>
-                    <Button className="gap-2.5 items-center">
+                  <Link href={routes.NEWS} className="w-full">
+                    <Button className="gap-2.5 items-center w-full">
                       <NewspaperIcon size={16} />
                       Nyheter
                     </Button>
                   </Link>
-                  <Link href={routes.BOOKING}>
-                    <Button className="gap-2.5 items-center">
+                  <Link href={routes.BOOKING} className="w-full">
+                    <Button className="gap-2.5 items-center w-full">
                       <BedIcon size={16} />
                       Utleie
                     </Button>
@@ -106,12 +106,24 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
         </div>
       </HeroBackground>
       {displayBg && (
-        <div
-          className="block w-full h-full top-0 right-0 absolute bg-no-repeat bg-cover bg-center md:bg-left -z-10"
-          style={{
-            backgroundImage: 'url("bakgrunn3.jpg")',
-          }}
-        />
+        <>
+          <Image
+            className="object-cover absolute w-full h-full top-0 z-0"
+            src="/hero-image.jpg"
+            alt="Blomstereng"
+            width={2000}
+            height={1500}
+            priority
+          />
+          <div className="bg-gradient-to-b from-background to-background/50 absolute top-0 h-full left-0 w-full lg:hidden" />
+          <div className="bg-gradient-to-t from-background to-transparent absolute -bottom-[1px] h-1/2 left-0 w-full lg:hidden" />
+        </>
+        // <div
+        //   className="block w-full h-full top-0 right-0 absolute bg-no-repeat bg-cover bg-center lg:bg-left -z-10"
+        //   style={{
+        //     backgroundImage: 'url("bakgrunn3.jpg")',
+        //   }}
+        // />
       )}
     </div>
   );
