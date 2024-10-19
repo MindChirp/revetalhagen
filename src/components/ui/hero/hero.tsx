@@ -23,11 +23,11 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
   return (
     <div
       className={cn(
-        "bg-primary z-10 h-[calc(100vh_-_5rem)] w-full relative lg:block flex justify-center flex-col",
+        "bg-primary h-[calc(100vh_-_5rem)] w-full relative lg:block flex justify-center flex-col",
         className
       )}
     >
-      <HeroBackground className="z-10 relative">
+      <HeroBackground className="z-10 relative h-full aspect-[1.5]">
         <div className="lg:px-20 py-52 px-5 text-primary-foreground w-full h-3/4 lg:h-fit">
           <Card className="w-full shadow-none bg-transparent">
             <CardContent className="pt-6 lg:p-0">
@@ -116,7 +116,10 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
             priority
           />
           <div className="bg-gradient-to-b from-background to-background/50 absolute top-0 h-full left-0 w-full lg:hidden" />
-          <div className="bg-gradient-to-t from-background to-transparent absolute -bottom-[1px] h-1/2 left-0 w-full lg:hidden" />
+
+          {/* Set bottom to -2px because of small space between about section and bottom of hero */}
+          <div className="bg-gradient-to-t from-background to-transparent absolute -bottom-[2px] h-1/2 left-0 w-full lg:hidden" />
+          <div className="z-40 w-[400px] aspect-square bg-primary rounded-full right-0 translate-x-1/2 hidden lg:block absolute bottom-0 translate-y-1/4" />
         </>
         // <div
         //   className="block w-full h-full top-0 right-0 absolute bg-no-repeat bg-cover bg-center lg:bg-left -z-10"
