@@ -8,6 +8,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Work_Sans as FontSans } from "next/font/google";
 import "./globals.css";
+import MobileNavbar from "@/components/ui/mobile-navbar";
 const fontSans = FontSans({
   subsets: ["latin"],
 });
@@ -31,6 +32,7 @@ export default async function RootLayout({
             {children}
             <Toaster />
             {/* <BottomHeader className="bottom-0 left-0 z-50 md:hidden" /> */}
+            <MobileNavbar className="md:hidden block" />
             <Footer />
           </TooltipProvider>
         </body>
