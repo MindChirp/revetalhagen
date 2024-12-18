@@ -38,6 +38,7 @@ const config = {
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",
+          saturated: "hsl(var(--primary-saturated))",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {

@@ -53,14 +53,18 @@ const Header = ({ className, ...props }: HeaderProps) => {
     <div
       {...props}
       className={cn(
-        "w-full h-fit px-20 bg-background/30 md:bg-transparent py-5 z-50 transition-colors duration-500",
-        scroll > 0 ? "md:bg-background/70 backdrop-blur-sm" : "",
+        "w-full h-fit px-24 md:bg-transparent z-50 transition-colors duration-500",
         className
       )}
     >
-      <header className="flex justify-center md:justify-start">
+      <header
+        className={cn(
+          "flex justify-center md:justify-start rounded-full transition-all px-10 py-3 items-center",
+          scroll > 100 ? "md:bg-background/70 backdrop-blur-sm" : ""
+        )}
+      >
         <Link href={routes.LANDING} className="w-fit">
-          <Button variant="ghost" className="gap-2.5 px-10 bg-transparent">
+          <Button variant="ghost" className="gap-2.5 bg-transparent">
             <Image
               src="/nakuhel-logo.webp"
               width={50}
