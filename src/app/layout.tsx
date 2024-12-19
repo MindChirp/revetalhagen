@@ -27,7 +27,7 @@ export default async function RootLayout({
       <html lang="en">
         <body>
           <TooltipProvider>
-            <Header className="sticky top-5 mt-16" />
+            <Header className="sticky top-5" />
             {children}
             <Toaster />
             {/* <BottomHeader className="bottom-0 left-0 z-50 md:hidden" /> */}

@@ -9,7 +9,7 @@ export default function Home() {
     <main className="min-h-screen w-full max-w-[2000px] mx-auto overflow-hidden -mt-36">
       <div className="bg-white min-h-screen">
         <Suspense fallback={<FrontpageLoader />}>
-          <Hero className="md:-mb-[200px] " />
+          <Hero className="" />
           <About className="z-10 relative" />
         </Suspense>
       </div>
