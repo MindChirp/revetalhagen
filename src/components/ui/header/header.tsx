@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { routes } from "@/lib/routes";
 import ProfilePopover from "./profile-popover";
@@ -13,6 +13,7 @@ import About from "./about";
 import { useUser } from "@clerk/nextjs";
 import Offerings from "../offerings";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 
 const Items: MenuItemsProps["items"] = [
   {
@@ -36,6 +37,14 @@ interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
 const Header = ({ className, ...props }: HeaderProps) => {
   const [scroll, setScroll] = useState(0);
   const data = useUser();
+  const pathName = usePathname();
+  /**
+   * The inset header is only used on the landing page to make it align neatly with the
+   * hero section.
+   */
+  const insetHeader = useMemo(() => {
+    return pathName === routes.LANDING;
+  }, [pathName]);
 
   useEffect(() => {
     const scrollHandler = () => {
@@ -53,27 +62,36 @@ const Header = ({ className, ...props }: HeaderProps) => {
     <div
       {...props}
       className={cn(
-        "w-full h-fit px-20 bg-background/30 md:bg-transparent py-5 z-50 transition-colors duration-500",
-        scroll > 0 ? "md:bg-background/70 backdrop-blur-sm" : "",
+        "w-full h-fit md:bg-transparent z-50 transition-colors px-24 duration-500",
+        insetHeader ? "absolute mt-16" : "sticky mt-5",
         className
       )}
     >
-      <header className="flex justify-center md:justify-start">
-        <Link href={routes.LANDING} className="w-fit">
-          <Button variant="ghost" className="gap-2.5 px-10 bg-transparent">
+      <header
+        className={cn(
+          "flex justify-center md:max-lg:justify-between md:justify-start rounded-full transition-all px-3.5 py-3 items-center",
+          scroll > 30 ? "md:bg-background/80 backdrop-blur-sm" : ""
+        )}
+      >
+        <Link
+          href={routes.LANDING}
+          className="flex gap-2.5 hover:bg-accent rounded-full w-min items-center px-1"
+        >
+          <div className="w-10">
             <Image
               src="/nakuhel-logo.webp"
-              width={50}
-              height={50}
+              width={40}
+              height={40}
+              className="w-full md:hidden lg:block"
               alt="Nakuhel logo"
             />
-            <Typography
-              variant="h1"
-              className="w-fit md:text-base text-primary-foreground !text-3xl"
-            >
-              Revetalhagen
-            </Typography>
-          </Button>
+          </div>
+          <Typography
+            variant="h1"
+            className="w-fit md:text-base text-primary-foreground !text-3xl xl:block md:max-xl:hidden"
+          >
+            Revetalhagen
+          </Typography>
         </Link>
         <div className="w-full h-full md:flex hidden items-center justify-end gap-2">
           {/* {data.user && <Button variant={"ghost"}>Medlemsområde</Button>} */}

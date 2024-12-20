@@ -53,7 +53,8 @@ export default function EditControls({
 
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button
+          ad
+          {/* <Button
             className="w-full gap-2.5 items-center"
             variant={"destructive"}
             onClick={() =>
@@ -80,7 +81,7 @@ export default function EditControls({
             <Conditional render={isMutating}>
               <Loader />
             </Conditional>
-          </Button>
+          </Button> */}
         </TooltipTrigger>
         <TooltipContent>Slett</TooltipContent>
       </Tooltip>

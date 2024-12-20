@@ -1,118 +1,71 @@
-import { cn, hasPermissions, PERMISSIONS } from "@/lib/utils";
-import Typography from "../typography";
-import { Button } from "../button";
+import { IFetch } from "@/lib/IFetch";
+import { ContentDto } from "@/lib/api";
+import { cn } from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
+import { PencilIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import HeroBackground from "./hero-background";
-import { Card, CardContent, CardHeader } from "../card";
-import { auth, currentUser } from "@clerk/nextjs/server";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { Button } from "../button";
 import Conditional from "../conditional";
-import { routes } from "@/lib/routes";
-import { BedIcon, NewspaperIcon, WrenchIcon } from "lucide-react";
+import Typography from "../typography";
+import HeroEditDialog from "./hero-edit-dialog/hero-edit-dialog";
 
-interface HeroProps extends React.SVGProps<SVGSVGElement> {
+interface HeroProps extends React.HTMLProps<HTMLDivElement> {
   displayBg?: boolean;
 }
 
 const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
-  const userData = await currentUser();
   const permissions = auth().sessionClaims?.metadata.permissions;
   const isAdmin = (permissions?.length ?? 0) > 0;
+  const content = await IFetch<ContentDto[]>({
+    url: `/api/Content/${encodeURIComponent("hero")}`,
+    config: {
+      method: "GET",
+      next: {
+        tags: ["hero"],
+      },
+    },
+  })
+    .then((res) => {
+      if (Array.isArray(res)) return res;
+
+      // If the response is not of type array, we have an error
+      return [];
+    })
+    .catch((err) => {
+      console.error(err);
+      return [];
+    });
+
+  const filtered = content?.[0];
 
   return (
-    <div
-      className={cn(
-        "bg-primary z-10 h-fit w-full relative md:block flex justify-center flex-col",
-        className
-      )}
-    >
-      <HeroBackground>
-        <div className="md:px-20 px-10 py-52 text-primary-foreground w-full h-2/3 md:h-fit">
-          <Card className="w-full md:shadow-none shadow-md bg-background">
-            <CardContent className="pt-6 md:p-0">
-              <SignedOut>
-                <Typography variant="h1" className="text-2xl">
-                  Revetalhagen
-                </Typography>
-                <Typography variant="h3">Tønsberg NaKuHel</Typography>
-                <Typography
-                  variant="p"
-                  className="leading-none font-medium max-w-full"
-                >
-                  Arbeidsinkludering, frivillighet, språkpraksis og aktiviteter
-                  for målgrupper i alle aldre og livssituasjoner
-                </Typography>
-                <div className="relative w-fit">
-                  <Link href={"/frivillig"}>
-                    <Button className="mt-5 md:w-fit w-full" size={"wide"}>
-                      Bli frivillig
-                    </Button>
-                  </Link>
-                  <div className="hidden w-fit md:flex flex-col mt-2.5 absolute -translate-x-1/2 left-1/2">
-                    <Image
-                      src="/squiggly-arrow.svg"
-                      alt="Krusedullpil"
-                      width={200}
-                      height={200}
-                      className="w-20 h-20 mx-auto object-cover"
-                    />
-                    <Typography
-                      variant="p"
-                      className="md:text-black text-nowrap !mt-0 ml-16 font-semibold"
-                    >
-                      Det er helt gratis!
-                    </Typography>
-                  </div>
-                </div>
-              </SignedOut>
-
-              <SignedIn>
-                <Typography variant="h1" className="text-2xl capitalize">
-                  Hei, {userData?.firstName}!
-                </Typography>
-                <Typography
-                  variant="p"
-                  className="leading-none font-medium max-w-full"
-                >
-                  Bruk knappene under for å navigere til de mest nyttige sidene
-                </Typography>
-
-                <div className="flex gap-2.5 mt-5">
-                  <Conditional render={isAdmin}>
-                    <Link href={routes.ADMIN}>
-                      <Button className="gap-2.5 items-center">
-                        <WrenchIcon size={16} />
-                        Admin
-                      </Button>
-                    </Link>
-                  </Conditional>
-                  <Link href={routes.NEWS}>
-                    <Button className="gap-2.5 items-center">
-                      <NewspaperIcon size={16} />
-                      Nyheter
-                    </Button>
-                  </Link>
-                  <Link href={routes.BOOKING}>
-                    <Button className="gap-2.5 items-center">
-                      <BedIcon size={16} />
-                      Utleie
-                    </Button>
-                  </Link>
-                </div>
-              </SignedIn>
-            </CardContent>
-          </Card>
+    <div {...props} className={cn("md:p-10 p-5 h-[95vh] w-full", className)}>
+      <div className="w-full h-full ">
+        <div className="w-full h-full rounded-2xl md:pl-16 md:pr-0 px-5 flex gap-10 items-end overflow-hidden relative bg-gradient-to-tr from-primary to-primary/30">
+          <div className="flex flex-col gap-2.5 max-w-xl h-full align-middle justify-center z-10">
+            <Typography variant="h1" className="md:text-start text-center">
+              {filtered?.title ?? "Velkommen"}
+            </Typography>
+            <Typography variant="h3" className="md:text-start text-center">
+              {filtered?.content ?? ""}
+            </Typography>
+            <Conditional render={isAdmin}>
+              <HeroEditDialog initialContent={filtered}>
+                <Button className="w-fit items-center gap-2.5">
+                  <PencilIcon size={16} /> Rediger
+                </Button>
+              </HeroEditDialog>
+            </Conditional>
+          </div>
+          <Image
+            src="/illustrations/strå.svg"
+            alt="hello"
+            width={500}
+            height={500}
+            className="w-[calc(100%_+_3rem)] block absolute -right-5 md:-bottom-36 -bottom-10 max-w-none"
+          />
         </div>
-      </HeroBackground>
-      {displayBg && (
-        <div
-          className="block w-full h-full top-0 right-0 absolute bg-no-repeat bg-cover bg-center md:bg-left -z-10"
-          style={{
-            backgroundImage: 'url("bakgrunn3.jpg")',
-          }}
-        />
-      )}
+      </div>
     </div>
   );
 };
