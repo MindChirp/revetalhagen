@@ -39,7 +39,10 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
   const filtered = content?.[0];
 
   return (
-    <div {...props} className={cn("md:p-10 p-5 h-[95vh] w-full", className)}>
+    <div
+      {...props}
+      className={cn("p-10 md:px-10 px-5 h-[95vh] w-full", className)}
+    >
       <div className="w-full h-full ">
         <div className="w-full h-full rounded-2xl md:pl-16 md:pr-0 px-5 flex gap-10 items-end overflow-hidden relative bg-gradient-to-tr from-primary to-primary/30">
           <div className="flex flex-col gap-2.5 max-w-xl h-full align-middle justify-center z-10">
@@ -51,7 +54,7 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
             </Typography>
             <Conditional render={isAdmin}>
               <HeroEditDialog initialContent={filtered}>
-                <Button className="w-fit items-center gap-2.5">
+                <Button className="md:w-fit w-full items-center gap-2.5">
                   <PencilIcon size={16} /> Rediger
                 </Button>
               </HeroEditDialog>

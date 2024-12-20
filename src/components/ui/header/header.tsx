@@ -63,7 +63,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
       {...props}
       className={cn(
         "w-full h-fit md:bg-transparent z-50 transition-colors px-24 duration-500",
-        insetHeader ? "absolute mt-16" : "sticky mt-5",
+        insetHeader ? "absolute mt-16" : "sticky",
         className
       )}
     >
