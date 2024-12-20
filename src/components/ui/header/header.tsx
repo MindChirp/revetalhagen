@@ -62,15 +62,15 @@ const Header = ({ className, ...props }: HeaderProps) => {
     <div
       {...props}
       className={cn(
-        "w-full h-fit md:bg-transparent z-50 transition-colors px-24 duration-500",
+        "w-full h-fit md:bg-transparent z-50 transition-colors md:px-24 px-10 duration-500 justify-center flex",
         insetHeader ? "absolute mt-16" : "sticky",
         className
       )}
     >
       <header
         className={cn(
-          "flex justify-center md:max-lg:justify-between md:justify-start rounded-full transition-all px-3.5 py-3 items-center",
-          scroll > 30 ? "md:bg-background/80 backdrop-blur-sm" : ""
+          "flex justify-center md:max-lg:justify-between md:justify-start rounded-full w-full transition-all px-3.5 py-3 items-center",
+          scroll > 30 ? "bg-background/80 backdrop-blur-sm" : ""
         )}
       >
         <Link

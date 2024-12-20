@@ -41,12 +41,18 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
   return (
     <div
       {...props}
-      className={cn("p-10 md:px-10 px-5 h-[95vh] w-full", className)}
+      className={cn(
+        "p-10 md:px-10 px-5 md:h-[95vh] h-[90vh] w-full",
+        className
+      )}
     >
       <div className="w-full h-full ">
-        <div className="w-full h-full rounded-2xl md:pl-16 md:pr-0 px-5 flex gap-10 items-end overflow-hidden relative bg-gradient-to-tr from-primary to-primary/30">
+        <div className="w-full h-full rounded-2xl md:pl-16 md:pr-0 px-5 flex gap-10 items-end overflow-hidden relative bg-gradient-to-tr md:justify-start justify-center from-primary to-primary/30">
           <div className="flex flex-col gap-2.5 max-w-xl h-full align-middle justify-center z-10">
-            <Typography variant="h1" className="md:text-start text-center">
+            <Typography
+              variant="h1"
+              className="md:text-start text-center w-full"
+            >
               {filtered?.title ?? "Velkommen"}
             </Typography>
             <Typography variant="h3" className="md:text-start text-center">
