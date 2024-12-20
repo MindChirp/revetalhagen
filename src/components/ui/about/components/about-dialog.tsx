@@ -219,7 +219,6 @@ export default function AboutDialog({
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <div>
-          {JSON.stringify(error)}
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}

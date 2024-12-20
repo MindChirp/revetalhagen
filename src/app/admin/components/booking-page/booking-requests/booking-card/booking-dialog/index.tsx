@@ -21,6 +21,7 @@ import { useToast } from "@/components/ui/use-toast";
 import {
   BookingStatus,
   ChangeBookingStateDto,
+  ContentDto,
   SimpleBookableItemDto,
   SimpleBookingDto,
 } from "@/lib/api";
@@ -34,6 +35,7 @@ import BookingCard from "..";
 interface BookingDialogProps {
   booking: SimpleBookingDto;
 }
+
 export default function BookingDialog({ booking }: BookingDialogProps) {
   const { toast } = useToast();
   const { data: overlappingReservations, error } = useSWR(
