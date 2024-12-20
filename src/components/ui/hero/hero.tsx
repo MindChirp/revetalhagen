@@ -71,7 +71,7 @@ const Hero = async ({ displayBg, className, ...props }: HeroProps) => {
             alt="hello"
             width={500}
             height={500}
-            className="w-[calc(100%_+_3rem)] block absolute -right-5 md:-bottom-36 -bottom-10 max-w-none"
+            className="md:w-[calc(100%_+_3rem)] w-[200%] block absolute -right-5 md:-bottom-36 -bottom-10 max-w-none"
           />
         </div>
       </div>

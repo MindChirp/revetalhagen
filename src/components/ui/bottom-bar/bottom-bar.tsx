@@ -27,20 +27,21 @@ export default function BottomBar({ className, ...props }: BottomBarProps) {
           icon={<NewspaperIcon size={20} />}
           label="Nyheter"
         />
+
+        <ProfilePopover
+          name={data.user?.firstName ?? ""}
+          image={data.user?.imageUrl}
+        />
         <Barbutton
           route={routes.BOOKING}
           icon={<BedIcon size={20} />}
           label="Utleie"
         />
-        <Barbutton
+        {/* <Barbutton
           route={routes.CONTACT_US}
           icon={<CalendarIcon size={20} />}
           label="Kalender"
-        />
-        <ProfilePopover
-          name={data.user?.firstName ?? ""}
-          image={data.user?.imageUrl}
-        />
+        /> */}
       </div>
     </div>
   );

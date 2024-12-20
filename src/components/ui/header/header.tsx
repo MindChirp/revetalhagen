@@ -16,21 +16,21 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
 const Items: MenuItemsProps["items"] = [
-  {
-    label: "Tilbud",
-    variant: "ghost",
-    content: <Offerings />,
-  },
+  // {
+  //   label: "Tilbud",
+  //   variant: "ghost",
+  //   content: <Offerings />,
+  // },
   {
     label: "Om oss",
     variant: "ghost",
     content: <About />,
   },
-  {
-    label: "Støtt oss",
-    variant: "primary",
-    content: <Support />,
-  },
+  // {
+  //   label: "Støtt oss",
+  //   variant: "primary",
+  //   content: <Support />,
+  // },
 ];
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
