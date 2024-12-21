@@ -1,3 +1,5 @@
+"use client";
+
 import { routes } from "@/lib/routes";
 import {
   SignedIn,
@@ -5,12 +7,14 @@ import {
   SignInButton,
   SignOutButton,
 } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { Button } from "../button";
 import Conditional from "../conditional";
 import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 import Typography from "../typography";
 import UserAvatar from "./user-avatar";
+import { usePermissions } from "@/hooks/permissions";
 
 interface ProfilePopoverProps extends React.HTMLProps<HTMLDivElement> {
   name?: string;
@@ -51,7 +55,7 @@ const SignedInContent = ({
           variant="h2"
           className="capitalize text-center overflow-hidden w-full border-none"
         >
-          Hei, {userName.substring(0, 12)}!
+          Hei, {userName.substring(0, 12) ?? "bruker"}!
         </Typography>
       </div>
 
@@ -63,9 +67,6 @@ const SignedInContent = ({
             </Button>
           </Link>
         </Conditional>
-        {/* <Button variant="default" className="w-full">
-          Min side
-        </Button> */}
 
         <SignOutButton>
           <Button variant="destructive" className="w-full">

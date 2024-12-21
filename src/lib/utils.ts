@@ -12,8 +12,11 @@ export interface ParamsProps<T extends { [key: string]: string }> {
 }
 
 export function hasPermissions(
+  // List of the users permissions
   permissions: string[],
+  // List of permissions required to access a feature
   requiredPermissions: string[],
+  // If true, all permissions in requiredPermissions must be present
   requiresAll: boolean = true
 ) {
   if (requiresAll) {

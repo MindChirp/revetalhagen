@@ -1,36 +1,34 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import React, { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
 import { routes } from "@/lib/routes";
-import ProfilePopover from "./profile-popover";
+import { cn } from "@/lib/utils";
+import { useUser } from "@clerk/nextjs";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "../button";
 import Typography from "../typography";
-import MenuItems, { MenuItemsProps } from "./menu-items";
-import Support from "./support";
 import About from "./about";
-import { useUser } from "@clerk/nextjs";
-import Offerings from "../offerings";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import MenuItems, { MenuItemsProps } from "./menu-items";
+import ProfilePopover from "./profile-popover";
 
 const Items: MenuItemsProps["items"] = [
-  {
-    label: "Tilbud",
-    variant: "ghost",
-    content: <Offerings />,
-  },
+  // {
+  //   label: "Tilbud",
+  //   variant: "ghost",
+  //   content: <Offerings />,
+  // },
   {
     label: "Om oss",
     variant: "ghost",
     content: <About />,
   },
-  {
-    label: "Støtt oss",
-    variant: "primary",
-    content: <Support />,
-  },
+  // {
+  //   label: "Støtt oss",
+  //   variant: "primary",
+  //   content: <Support />,
+  // },
 ];
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
@@ -62,15 +60,15 @@ const Header = ({ className, ...props }: HeaderProps) => {
     <div
       {...props}
       className={cn(
-        "w-full h-fit md:bg-transparent z-50 transition-colors px-24 duration-500",
+        "w-full h-fit md:bg-transparent z-50 transition-colors md:px-24 px-10 duration-500 justify-center flex",
         insetHeader ? "absolute mt-16" : "sticky",
         className
       )}
     >
       <header
         className={cn(
-          "flex justify-center md:max-lg:justify-between md:justify-start rounded-full transition-all px-3.5 py-3 items-center",
-          scroll > 30 ? "md:bg-background/80 backdrop-blur-sm" : ""
+          "flex justify-center md:max-lg:justify-between md:justify-start rounded-full w-full transition-all px-3.5 py-3 items-center",
+          scroll > 30 ? "bg-background/80 backdrop-blur-sm" : ""
         )}
       >
         <Link

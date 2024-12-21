@@ -11,6 +11,9 @@ import AbstractedPagination from "./abstracted-pagination";
 import { atom, useAtomValue } from "jotai";
 import { newsFilterAtom } from "./filters";
 import useDebounce from "@/hooks/debounce";
+import Banner from "@/components/ui/banner";
+import Illustration from "@/components/ui/illustration";
+import Loader from "@/components/ui/loader";
 
 interface NewsPaginationProps extends React.HTMLAttributes<HTMLDivElement> {
   initialData: SimpleNewsDto[];
@@ -57,6 +60,9 @@ export default function NewsPagination({
         )}
         {...props}
       >
+        <Conditional render={isLoading}>
+          <Loader className="w-full" />
+        </Conditional>
         {(data ?? []).map((item) => (
           <NewsCard
             key={item.id}
@@ -69,6 +75,12 @@ export default function NewsPagination({
             canEdit={canEdit}
           />
         ))}
+        <Conditional render={(!data || !data.length) && !isLoading}>
+          <Banner className="w-full">
+            <Illustration src="empty-cart.svg" />
+            Ingen artikler funnet
+          </Banner>
+        </Conditional>
       </div>
       {/* <Conditional render={!error}>
         <AbstractedPagination maxPagesVisible={10} currentPage={0} />

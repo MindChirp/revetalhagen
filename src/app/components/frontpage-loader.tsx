@@ -11,9 +11,7 @@ const strings = [
   "Henter data..",
   "Venter på server..",
   "Ferdig om litt..",
-  "Visste du at nebulaer er stjernedannende skyer av gass og støv?",
   "Visste du at en dag på Venus er lengre enn et år på Venus?",
-  "Visste du at Saturn er planeten i solsystemet med lavest tetthet?",
 ];
 export default function FrontpageLoader() {
   const [string, setString] = useState("");
