@@ -17,6 +17,7 @@ import MobileFilters from "./components/mobile-filters";
 import Link from "next/link";
 import { routes } from "@/lib/routes";
 import { Button } from "@/components/ui/button";
+import Conditional from "@/components/ui/conditional";
 
 const News = async ({
   searchParams,
@@ -33,15 +34,22 @@ const News = async ({
           <CardContent className="flex flex-col gap-5">
             <div className="flex flex-col gap-2.5">
               <MobileFilters className="md:hidden" />
-              <Link
-                href={routes.ADMIN + "?page=nyheter"}
-                className="w-full md:hidden flex"
+              <Conditional
+                render={hasPermissions(
+                  sessionClaims?.metadata.permissions ?? [],
+                  [PERMISSIONS.createArticle]
+                )}
               >
-                <Button className="w-full gap-2.5">
-                  <PlusIcon size={16} />
-                  Opprett ny
-                </Button>
-              </Link>
+                <Link
+                  href={routes.ADMIN + "?page=nyheter"}
+                  className="w-full md:hidden flex"
+                >
+                  <Button className="w-full gap-2.5">
+                    <PlusIcon size={16} />
+                    Opprett ny
+                  </Button>
+                </Link>
+              </Conditional>
             </div>
             <Suspense fallback={<SuspenseUI className="h-full" />}>
               <NewsList

@@ -1,19 +1,17 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import React, { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
 import { routes } from "@/lib/routes";
-import ProfilePopover from "./profile-popover";
+import { cn } from "@/lib/utils";
+import { useUser } from "@clerk/nextjs";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "../button";
 import Typography from "../typography";
-import MenuItems, { MenuItemsProps } from "./menu-items";
-import Support from "./support";
 import About from "./about";
-import { useUser } from "@clerk/nextjs";
-import Offerings from "../offerings";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import MenuItems, { MenuItemsProps } from "./menu-items";
+import ProfilePopover from "./profile-popover";
 
 const Items: MenuItemsProps["items"] = [
   // {
