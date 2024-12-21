@@ -18,7 +18,7 @@ export default function Filters({
   const [query, setQuery] = useAtom(newsFilterAtom);
 
   return (
-    <Card className="shadow-md lg:w-fit w-full h-fit lg:order-2 order-1 sticky top-28">
+    <Card className="shadow-md lg:w-fit w-full h-fit lg:order-2 order-1 top-28 sticky hidden md:block">
       <CardHeader>
         <CardTitle className="text-primary-foreground">Filtre</CardTitle>
       </CardHeader>
