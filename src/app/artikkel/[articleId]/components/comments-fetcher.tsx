@@ -23,5 +23,7 @@ export default async function CommentsFetcher({
     throw res;
   });
 
-  return <CommentsWrapper articleId={articleId} comments={comments} />;
+  return (
+    <CommentsWrapper articleId={articleId} comments={comments} className="" />
+  );
 }

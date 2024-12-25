@@ -1,15 +1,11 @@
 "use client";
-import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import Conditional from "@/components/ui/conditional";
 import UserAvatar from "@/components/ui/header/user-avatar";
 import Typography from "@/components/ui/typography";
 import { CommentDto } from "@/lib/api";
-import { isRole } from "@/lib/auth-guard";
-import { useUser } from "@clerk/nextjs";
 import { format } from "date-fns";
+import { motion } from "framer-motion";
 import { ClockIcon } from "lucide-react";
-import CommentActions from "./comment-actions";
 
 interface CommentProps {
   comment: CommentDto;

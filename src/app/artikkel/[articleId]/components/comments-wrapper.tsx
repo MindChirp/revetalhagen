@@ -16,10 +16,7 @@ export default function CommentsWrapper({
   ...props
 }: CommentsWrapperProps) {
   return (
-    <div
-      className={cn("max-w-4xl px-6 flex gap-2.5 flex-col", className)}
-      {...props}
-    >
+    <div className={cn("px-6 flex gap-2.5 flex-col", className)} {...props}>
       {comments.map((comment, index) => (
         <Comment key={index} comment={comment} />
       ))}
