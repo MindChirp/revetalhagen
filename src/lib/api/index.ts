@@ -15,7 +15,6 @@ export type { CreateBookableItemCategoryDto } from './models/CreateBookableItemC
 export type { CreateBookableItemDto } from './models/CreateBookableItemDto';
 export type { CreateBookingDto } from './models/CreateBookingDto';
 export type { CreateCommentDto } from './models/CreateCommentDto';
-export type { CreateContentDto } from './models/CreateContentDto';
 export type { CreateNewsDto } from './models/CreateNewsDto';
 export type { DateOnly } from './models/DateOnly';
 export { DayOfWeek } from './models/DayOfWeek';
@@ -24,6 +23,8 @@ export type { DetailedBookableItemDto } from './models/DetailedBookableItemDto';
 export type { DetailedBookingDto } from './models/DetailedBookingDto';
 export type { DetailedNewsDto } from './models/DetailedNewsDto';
 export type { DetailedUserDto } from './models/DetailedUserDto';
+export { HttpStatusCode } from './models/HttpStatusCode';
+export type { MessageResponseDto } from './models/MessageResponseDto';
 export type { PermissionDto } from './models/PermissionDto';
 export type { ProblemDetails } from './models/ProblemDetails';
 export type { RoleDto } from './models/RoleDto';
@@ -35,6 +36,7 @@ export type { UpdateBookableItemDto } from './models/UpdateBookableItemDto';
 export type { UpdateNewsDto } from './models/UpdateNewsDto';
 export type { WeatherForecast } from './models/WeatherForecast';
 
+export { BlobService } from './services/BlobService';
 export { BookableItemService } from './services/BookableItemService';
 export { BookableItemCategoryService } from './services/BookableItemCategoryService';
 export { BookingService } from './services/BookingService';

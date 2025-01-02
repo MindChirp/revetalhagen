@@ -28,6 +28,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import NewsEditor from "./news-editor";
 import PreviewModal from "./preview-modal";
+import Image from "next/image";
 
 interface NewsFormProps {
   article?: DetailedNewsDto;
@@ -37,6 +38,8 @@ interface NewsFormProps {
 export default function NewsForm({ article, className }: NewsFormProps) {
   const router = useRouter();
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const { toast } = useToast();
   const state = useMemo<"editing" | "creating">(() => {
     return article ? "editing" : "creating";
   }, [article]);
@@ -44,6 +47,12 @@ export default function NewsForm({ article, className }: NewsFormProps) {
   const formSchema = z.object({
     title: z.string().min(1),
     content: z.string().min(1),
+    image: z
+      .instanceof(File)
+      .refine((file) => file.size < 50000000, {
+        message: "Bildefila kan ikke være større enn 50MB",
+      })
+      .optional(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -54,7 +63,8 @@ export default function NewsForm({ article, className }: NewsFormProps) {
     },
   });
 
-  const { toast } = useToast();
+  const fields = form.watch();
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     // Send a request to the backend
     return IFetch<SimpleNewsDto>({
@@ -93,7 +103,18 @@ export default function NewsForm({ article, className }: NewsFormProps) {
     router.push(`${routes.ARTICLE}/${article?.id}`);
   };
 
-  const fields = form.watch();
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setImagePreview(null);
+    }
+  };
 
   return (
     <Form {...form}>
@@ -113,6 +134,39 @@ export default function NewsForm({ article, className }: NewsFormProps) {
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field: { value, onChange, ...fieldProps } }) => (
+            <FormItem>
+              <FormLabel>Bilde</FormLabel>
+              <FormControl>
+                <Input
+                  type="file"
+                  {...fieldProps}
+                  onChange={(e) => {
+                    handleImageChange(e);
+                    onChange(e);
+                  }}
+                  accept="image/*"
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <Conditional render={!!imagePreview}>
+          <div className="w-full flex items-center justify-center bg-accent rounded-3xl">
+            <Image
+              src={imagePreview ?? ""}
+              width={200}
+              height={200}
+              className="max-h-64"
+              alt="Artikkelbilde"
+            />
+          </div>
+        </Conditional>
+
         <FormField
           control={form.control}
           name="content"

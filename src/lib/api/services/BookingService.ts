@@ -6,6 +6,7 @@ import type { BookingStatus } from '../models/BookingStatus';
 import type { ChangeBookingStateDto } from '../models/ChangeBookingStateDto';
 import type { CreateBookingDto } from '../models/CreateBookingDto';
 import type { DetailedBookingDto } from '../models/DetailedBookingDto';
+import type { MessageResponseDto } from '../models/MessageResponseDto';
 import type { SimpleBookingDto } from '../models/SimpleBookingDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -71,13 +72,13 @@ export class BookingService {
     /**
      * @param bookingId
      * @param requestBody
-     * @returns any Success
+     * @returns MessageResponseDto Success
      * @throws ApiError
      */
     public static postApiBookingState(
         bookingId: number,
         requestBody?: ChangeBookingStateDto,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<MessageResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Booking/state/{bookingId}',

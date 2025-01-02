@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ContentDto } from '../models/ContentDto';
-import type { CreateContentDto } from '../models/CreateContentDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -25,29 +24,39 @@ export class ContentService {
         });
     }
     /**
-     * @param requestBody
+     * @param formData
      * @returns ContentDto Success
      * @throws ApiError
      */
     public static postApiContent(
-        requestBody?: CreateContentDto,
+        formData?: {
+            Title: string;
+            Content: string;
+            Slug: string;
+            Image?: Blob;
+        },
     ): CancelablePromise<ContentDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Content',
-            body: requestBody,
-            mediaType: 'application/json-patch+json',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         });
     }
     /**
      * @param id
-     * @param requestBody
+     * @param formData
      * @returns ContentDto Success
      * @throws ApiError
      */
     public static putApiContent(
         id: number,
-        requestBody?: CreateContentDto,
+        formData?: {
+            Title: string;
+            Content: string;
+            Slug: string;
+            Image?: Blob;
+        },
     ): CancelablePromise<ContentDto> {
         return __request(OpenAPI, {
             method: 'PUT',
@@ -55,8 +64,57 @@ export class ContentService {
             path: {
                 'id': id,
             },
-            body: requestBody,
-            mediaType: 'application/json-patch+json',
+            formData: formData,
+            mediaType: 'multipart/form-data',
+        });
+    }
+    /**
+     * @param id
+     * @returns ContentDto Success
+     * @throws ApiError
+     */
+    public static deleteApiContent(
+        id: number,
+    ): CancelablePromise<ContentDto> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/Content/{id}',
+            path: {
+                'id': id,
+            },
+        });
+    }
+    /**
+     * @param formData
+     * @returns string Success
+     * @throws ApiError
+     */
+    public static postBlobs(
+        formData?: {
+            files?: Array<Blob>;
+        },
+    ): CancelablePromise<Array<string>> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/blobs',
+            formData: formData,
+            mediaType: 'multipart/form-data',
+        });
+    }
+    /**
+     * @param blobId
+     * @returns any Success
+     * @throws ApiError
+     */
+    public static deleteApiContentBlobs(
+        blobId: number,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/Content/blobs/{blobId}',
+            path: {
+                'blobId': blobId,
+            },
         });
     }
 }
